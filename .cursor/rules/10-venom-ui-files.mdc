@@ -1,0 +1,19 @@
+---
+description: Venom UI rules for tpl/css/js work
+globs:
+  - client/templates/venom-codes/**/*.tpl
+  - client/templates/venom-codes/css/**/*.css
+  - client/templates/venom-codes/js/**/*.js
+alwaysApply: false
+---
+
+# Venom UI file rules
+
+- Reuse existing classes, tokens, includes, and patterns first.
+- Never hardcode colors.
+- Never add inline `style=""`.
+- Never invent a parallel border/card/button utility system.
+- Preserve Smarty variables and conditional logic.
+- Keep page-specific CSS local and shared UI shared.
+- After UI edits, run `python .kilocode/scripts/theme_guard.py` when terminal access is available.
+- Validate dark/light, cyan + one contrasting accent, 375 / 768 / 1024, focus-visible, and CTA honesty.

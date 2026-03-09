@@ -8,58 +8,61 @@
 {assign var="auth_icon_svg" value='<svg class="h-6 w-6 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>'}
 
 {capture assign="auth_content"}
-<form method="post" action="{$systemurl}register.php" style="display: flex; flex-direction: column; gap: 1.25rem;">
+<form method="post" action="{$systemurl}register.php" class="venom-form" role="form" aria-label="Create new account">
   <input type="hidden" name="token" value="{$token}" />
 
-  <div style="display: grid; gap: 1.25rem; grid-template-columns: repeat(2, 1fr);">
-    <div>
-      <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">First Name</label>
-      <input type="text" name="firstname" class="venom-input" placeholder="John" required />
+  <div class="venom-form-row">
+    <div class="venom-form-group">
+      <label for="firstname" class="venom-label">First Name</label>
+      <input type="text" id="firstname" name="firstname" class="venom-input" placeholder="John" required aria-required="true" autocomplete="given-name" />
     </div>
-    <div>
-      <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Last Name</label>
-      <input type="text" name="lastname" class="venom-input" placeholder="Doe" required />
+    <div class="venom-form-group">
+      <label for="lastname" class="venom-label">Last Name</label>
+      <input type="text" id="lastname" name="lastname" class="venom-input" placeholder="Doe" required aria-required="true" autocomplete="family-name" />
     </div>
   </div>
 
-  <div>
-    <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Email Address</label>
-    <input type="email" name="email" class="venom-input" placeholder="you@example.com" required />
+  <div class="venom-form-group">
+    <label for="email" class="venom-label">Email Address</label>
+    <input type="email" id="email" name="email" class="venom-input" placeholder="you@example.com" required aria-required="true" autocomplete="email" />
   </div>
 
-  <div>
-    <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Password</label>
-    <input type="password" name="password" class="venom-input" placeholder="Min. 8 characters" required />
+  <div class="venom-form-group">
+    <label for="password" class="venom-label">Password</label>
+    <input type="password" id="password" name="password" class="venom-input" placeholder="Enter your password" required aria-required="true" autocomplete="new-password" />
   </div>
 
-  <div>
-    <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Confirm Password</label>
-    <input type="password" name="password2" class="venom-input" placeholder="••••••••" required />
+  <div class="venom-form-group">
+    <label for="password2" class="venom-label">Confirm Password</label>
+    <input type="password" id="password2" name="password2" class="venom-input" placeholder="Confirm your password" required aria-required="true" autocomplete="new-password" />
   </div>
 
-  <div style="display: flex; align-items: flex-start; gap: 0.5rem;">
-    <input type="checkbox" name="accepttos" id="terms" style="margin-top: 0.25rem; border-radius: 0.25rem;" required />
-    <label for="terms" class="text-xs text-muted-foreground">
-      I agree to the
-      <a href="{$WEB_ROOT}/terms.php" class="text-primary" style="text-decoration: underline;">Terms of Service</a>
-      and
-      <a href="{$WEB_ROOT}/privacy.php" class="text-primary" style="text-decoration: underline;">Privacy Policy</a>
+  <div class="venom-form-group">
+    <label class="venom-checkbox-label">
+      <input type="checkbox" name="accepttos" id="terms" class="venom-checkbox" required aria-required="true" />
+      <span class="venom-checkbox-custom" aria-hidden="true"></span>
+      <span class="venom-checkbox-text">
+        I agree to the
+        <a href="{$WEB_ROOT}/terms.php" class="venom-link" target="_blank">Terms of Service</a>
+        and
+        <a href="{$WEB_ROOT}/privacy.php" class="venom-link" target="_blank">Privacy Policy</a>
+      </span>
     </label>
   </div>
 
   {if $captcha}
-    <div>{$captcha}</div>
+    <div class="venom-form-group">{$captcha}</div>
   {/if}
 
-  <button type="submit" class="venom-btn-primary" style="width: 100%; padding: 0.75rem;">
+  <button type="submit" class="venom-btn-primary venom-btn-block">
     <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
     Create Account
   </button>
 </form>
 
-<p style="margin-top: 1.5rem; text-align: center; font-size: 0.875rem; color: hsl(var(--muted-foreground));">
+<p class="venom-auth-switch">
   Already have an account?
-  <a href="{$WEB_ROOT}/clientarea.php" class="text-primary" style="font-weight: 500; text-decoration: none;">Sign in</a>
+  <a href="{$WEB_ROOT}/clientarea.php" class="venom-link">Sign in</a>
 </p>
 {/capture}
 

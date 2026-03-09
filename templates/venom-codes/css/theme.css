@@ -159,6 +159,12 @@ body {
 
 /* Page main content — fills remaining vertical space */
 .page-main {
+  /* Removed min-height to avoid breaking auth pages.
+     Content pages can use .page-main-content if they need height. */
+}
+
+/* For content pages that need guaranteed minimum height */
+.page-main-content {
   min-height: 70vh;
 }
 
@@ -303,6 +309,219 @@ h6 {
 .venom-input:focus {
   border-color: hsl(var(--primary));
   box-shadow: 0 0 0 3px hsl(var(--primary) / 0.15);
+}
+
+.venom-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: hsl(var(--muted));
+}
+
+.venom-input:-webkit-autofill,
+.venom-input:-webkit-autofill:hover,
+.venom-input:-webkit-autofill:focus,
+.venom-input:-webkit-autofill:active {
+  -webkit-text-fill-color: hsl(var(--foreground));
+  box-shadow: 0 0 0 1000px hsl(var(--background)) inset;
+  -webkit-box-shadow: 0 0 0 1000px hsl(var(--background)) inset;
+  caret-color: hsl(var(--foreground));
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.venom-input:autofill,
+.venom-input:autofill:hover,
+.venom-input:autofill:focus {
+  color: hsl(var(--foreground));
+  box-shadow: 0 0 0 1000px hsl(var(--background)) inset;
+}
+
+.venom-input.error,
+.venom-input[aria-invalid="true"] {
+  border-color: hsl(var(--destructive));
+}
+
+.venom-input.error:focus,
+.venom-input[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px hsl(var(--destructive) / 0.15);
+}
+
+/* ===== Form Components ===== */
+
+.venom-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.venom-form-row {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 480px) {
+  .venom-form-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.venom-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.venom-form-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.25rem;
+}
+
+.venom-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: hsl(var(--foreground));
+}
+
+.venom-link {
+  color: hsl(var(--primary));
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.venom-link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.venom-link:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Checkbox styling */
+.venom-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.venom-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.venom-checkbox-custom {
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.25rem;
+  background-color: hsl(var(--background));
+  transition: all 0.15s ease;
+  position: relative;
+  margin-top: 0.125rem;
+}
+
+.venom-checkbox:checked + .venom-checkbox-custom {
+  background-color: hsl(var(--primary));
+  border-color: hsl(var(--primary));
+}
+
+.venom-checkbox:checked + .venom-checkbox-custom::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid hsl(var(--primary-foreground));
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.venom-checkbox:focus-visible + .venom-checkbox-custom {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+.venom-checkbox-text {
+  color: hsl(var(--muted-foreground));
+}
+
+/* Full-width button */
+.venom-btn-block {
+  width: 100%;
+  padding: 0.75rem;
+}
+
+/* Alert styles */
+.venom-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  border: 1px solid;
+}
+
+.venom-alert-error {
+  background-color: hsl(var(--destructive) / 0.1);
+  border-color: hsl(var(--destructive) / 0.2);
+  color: hsl(var(--destructive));
+}
+
+.venom-alert-success {
+  background-color: hsl(var(--success) / 0.1);
+  border-color: hsl(var(--success) / 0.2);
+  color: hsl(var(--success));
+}
+
+.venom-alert-info {
+  background-color: hsl(var(--primary) / 0.1);
+  border-color: hsl(var(--primary) / 0.2);
+  color: hsl(var(--primary));
+}
+
+/* Security question display */
+.venom-security-question {
+  font-size: 0.875rem;
+  color: hsl(var(--foreground));
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: hsl(var(--muted) / 0.3);
+  border: 1px solid hsl(var(--border));
+  margin: 0;
+}
+
+/* Auth page link */
+.venom-auth-switch {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.venom-auth-shell {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(3.5rem, 8vh, 5.5rem) 1rem;
+}
+
+/* Focus-visible for accessibility */
+.venom-input:focus-visible,
+.venom-checkbox:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
 }
 
 .venom-btn-primary {

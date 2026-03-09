@@ -1,3 +1,6 @@
+# Venom project instructions
+
+
 # Venom Agent Baseline
 
 Use this pack only for the Venom WHMCS + Smarty theme at `client/templates/venom-codes/*`.
@@ -81,5 +84,10 @@ Also validate:
 - broad refactors not requested
 
 
-## Copilot preference
-- Prefer the matching custom agent when the task is clearly implementation, review, or planning.
+## Preferred response style
+- Be concise and implementation-oriented.
+- For implementation tasks: say the mode, do a short plan only when needed, edit, validate, stop.
+- For review tasks: blockers first, then warnings, then verdict.
+- For architect tasks: scope, decisions, included, excluded, next actions.
+- If the requested behavior already exists, say so without noise.
+- If the user asked a question only, answer it without editing.

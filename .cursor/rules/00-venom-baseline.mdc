@@ -1,3 +1,9 @@
+---
+description: Venom project baseline and maintenance policy
+alwaysApply: true
+---
+
+
 # Venom Agent Baseline
 
 Use this pack only for the Venom WHMCS + Smarty theme at `client/templates/venom-codes/*`.
@@ -81,5 +87,7 @@ Also validate:
 - broad refactors not requested
 
 
-## Copilot preference
-- Prefer the matching custom agent when the task is clearly implementation, review, or planning.
+## Cursor-specific preference
+- Default to the lightest mode that can safely complete the task.
+- For small fixes, do not over-plan.
+- For review work, stay read-only.
