@@ -306,3 +306,8 @@ bower_components/
 # config/production.php
 # config/staging.php
 # public/assets/*
+
+# Project Specific Temporary Folders
+_temp_venom_clone/
+temp_lovable/
+templates_c/
