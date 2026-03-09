@@ -1,5 +1,8 @@
 {* VENOM CODES — Two-Factor New Backup Code *}
 
+{* Close the wrapper opened by header.tpl to allow full-page auth layout *}
+</div></main>
+
 {assign var="auth_title" value="Backup Code"}
 {assign var="auth_subtitle" value="Save this code in a secure place. You'll need it if you lose access to your authenticator."}
 {assign var="auth_icon_svg" value='<svg class="h-6 w-6 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>'}
@@ -23,3 +26,6 @@
 {/capture}
 
 {include file="$template/includes/authlayout.tpl"}
+
+{* Re-open the wrapper that footer.tpl expects to close *}
+<main style="flex: 1;"><div class="venom-container" style="padding: 2rem 1rem;">

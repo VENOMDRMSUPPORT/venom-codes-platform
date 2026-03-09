@@ -1,5 +1,8 @@
 {* VENOM CODES — Email Verification Page *}
 
+{* Close the wrapper opened by header.tpl to allow full-page auth layout *}
+</div></main>
+
 {assign var="auth_title" value="Verify Your Identity"}
 {assign var="auth_subtitle" value="A security verification step is required"}
 {assign var="auth_icon_svg" value='<svg class="h-6 w-6 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'}
@@ -35,3 +38,6 @@
 {/capture}
 
 {include file="$template/includes/authlayout.tpl"}
+
+{* Re-open the wrapper that footer.tpl expects to close *}
+<main style="flex: 1;"><div class="venom-container" style="padding: 2rem 1rem;">
