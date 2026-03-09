@@ -13,21 +13,20 @@
 </head>
 <body class="bg-background text-foreground">
 
-<div style="min-height: 100vh; display: flex; width: 100%;">
+<div class="vs-layout-shell">
 
   {* Sidebar *}
   {include file="$template/includes/client/sidebar.tpl"}
 
   {* Main content area *}
-  <div style="flex: 1; display: flex; flex-direction: column; min-width: 0;">
+  <div class="vs-layout-main-col">
 
     {* Header *}
     {include file="$template/includes/client/header.tpl"}
 
     {* Page content *}
-    <main style="flex: 1; padding: 1rem;">
-      <style>@media (min-width: 1024px) { .client-main { padding: 1.5rem !important; } }</style>
-      <div class="client-main" style="padding: 1rem;">
+    <main class="vs-main-content-pad">
+      <div class="client-main">
         {$content}
       </div>
     </main>

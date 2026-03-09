@@ -59,6 +59,17 @@
   --accent-gradient-to: 330 70% 55%;
 }
 
+:root {
+  --accent-swatch-blue: 217 91% 60%;
+  --accent-swatch-purple: 263 70% 58%;
+  --accent-swatch-emerald: 160 84% 39%;
+  --accent-swatch-orange: 25 95% 53%;
+  --accent-swatch-rose: 347 77% 50%;
+  --footer-heading: 0 0% 95%;
+  --footer-link: 220 8% 55%;
+  --footer-link-hover: 0 0% 90%;
+}
+
 /* ===== Light Mode ===== */
 
 :root {
@@ -82,6 +93,7 @@
   --input: 220 13% 90%;
   --ring: var(--accent-primary);
   --radius: 0.5rem;
+  --radius-lg: 0.75rem;
   --surface-elevated: 0 0% 100%;
   --surface-sunken: 220 14% 94%;
   --hero-bg: 220 20% 97%;
@@ -361,6 +373,74 @@ h6 {
   max-width: 80rem;
 }
 
+.vs-flex-1 {
+  flex: 1;
+}
+
+.vs-container-pad-default {
+  padding: 2rem 1rem;
+}
+
+.vs-container-pad-none {
+  padding: 0;
+}
+
+.vs-layout-shell {
+  min-height: 100vh;
+  display: flex;
+  width: 100%;
+}
+
+.vs-layout-main-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.vs-main-content-pad {
+  flex: 1;
+  padding: 1rem;
+}
+
+.vs-hidden {
+  display: none;
+}
+
+.vs-accent-swatch {
+  background: hsl(var(--accent-swatch));
+}
+
+.vs-accent-swatch-blue {
+  --accent-swatch: var(--accent-swatch-blue);
+}
+
+.vs-accent-swatch-purple {
+  --accent-swatch: var(--accent-swatch-purple);
+}
+
+.vs-accent-swatch-emerald {
+  --accent-swatch: var(--accent-swatch-emerald);
+}
+
+.vs-accent-swatch-orange {
+  --accent-swatch: var(--accent-swatch-orange);
+}
+
+.vs-accent-swatch-rose {
+  --accent-swatch: var(--accent-swatch-rose);
+}
+
+.client-main {
+  padding: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .client-main {
+    padding: 1.5rem;
+  }
+}
+
 .venom-badge {
   display: inline-flex;
   align-items: center;
@@ -372,23 +452,143 @@ h6 {
   color: hsl(var(--primary));
 }
 
+.vs-landing-intro {
+  max-width: 42rem;
+  margin: 0 auto 4rem;
+  text-align: center;
+}
+
+.vs-landing-badge-spacing {
+  margin-bottom: 1rem;
+}
+
+.vs-landing-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-top: 1rem;
+}
+
+.vs-landing-copy-top {
+  margin-top: 1rem;
+}
+
+.vs-features-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.vs-feature-icon-wrap {
+  margin-bottom: 1rem;
+  display: inline-flex;
+  border-radius: var(--radius);
+  padding: 0.625rem;
+  background: hsl(var(--accent-muted));
+}
+
+.vs-feature-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.vs-feature-copy {
+  line-height: 1.625;
+}
+
+.vs-anim-delay-1 {
+  animation-delay: 0.05s;
+}
+
+.vs-anim-delay-2 {
+  animation-delay: 0.1s;
+}
+
+.vs-anim-delay-3 {
+  animation-delay: 0.15s;
+}
+
+.vs-anim-delay-4 {
+  animation-delay: 0.2s;
+}
+
+.vs-anim-delay-5 {
+  animation-delay: 0.25s;
+}
+
+.vs-faq-stack {
+  max-width: 48rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.vs-faq-item {
+  border-radius: var(--radius-lg);
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  overflow: hidden;
+}
+
+.vs-faq-trigger {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.vs-faq-question {
+  font-weight: 600;
+  padding-right: 1rem;
+}
+
+.vs-faq-chevron {
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.vs-faq-answer-copy {
+  padding: 0 1.25rem 1.25rem;
+  line-height: 1.625;
+}
+
+@media (min-width: 640px) {
+  .vs-features-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .vs-features-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 /* Footer styles */
 .footer-heading {
-  color: hsl(0 0% 95%);
+  color: hsl(var(--footer-heading));
 }
 
 .footer-text {
-  color: hsl(220 8% 55%);
+  color: hsl(var(--footer-link));
 }
 
 .footer-link {
-  color: hsl(220 8% 55%);
+  color: hsl(var(--footer-link));
   transition: color 0.2s ease;
   text-decoration: none;
 }
 
 .footer-link:hover {
-  color: hsl(0 0% 90%);
+  color: hsl(var(--footer-link-hover));
 }
 
 /* Auth card animated border */

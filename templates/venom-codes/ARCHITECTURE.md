@@ -2,26 +2,33 @@
 
 ## Wrapper Strategy
 
-This theme uses **four distinct wrapper patterns**. Every `.tpl` file falls into exactly one category.
+This theme uses **five distinct wrapper/rendering patterns**. Every `.tpl` file falls into exactly one category.
 
 ---
 
-### 1. Full-Document Wrappers
+### 1. Standalone Full-Document Wrapper
 
-These templates own the entire HTML document (`<!DOCTYPE>` through `</html>`), including `<head>`, asset loading, and `<body>`.
+This template owns the entire HTML document (`<!DOCTYPE>` through `</html>`), including `<head>`, asset loading, and `<body>`.
 
 | File | Purpose | Assets Loaded |
 |---|---|---|
-| `homepage.tpl` | Public landing page (standalone) | `theme.css`, `theme-switcher.js`, `mobile-menu.js`, `faq-accordion.js`, `cookie-consent.js`, `scroll-to-top.js` |
 | `clientarea.tpl` | Client area shell (sidebar + header + `{$content}` slot) | `theme.css`, `theme-switcher.js`, `client-sidebar.js`, `client-tabs.js` |
 
 **`clientarea.tpl`** renders the sidebar, header, and `<main>` container, then injects the active page template into `{$content}`.
 
-**`homepage.tpl`** is a standalone document that assembles landing section includes.
+---
+
+### 2. Homepage Wrapper-Handoff Fragment (`homepage.tpl`)
+
+`homepage.tpl` is a **content fragment**, not a full-document wrapper.
+
+- WHMCS still loads root `header.tpl` first and `footer.tpl` last.
+- `homepage.tpl` performs a controlled handoff: it closes the default `header.tpl` page container, renders full-width landing sections, then re-opens the container shape expected by `footer.tpl`.
+- Homepage behavior (theme toggle, mobile menu, FAQ, cookie consent, scroll-to-top) is delivered by scripts loaded through `footer.tpl`, not by document tags inside `homepage.tpl`.
 
 ---
 
-### 2. Root Header/Footer Pair (WHMCS Standard)
+### 3. Root Header/Footer Pair (WHMCS Standard)
 
 WHMCS auto-includes `header.tpl` and `footer.tpl` for public pages (knowledgebase, announcements, contact, downloads, etc.). Together they form the document wrapper.
 
@@ -32,7 +39,7 @@ WHMCS auto-includes `header.tpl` and `footer.tpl` for public pages (knowledgebas
 
 ---
 
-### 3. Content-Only Fragments (Client Area)
+### 4. Content-Only Fragments (Client Area)
 
 Rendered inside `clientarea.tpl` via `{$content}`. **No document-level markup allowed.**
 
@@ -77,7 +84,7 @@ Rendered inside `clientarea.tpl` via `{$content}`. **No document-level markup al
 
 ---
 
-### 4. Content-Only Fragments (Public Pages)
+### 5. Content-Only Fragments (Public Pages)
 
 Rendered between root `header.tpl` and `footer.tpl` by WHMCS.
 
@@ -96,7 +103,7 @@ Rendered between root `header.tpl` and `footer.tpl` by WHMCS.
 
 ---
 
-### 5. Content-Only Fragments (Authentication)
+### 6. Content-Only Fragments (Authentication)
 
 Auth templates use `{include file="includes/authlayout.tpl"}` for centered card with animated border. **WHMCS provides the outer document wrapper.**
 
@@ -179,7 +186,7 @@ Auth templates use `{include file="includes/authlayout.tpl"}` for centered card 
 
 | File | Purpose |
 |---|---|
-| `theme.css` | Complete stylesheet: CSS variables, light/dark mode, 5 accent presets, utility classes, component styles, animations |
+| `theme.css` | Primary visual source: current token system (`--accent-*`, `--background`, `--primary`, etc.), light/dark variables, utilities, and component styling used across header/footer/homepage/client wrappers |
 
 ### JavaScript (`js/`)
 
@@ -198,6 +205,23 @@ Auth templates use `{include file="includes/authlayout.tpl"}` for centered card 
 | File | Purpose |
 |---|---|
 | `theme.yaml` | WHMCS theme registration |
+
+---
+
+## Current Cleanup And Enforcement Workflow
+
+- Run guard from `client/` root:
+  - `python .kilocode/scripts/theme_guard.py`
+- Default mode is `strict-new`:
+  - audits changed/new scope from `git diff` (not full legacy template),
+  - blocks new hardcoded visual debt (for example raw colors and inline style attributes).
+- Optional `legacy-safe` mode:
+  - keeps existing legacy structure tolerated,
+  - still blocks newly introduced high-risk visual debt.
+- Full-file audits are opt-in only:
+  - `python .kilocode/scripts/theme_guard.py --full-file <path>`
+- Agent/rules source of truth for this workflow:
+  - `client/.kilocode/skills/*` (especially `venom-token-audit` and `.kilocode/scripts/theme_guard.py` wrapper).
 
 ---
 
@@ -244,7 +268,8 @@ Key WHMCS Smarty variables used across templates:
 
 | Category | Count |
 |---|---|
-| Document wrappers | 4 (homepage, clientarea, header, footer) |
+| Document wrappers | 3 (`clientarea.tpl`, `header.tpl`, `footer.tpl`) |
+| Homepage wrapper-handoff fragment | 1 (`homepage.tpl`) |
 | Client area pages | 36 |
 | Public pages | 10 |
 | Auth pages | 9 |

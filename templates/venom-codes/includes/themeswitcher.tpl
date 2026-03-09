@@ -6,7 +6,7 @@
           class="rounded-lg p-2 transition-colors hover:bg-secondary"
           aria-label="Toggle theme">
     {* Sun icon (shown in dark mode) *}
-    <svg id="theme-icon-sun" class="h-4 w-4" style="display:none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg id="theme-icon-sun" class="h-4 w-4 vs-hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
     </svg>
     {* Moon icon (shown in light mode) *}
@@ -28,20 +28,20 @@
       <p class="mb-2 text-xs font-medium text-muted-foreground">Accent</p>
       <div class="flex gap-2">
         <button data-accent-btn="blue" onclick="VenomTheme.setAccent('blue')"
-                class="h-6 w-6 rounded-full transition-transform hover:scale-110"
-                style="background: hsl(217 91% 60%);" aria-label="Blue"></button>
+                class="h-6 w-6 rounded-full transition-transform hover:scale-110 vs-accent-swatch vs-accent-swatch-blue"
+                aria-label="Blue"></button>
         <button data-accent-btn="purple" onclick="VenomTheme.setAccent('purple')"
-                class="h-6 w-6 rounded-full transition-transform hover:scale-110"
-                style="background: hsl(263 70% 58%);" aria-label="Purple"></button>
+                class="h-6 w-6 rounded-full transition-transform hover:scale-110 vs-accent-swatch vs-accent-swatch-purple"
+                aria-label="Purple"></button>
         <button data-accent-btn="emerald" onclick="VenomTheme.setAccent('emerald')"
-                class="h-6 w-6 rounded-full transition-transform hover:scale-110"
-                style="background: hsl(160 84% 39%);" aria-label="Emerald"></button>
+                class="h-6 w-6 rounded-full transition-transform hover:scale-110 vs-accent-swatch vs-accent-swatch-emerald"
+                aria-label="Emerald"></button>
         <button data-accent-btn="orange" onclick="VenomTheme.setAccent('orange')"
-                class="h-6 w-6 rounded-full transition-transform hover:scale-110"
-                style="background: hsl(25 95% 53%);" aria-label="Orange"></button>
+                class="h-6 w-6 rounded-full transition-transform hover:scale-110 vs-accent-swatch vs-accent-swatch-orange"
+                aria-label="Orange"></button>
         <button data-accent-btn="rose" onclick="VenomTheme.setAccent('rose')"
-                class="h-6 w-6 rounded-full transition-transform hover:scale-110"
-                style="background: hsl(347 77% 50%);" aria-label="Rose"></button>
+                class="h-6 w-6 rounded-full transition-transform hover:scale-110 vs-accent-swatch vs-accent-swatch-rose"
+                aria-label="Rose"></button>
       </div>
     </div>
   </div>

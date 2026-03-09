@@ -16,5 +16,5 @@
 {include file="$template/includes/announcement.tpl"}
 {include file="$template/includes/header.tpl"}
 
-<main class="page-main" style="flex: 1;">
-  <div class="venom-container" style="padding: 2rem 1rem;">
+<main class="page-main vs-flex-1">
+  <div class="venom-container vs-container-pad-default">

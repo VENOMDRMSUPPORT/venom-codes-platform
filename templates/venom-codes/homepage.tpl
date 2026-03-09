@@ -26,5 +26,5 @@
 </main>
 
 {* — Re-open the wrapper that footer.tpl expects to close — *}
-<main style="flex: 1;">
-  <div class="venom-container" style="padding: 0;">
+<main class="vs-flex-1">
+  <div class="venom-container vs-container-pad-none">

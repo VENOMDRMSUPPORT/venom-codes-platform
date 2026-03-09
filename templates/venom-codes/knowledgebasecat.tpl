@@ -16,13 +16,13 @@
     {/if}
   </div>
 
-  {* Subcategories *}
-  {if $kbcategories}
+  {* Subcategories — uses $kbcats (same as Twenty-One default) *}
+  {if $kbcats}
     <div style="margin-bottom: 1.5rem;">
-      <h2 class="font-display text-sm" style="font-weight: 600; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Subcategories</h2>
+      <h2 class="font-display text-sm" style="font-weight: 600; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">{lang key='knowledgebasecategories'}</h2>
       <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-        {foreach $kbcategories as $cat}
-          <a href="{$WEB_ROOT}/knowledgebase/{$cat.id}/{$cat.urlfriendlyname}" class="venom-btn-secondary text-sm" style="padding: 0.375rem 0.75rem;">
+        {foreach $kbcats as $cat}
+          <a href="{routePath('knowledgebase-category-view', {$cat.id}, {$cat.urlfriendlyname})}" class="venom-btn-secondary text-sm" style="padding: 0.375rem 0.75rem;">
             {$cat.name} <span class="text-muted-foreground">({$cat.numarticles})</span>
           </a>
         {/foreach}
