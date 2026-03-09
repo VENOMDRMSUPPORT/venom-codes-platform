@@ -308,6 +308,8 @@ bower_components/
 # public/assets/*
 
 # Project Specific Temporary Folders
+.kilocode/
+.github/
 _temp_venom_clone/
 temp_lovable/
 templates_c/
