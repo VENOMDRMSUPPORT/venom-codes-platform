@@ -1,0 +1,309 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Accent: Blue (default) */
+  :root,
+  [data-accent="blue"] {
+    --accent-primary: 217 91% 60%;
+    --accent-primary-foreground: 0 0% 100%;
+    --accent-hover: 217 91% 55%;
+    --accent-muted: 217 91% 60% / 0.12;
+    --accent-glow: 217 91% 60% / 0.25;
+    --accent-gradient-from: 217 91% 60%;
+    --accent-gradient-to: 199 89% 48%;
+  }
+
+  [data-accent="purple"] {
+    --accent-primary: 263 70% 58%;
+    --accent-primary-foreground: 0 0% 100%;
+    --accent-hover: 263 70% 52%;
+    --accent-muted: 263 70% 58% / 0.12;
+    --accent-glow: 263 70% 58% / 0.25;
+    --accent-gradient-from: 263 70% 58%;
+    --accent-gradient-to: 288 60% 50%;
+  }
+
+  [data-accent="emerald"] {
+    --accent-primary: 160 84% 39%;
+    --accent-primary-foreground: 0 0% 100%;
+    --accent-hover: 160 84% 34%;
+    --accent-muted: 160 84% 39% / 0.12;
+    --accent-glow: 160 84% 39% / 0.25;
+    --accent-gradient-from: 160 84% 39%;
+    --accent-gradient-to: 172 66% 50%;
+  }
+
+  [data-accent="orange"] {
+    --accent-primary: 25 95% 53%;
+    --accent-primary-foreground: 0 0% 100%;
+    --accent-hover: 25 95% 48%;
+    --accent-muted: 25 95% 53% / 0.12;
+    --accent-glow: 25 95% 53% / 0.25;
+    --accent-gradient-from: 25 95% 53%;
+    --accent-gradient-to: 37 90% 51%;
+  }
+
+  [data-accent="rose"] {
+    --accent-primary: 347 77% 50%;
+    --accent-primary-foreground: 0 0% 100%;
+    --accent-hover: 347 77% 45%;
+    --accent-muted: 347 77% 50% / 0.12;
+    --accent-glow: 347 77% 50% / 0.25;
+    --accent-gradient-from: 347 77% 50%;
+    --accent-gradient-to: 330 70% 55%;
+  }
+
+  /* Light Mode */
+  :root {
+    --background: 220 20% 97%;
+    --foreground: 220 20% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
+    --primary: var(--accent-primary);
+    --primary-foreground: var(--accent-primary-foreground);
+    --secondary: 220 14% 94%;
+    --secondary-foreground: 220 20% 10%;
+    --muted: 220 14% 94%;
+    --muted-foreground: 220 8% 46%;
+    --accent: var(--accent-muted);
+    --accent-foreground: 220 20% 10%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 90%;
+    --input: 220 13% 90%;
+    --ring: var(--accent-primary);
+    --radius: 0.5rem;
+    --surface-elevated: 0 0% 100%;
+    --surface-sunken: 220 14% 94%;
+    --hero-bg: 220 20% 97%;
+    --nav-bg: 220 20% 100% / 0.7;
+    --nav-border: 220 13% 88%;
+    --footer-bg: 220 25% 8%;
+    --footer-foreground: 220 14% 80%;
+    --trust-bg: 220 14% 94%;
+  }
+
+  /* Dark Mode */
+  .dark {
+    --background: 220 25% 5%;
+    --foreground: 220 14% 96%;
+    --card: 220 22% 9%;
+    --card-foreground: 220 14% 96%;
+    --popover: 220 22% 9%;
+    --popover-foreground: 220 14% 96%;
+    --primary: var(--accent-primary);
+    --primary-foreground: var(--accent-primary-foreground);
+    --secondary: 220 18% 12%;
+    --secondary-foreground: 220 14% 96%;
+    --muted: 220 18% 12%;
+    --muted-foreground: 220 8% 55%;
+    --accent: var(--accent-muted);
+    --accent-foreground: 220 14% 96%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 20% 18%;
+    --input: 220 20% 18%;
+    --ring: var(--accent-primary);
+    --surface-elevated: 220 22% 10%;
+    --surface-sunken: 220 25% 3%;
+    --hero-bg: 220 25% 3%;
+    --nav-bg: 220 30% 4% / 0.85;
+    --nav-border: 220 20% 15%;
+    --footer-bg: 220 30% 3%;
+    --footer-foreground: 220 8% 55%;
+    --trust-bg: 220 22% 7%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .venom-gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--accent-gradient-from)), hsl(var(--accent-gradient-to)));
+  }
+  .venom-gradient-bg {
+    background-image: linear-gradient(135deg, hsl(var(--accent-gradient-from)), hsl(var(--accent-gradient-to)));
+  }
+  .venom-glow {
+    box-shadow: 0 0 30px hsl(var(--accent-glow)), 0 0 60px hsl(var(--accent-glow));
+  }
+  .venom-card {
+    @apply rounded-xl border bg-card p-6 transition-all duration-300;
+  }
+  .venom-card:hover {
+    box-shadow: 0 8px 30px hsl(var(--accent-glow));
+    border-color: hsl(var(--accent-primary) / 0.3);
+  }
+  .venom-input {
+    @apply w-full rounded-lg border bg-background px-4 py-3 text-sm transition-colors duration-200 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary;
+  }
+  .venom-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold transition-all duration-200;
+    background-image: linear-gradient(135deg, hsl(var(--accent-gradient-from)), hsl(var(--accent-gradient-to)));
+    color: hsl(var(--accent-primary-foreground));
+  }
+  .venom-btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px hsl(var(--accent-glow));
+  }
+  .venom-btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border px-6 py-3 text-sm font-semibold transition-all duration-200 hover:bg-secondary;
+  }
+  .venom-section {
+    @apply px-4 py-20 sm:px-6 lg:px-8;
+  }
+  .venom-container {
+    @apply mx-auto max-w-7xl;
+  }
+  .venom-badge {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-medium;
+    background: hsl(var(--accent-muted));
+    color: hsl(var(--accent-primary));
+  }
+
+  /* Footer styles — explicit colors to avoid theme conflicts */
+  .footer-heading {
+    color: hsl(0 0% 95%);
+  }
+  .footer-text {
+    color: hsl(220 8% 55%);
+  }
+  .footer-link {
+    color: hsl(220 8% 55%);
+    transition: color 0.2s ease;
+  }
+  .footer-link:hover {
+    color: hsl(0 0% 90%);
+  }
+
+  /* Animated border for auth cards */
+  @keyframes auth-border-spin {
+    0% { --auth-angle: 0deg; }
+    100% { --auth-angle: 360deg; }
+  }
+
+  .auth-card-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+  }
+
+  .auth-card-border {
+    background: conic-gradient(
+      from var(--auth-angle, 0deg),
+      transparent 0%,
+      hsl(var(--accent-gradient-from)) 10%,
+      hsl(var(--accent-gradient-to)) 20%,
+      transparent 30%,
+      transparent 70%,
+      hsl(var(--accent-gradient-to)) 80%,
+      hsl(var(--accent-gradient-from)) 90%,
+      transparent 100%
+    );
+    animation: auth-border-spin 4s linear infinite;
+    opacity: 0.7;
+  }
+
+  @property --auth-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+}
+
+/* ===== CSS Animations (replaces Framer Motion) ===== */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes logo-pulse {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.35; }
+}
+
+@keyframes draw-path {
+  from { stroke-dashoffset: 200; }
+  to { stroke-dashoffset: 0; }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out both;
+}
+
+.animate-fade-in-left {
+  animation: fade-in-left 0.6s ease-out both;
+}
+
+.animate-fade-in-right {
+  animation: fade-in-right 0.6s ease-out both;
+}
+
+.animate-logo-pulse {
+  animation: logo-pulse 3s ease-in-out infinite;
+}
+
+.animate-draw-path {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: draw-path 1s ease-in-out forwards;
+}
+
+.animate-draw-path-delayed {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: draw-path 0.8s ease-in-out 0.5s forwards;
+}
+
+/* FAQ answer transition helper */
+.faq-answer {
+  transition: max-height 0.2s ease, opacity 0.2s ease;
+}
