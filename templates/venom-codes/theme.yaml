@@ -1,8 +1,8 @@
-# WHMCS Twenty-One Theme Configuration File
+# Venom Codes Theme Configuration File
 
-name: "Twenty-One"
-description: "The Default Theme for WHMCS 2021"
-author: "WHMCS Limited"
+name: "Venom Codes"
+description: "Official Venom Codes client area theme for WHMCS"
+author: "Venom Solutions"
 properties:
   serverSidePagination: false # Defines client side will handle pagination
 provides:
