@@ -1,66 +1,157 @@
-{* VENOM CODES — Manage Contact *}
+<script src="{$BASE_PATH_JS}/StatesDropdown.js"></script>
 
-{assign var="page_title" value="Manage Contact"}
-{assign var="breadcrumbs" value=[["label" => "Contacts", "href" => "{$WEB_ROOT}/clientarea.php?action=contacts"], ["label" => "{if $contactid}Edit{else}New{/if} Contact"]]}
-{include file="$template/includes/client/pageheader.tpl"}
+<div class="alert alert-block alert-info">
+    <form role="form" method="post" action="{routePath('account-contacts')}">
+        <div class="row">
+            <label for="inputContactId" class="col-md-3 col-form-label">{lang key='clientareachoosecontact'}</label>
+            <div class="col-md-6">
+                <select name="contactid" id="inputContactId" onchange="submit()" class="form-control custom-select">
+                    {foreach $contacts as $contact}
+                        <option value="{$contact.id}"{if $contact.id eq $contactid} selected="selected"{/if}>{$contact.name} - {$contact.email}</option>
+                    {/foreach}
+                    <option value="new">{lang key='clientareanavaddcontact'}</option>
+                </select>
+            </div>
+            <div class="col-md-2 mt-2 mt-md-0">
+                <button type="submit" class="btn btn-default btn-block">{lang key='go'}</button>
+            </div>
+        </div>
+    </form>
+</div>
 
-{if $errormessage}
-  {include file="$template/includes/client/alert.tpl" alert_type="error" alert_content=$errormessage}
-{/if}
+<div class="card">
+    <div class="card-body">
 
-{assign var="form_title" value="{if $contactid}Edit Contact{else}New Contact{/if}"}
+        <h3 class="card-title">{lang key="contactDetails"}</h3>
 
-{capture assign="form_content"}
-<form method="post" action="{$smarty.server.PHP_SELF}" id="frmContact">
-  <input type="hidden" name="token" value="{$token}" />
-  <input type="hidden" name="contactid" value="{$contactid}" />
+        {include file="$template/includes/flashmessage.tpl"}
+        {if $errorMessageHtml}
+            {include file="$template/includes/alert.tpl" type="error" errorshtml=$errorMessageHtml}
+        {/if}
 
-  <div style="display: flex; flex-direction: column; gap: 1.25rem;">
-    <div style="display: grid; gap: 1rem; grid-template-columns: repeat(1, 1fr);">
-      <style>@media (min-width: 640px) { .contact-grid { grid-template-columns: repeat(2, 1fr) !important; } }</style>
-      <div class="contact-grid" style="display: grid; gap: 1rem; grid-template-columns: repeat(1, 1fr);">
-        <div>
-          <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">First Name</label>
-          <input type="text" name="firstname" value="{$contact.firstname}" class="venom-input" required />
+        <form role="form" method="post" action="{routePath('account-contacts-save')}">
+            <input type="hidden" name="contactid" value="{$contactid}" />
+
+            <div class="row">
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <label for="inputFirstName" class="col-form-label">{lang key='clientareafirstname'}</label>
+                        <input type="text" name="firstname" id="inputFirstName" value="{$formdata.firstname}" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputLastName" class="col-form-label">{lang key='clientarealastname'}</label>
+                        <input type="text" name="lastname" id="inputLastName" value="{$formdata.lastname}" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputCompanyName" class="col-form-label">{lang key='clientareacompanyname'}</label>
+                        <input type="text" name="companyname" id="inputCompanyName" value="{$formdata.companyname}" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-form-label">{lang key='clientareaemail'}</label>
+                        <input type="email" name="email" id="inputEmail" value="{$formdata.email}" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPhone" class="col-form-label">{lang key='clientareaphonenumber'}</label>
+                        <input type="tel" name="phonenumber" id="inputPhone" value="{$formdata.phonenumber}" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputTaxId" class="col-form-label">{lang key=$taxIdLabel}</label>
+                        <input type="text" name="tax_id" id="inputTaxId" class="form-control" value="{$formdata.tax_id}" />
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-12 float-right">
+
+                    <div class="form-group">
+                        <label for="inputAddress1" class="col-form-label">{lang key='clientareaaddress1'}</label>
+                        <input type="text" name="address1" id="inputAddress1" value="{$formdata.address1}" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputAddress2" class="col-form-label">{lang key='clientareaaddress2'}</label>
+                        <input type="text" name="address2" id="inputAddress2" value="{$formdata.address2}" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputCity" class="col-form-label">{lang key='clientareacity'}</label>
+                        <input type="text" name="city" id="inputCity" value="{$formdata.city}" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputState" class="col-form-label">{lang key='clientareastate'}</label>
+                        <input type="text" name="state" id="inputState" value="{$formdata.state}" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPostcode" class="col-form-label">{lang key='clientareapostcode'}</label>
+                        <input type="text" name="postcode" id="inputPostcode" value="{$formdata.postcode}" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-form-label" for="country">{lang key='clientareacountry'}</label>
+                        {$countriesdropdown}
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-        <div>
-          <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Last Name</label>
-          <input type="text" name="lastname" value="{$contact.lastname}" class="venom-input" required />
-        </div>
-        <div>
-          <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Company</label>
-          <input type="text" name="companyname" value="{$contact.companyname}" class="venom-input" />
-        </div>
-        <div>
-          <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Email</label>
-          <input type="email" name="email" value="{$contact.email}" class="venom-input" required />
-        </div>
-        <div>
-          <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Phone</label>
-          <input type="tel" name="phonenumber" value="{$contact.phonenumber}" class="venom-input" />
-        </div>
-      </div>
     </div>
 
-    {* Permissions *}
-    <div>
-      <label style="display: block; margin-bottom: 0.5rem; font-size: 0.875rem; font-weight: 500;">Permissions</label>
-      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-        {foreach $contactpermissions as $permission}
-          <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; cursor: pointer;">
-            <input type="checkbox" name="permissions[]" value="{$permission}" {if in_array($permission, $contact.permissions)}checked{/if} style="accent-color: hsl(var(--primary));" />
-            {$permission}
-          </label>
-        {/foreach}
-      </div>
+    <div class="card">
+        <div class="card-body">
+
+            <h3 class="card-title">{lang key='clientareacontactsemails'}</h3>
+            <div class="controls form-check">
+                {foreach $formdata.emailPreferences as $emailType => $value}
+                    <label>
+                    <input type="hidden" name="email_preferences[{$emailType}]" value="0">
+                    <input type="checkbox" class="form-check-input" name="email_preferences[{$emailType}]" id="{$emailType}emails" value="1"{if $value} checked="checked"{/if} />
+                    {lang key="clientareacontactsemails"|cat:$emailType}
+                    </label>{if !($emailType@last)}<br />{/if}
+                {/foreach}
+            </div>
+
+        </div>
     </div>
 
-    <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
-      <a href="{$WEB_ROOT}/clientarea.php?action=contacts" class="venom-btn-secondary text-sm" style="padding: 0.625rem 1.25rem;">Cancel</a>
-      <button type="submit" name="save" class="venom-btn-primary text-sm" style="padding: 0.625rem 1.25rem;">Save Contact</button>
+    <div class="form-group text-center">
+        <input class="btn btn-primary" type="submit" name="save" value="{lang key='clientareasavechanges'}" />
+        <input class="btn btn-default" type="reset" value="{lang key='cancel'}" />
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDeleteContact">{lang key='clientareadeletecontact'}</button>
     </div>
-  </div>
+
 </form>
-{/capture}
 
-{include file="$template/includes/client/formsection.tpl" form_title=$form_title form_content=$form_content}
+<form method="post" action="{routePath('account-contacts-delete')}">
+    <input type="hidden" name="contactid" value="{$contactid}">
+    <div class="modal fade" id="modalDeleteContact">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header card-header">
+                    <h4 class="modal-title">
+                        {lang key="clientareadeletecontact"}
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <p>{lang key="clientareadeletecontactareyousure"}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        {lang key="cancel"}
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="btnCancelInviteConfirm">
+                        {lang key="confirm"}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,50 +1,178 @@
-{* VENOM CODES — Domain Pricing *}
+<div class="domain-pricing">
 
-<div style="max-width: 64rem; margin: 0 auto;">
+    {if $featuredTlds}
+        <div class="featured-tlds-container">
+            <div class="row">
+                {foreach $featuredTlds as $num => $tldinfo}
+                    <div class="col-md-3 col-sm-4 col-6">
+                        <div class="featured-tld">
+                            <div class="img-container">
+                                <img src="{$BASE_PATH_IMG}/tld_logos/{$tldinfo.tldNoDots}.png" alt="{$tldinfo.tld}">
+                            </div>
+                            <div class="price {$tldinfo.tldNoDots}">
+                                {if is_object($tldinfo.register)}
+                                    {$tldinfo.register->toPrefixed()}{if $tldinfo.period > 1}{lang key="orderForm.shortPerYears" years={$tldinfo.period}}{else}{lang key="orderForm.shortPerYear" years=''}{/if}
+                                {else}
+                                    {lang key="domainregnotavailable"}
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                {/foreach}
+            </div>
+        </div>
+    {/if}
 
-  <div style="margin-bottom: 2rem; text-align: center;">
-    <h1 class="font-display" style="font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em;">Domain Pricing</h1>
-    <p class="text-sm text-muted-foreground" style="margin-top: 0.25rem;">Find and register your perfect domain name.</p>
-  </div>
+    {if !$loggedin && $currencies}
+        <form method="post" action="" class="float-right">
+            <select name="currency" class="form-control currency-selector" onchange="submit()">
+                <option>
+                    {lang key="changeCurrency"} ({$activeCurrency.prefix} {$activeCurrency.code})
+                </option>
+                {foreach $currencies as $currency}
+                    <option value="{$currency['id']}">
+                        {$currency['prefix']} {$currency['code']}
+                    </option>
+                {/foreach}
+            </select>
+        </form>
+    {/if}
 
-  {* Search *}
-  <form method="post" action="{$WEB_ROOT}/cart.php?a=add&domain=register" style="margin-bottom: 2rem;">
-    <div style="display: flex; max-width: 36rem; margin: 0 auto; gap: 0.5rem;">
-      <input type="text" name="query" class="venom-input" placeholder="Search for a domain…" style="flex: 1;" />
-      <button type="submit" class="venom-btn-primary text-sm" style="padding: 0.625rem 1.25rem;">Search</button>
+    <h4>{lang key='pricing.browseExtByCategory'}</h4>
+
+    <div class="tld-filters">
+        {foreach $tldCategories as $category => $count}
+            <a href="#" data-category="{$category}" class="badge badge-secondary">{lang key="domainTldCategory.$category" defaultValue=$category} ({$count})</a>
+        {/foreach}
     </div>
-  </form>
 
-  {* Pricing table *}
-  {if $pricing}
-    <div style="border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card)); overflow: hidden;">
-      <div style="overflow-x: auto;">
-        <table style="width: 100%; font-size: 0.875rem; border-collapse: collapse;">
-          <thead>
-            <tr style="border-bottom: 1px solid hsl(var(--border)); background: hsl(var(--muted) / 0.3);">
-              <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">TLD</th>
-              <th style="padding: 0.75rem 1rem; text-align: right; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Register</th>
-              <th style="padding: 0.75rem 1rem; text-align: right; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Transfer</th>
-              <th style="padding: 0.75rem 1rem; text-align: right; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Renew</th>
+    {include file="$template/includes/tablelist.tpl" tableName="DomainPricing" noOrdering=true}
+    <script>
+        jQuery(document).ready(function() {
+            var table = jQuery('#tableDomainPricing').show().DataTable();
+
+            {if $orderby == 'date'}
+                table.order(0, '{$sort}');
+            {elseif $orderby == 'subject'}
+                table.order(1, '{$sort}');
+            {/if}
+            table.draw();
+            jQuery('#tableLoading').hide();
+            jQuery('.tld-filters a').unbind();
+            jQuery('.tld-filters a').click(function(e) {
+                e.preventDefault();
+                if (jQuery(this).hasClass('badge-success')) {
+                    jQuery('#tableDomainPricing_wrapper input[type="search"]').val('').trigger('keyup');
+                    jQuery('.tld-filters a').removeClass('badge-success');
+                } else {
+                    jQuery('#tableDomainPricing_wrapper input[type="search"]').val(jQuery(this)
+                        .data('category'))
+                        .trigger('keyup');
+                    jQuery('.tld-filters a').removeClass('badge-success');
+                    jQuery(this).addClass('badge-success');
+                }
+            });
+        });
+    </script>
+
+    <div class="table-container clearfix overflow-auto">
+        <table class="table table-list hidden" id="tableDomainPricing">
+            <thead>
+            <tr>
+                <th>{lang key='domaintld'}</th>
+                <th>{lang key='category'}</th>
+                <th>{lang key='pricing.register'}</th>
+                <th>{lang key='pricing.transfer'}</th>
+                <th>{lang key='pricing.renewal'}</th>
+                <th>{lang key='gracePeriod'}</th>
+                <th>{lang key='redemptionPeriod'}</th>
             </tr>
-          </thead>
-          <tbody>
-            {foreach $pricing as $tld}
-              <tr style="{if !$tld@last}border-bottom: 1px solid hsl(var(--border));{/if}">
-                <td style="padding: 0.75rem 1rem; font-weight: 600;">.{$tld.tld}</td>
-                <td style="padding: 0.75rem 1rem; text-align: right;">{if $tld.register}{$tld.register.1}{else}<span class="text-muted-foreground">N/A</span>{/if}</td>
-                <td style="padding: 0.75rem 1rem; text-align: right;">{if $tld.transfer}{$tld.transfer.1}{else}<span class="text-muted-foreground">N/A</span>{/if}</td>
-                <td style="padding: 0.75rem 1rem; text-align: right;">{if $tld.renew}{$tld.renew.1}{else}<span class="text-muted-foreground">N/A</span>{/if}</td>
-              </tr>
+            </thead>
+            <tbody>
+            {foreach $pricing as $extension => $data}
+                <tr>
+                    <td>
+                        {$extension}
+                        {if $data.group}
+                            <span class="tld-sale-group tld-sale-group-{$data.group}">
+                                {$data.group}!
+                            </span>
+                        {/if}
+                    </td>
+                    <td>
+                        {$data.categories[0]}
+                        <span class="w-hidden">
+                            {foreach $data.categories as $category}
+                                {$category}
+                            {/foreach}
+                        </span>
+                    </td>
+                    {foreach $data.register as $years => $price}
+                        <td>
+                            {if $price >= 0}
+                                {$price}<br>
+                                <small>{$years} {if $years > 1}{lang key="orderForm.years"}{else}{lang key="orderForm.year"}{/if}</small>
+                            {else}
+                                <small>{lang key="domainregnotavailable"}</small>
+                            {/if}
+                        </td>
+                        {break}
+                    {foreachelse}
+                        <td>-</td>
+                    {/foreach}
+                    {foreach $data.transfer as $years => $price}
+                        <td>
+                            {if $price >= 0}
+                                {$price}<br>
+                                <small>{$years} {if $years > 1}{lang key="orderForm.years"}{else}{lang key="orderForm.year"}{/if}</small>
+                            {else}
+                                <small>{lang key="domainregnotavailable"}</small>
+                            {/if}
+                        </td>
+                        {break}
+                    {foreachelse}
+                        <td>-</td>
+                    {/foreach}
+                    {foreach $data.renew as $years => $price}
+                        <td>
+                            {if $price >= 0}
+                                {$price}<br>
+                                <small>{$years} {if $years > 1}{lang key="orderForm.years"}{else}{lang key="orderForm.year"}{/if}</small>
+                            {else}
+                                <small>{lang key="domainregnotavailable"}</small>
+                            {/if}
+                        </td>
+                        {break}
+                    {foreachelse}
+                        <td>-</td>
+                    {/foreach}
+                    <td>
+                        {if is_null($data.grace_period)}
+                            -
+                        {else}
+                            {$data.grace_period.days} {lang key='domainrenewalsdays'}<br>
+                            <small>({$data.grace_period.price})</small>
+                        {/if}
+                    </td>
+                    <td>
+                        {if is_null($data.redemption_period)}
+                            -
+                        {else}
+                            {$data.redemption_period.days} {lang key='domainrenewalsdays'}<br>
+                            <small>({$data.redemption_period.price})</small>
+                        {/if}
+                    </td>
+                </tr>
+            {foreachelse}
+                <tr>
+                    <td colspan="7">{lang key="pricing.noExtensionsDefined"}</td>
+                </tr>
             {/foreach}
-          </tbody>
+            </tbody>
         </table>
-      </div>
+        <div class="text-center" id="tableLoading">
+            <p><i class="fas fa-spinner fa-spin"></i> {lang key='loading'}</p>
+        </div>
     </div>
-  {else}
-    <div style="border-radius: 0.75rem; border: 1px dashed hsl(var(--border)); background: hsl(var(--card)); padding: 3rem; text-align: center;">
-      <p class="text-muted-foreground" style="font-size: 0.875rem;">No domain pricing data available.</p>
-    </div>
-  {/if}
 
 </div>

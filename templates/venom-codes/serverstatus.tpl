@@ -1,55 +1,126 @@
-{* VENOM CODES — Server Status *}
-
-<div style="max-width: 48rem; margin: 0 auto;">
-
-  <div style="margin-bottom: 2rem; text-align: center;">
-    <h1 class="font-display" style="font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em;">Server Status</h1>
-    <p class="text-sm text-muted-foreground" style="margin-top: 0.25rem;">Real-time status of our infrastructure.</p>
-  </div>
-
-  {if $serverstatuses}
-    <div style="border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card)); overflow: hidden;">
-      <div style="overflow-x: auto;">
-        <table style="width: 100%; font-size: 0.875rem; border-collapse: collapse;">
-          <thead>
-            <tr style="border-bottom: 1px solid hsl(var(--border)); background: hsl(var(--muted) / 0.3);">
-              <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Server</th>
-              <th style="padding: 0.75rem 1rem; text-align: center; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">HTTP</th>
-              <th style="padding: 0.75rem 1rem; text-align: center; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">FTP</th>
-              <th style="padding: 0.75rem 1rem; text-align: center; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Load</th>
-              <th style="padding: 0.75rem 1rem; text-align: center; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Uptime</th>
-            </tr>
-          </thead>
-          <tbody>
-            {foreach $serverstatuses as $server}
-              <tr style="{if !$server@last}border-bottom: 1px solid hsl(var(--border));{/if}">
-                <td style="padding: 0.75rem 1rem; font-weight: 500;">{$server.name}</td>
-                <td style="padding: 0.75rem 1rem; text-align: center;">
-                  {if $server.httpstatus}
-                    <span style="display: inline-block; height: 0.5rem; width: 0.5rem; border-radius: 9999px; background: hsl(160 84% 39%);"></span>
-                  {else}
-                    <span style="display: inline-block; height: 0.5rem; width: 0.5rem; border-radius: 9999px; background: hsl(var(--destructive));"></span>
-                  {/if}
-                </td>
-                <td style="padding: 0.75rem 1rem; text-align: center;">
-                  {if $server.ftpstatus}
-                    <span style="display: inline-block; height: 0.5rem; width: 0.5rem; border-radius: 9999px; background: hsl(160 84% 39%);"></span>
-                  {else}
-                    <span style="display: inline-block; height: 0.5rem; width: 0.5rem; border-radius: 9999px; background: hsl(var(--destructive));"></span>
-                  {/if}
-                </td>
-                <td style="padding: 0.75rem 1rem; text-align: center;">{$server.load}</td>
-                <td style="padding: 0.75rem 1rem; text-align: center;">{$server.uptime}</td>
-              </tr>
-            {/foreach}
-          </tbody>
-        </table>
-      </div>
+{if $opencount == 0}
+    <div class="alert alert-success">
+        <i class="fas fa-check fa-fw"></i>
+        {"{lang key='networkstatusnone'}"|sprintf:"{lang key='networkissuesstatusopen'}"}
     </div>
-  {else}
-    <div style="border-radius: 0.75rem; border: 1px dashed hsl(var(--border)); background: hsl(var(--card)); padding: 3rem; text-align: center;">
-      <p class="text-muted-foreground" style="font-size: 0.875rem;">No server status data available.</p>
-    </div>
-  {/if}
+{/if}
 
-</div>
+{if $scheduledcount > 0}
+    <div class="alert alert-info">
+        <i class="fas fa-exclamation-triangle fa-fw"></i>
+        {lang key='networkIssues.scheduled' count=$scheduledcount}
+        <a href="serverstatus.php?view=scheduled" class="alert-link">{lang key='learnmore'}...</a>
+    </div>
+{/if}
+
+{if $servers}
+    <div class="card">
+        <div class="card-body">
+            <h3>{lang key='serverstatustitle'}</h3>
+
+            <p>{lang key='serverstatusheadingtext'}</p>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{lang key='servername'}</th>
+                            <th class="text-center">{lang key='networkIssues.http'}</th>
+                            <th class="text-center">{lang key='networkIssues.ftp'}</th>
+                            <th class="text-center">{lang key='networkIssues.pop3'}</th>
+                            <th class="text-center">{lang key='serverstatusphpinfo'}</th>
+                            <th class="text-center">{lang key='serverstatusserverload'}</th>
+                            <th class="text-center">{lang key='serverstatusuptime'}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {foreach $servers as $num => $server}
+                            <tr>
+                                <td>{$server.name}</td>
+                                <td class="text-center" id="port80_{$num}">
+                                    <span class="fas fa-spinner fa-spin"></span>
+                                </td>
+                                <td class="text-center" id="port21_{$num}">
+                                    <span class="fas fa-spinner fa-spin"></span>
+                                </td>
+                                <td class="text-center" id="port110_{$num}">
+                                    <span class="fas fa-spinner fa-spin"></span>
+                                </td>
+                                <td class="text-center"><a href="{$server.phpinfourl}" target="_blank">{lang key='serverstatusphpinfo'}</a></td>
+                                <td class="text-center" id="load{$num}">
+                                    <span class="fas fa-spinner fa-spin"></span>
+                                </td>
+                                <td class="text-center" id="uptime{$num}">
+                                    <span class="fas fa-spinner fa-spin"></span>
+                                    <script>
+                                    jQuery(document).ready(function() {
+                                        checkPort({$num}, 80);
+                                        checkPort({$num}, 21);
+                                        checkPort({$num}, 110);
+                                        getStats({$num});
+                                    });
+                                    </script>
+                                </td>
+                            </tr>
+                        {foreachelse}
+                            <tr>
+                                <td colspan="7">{lang key='serverstatusnoservers'}</td>
+                            </tr>
+                        {/foreach}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{/if}
+
+{foreach $issues as $issue}
+    <div class="card">
+        <div class="card-header">
+            {$issue.title}
+            ({$issue.status})
+            <span id="issuePriorityLabel" class="badge badge-{if $issue.rawPriority == 'Critical'}danger{elseif $issue.rawPriority == 'High'}warning{elseif $issue.rawPriority == 'Low'}success{else}info{/if} float-md-right">{$issue.priority}</span>
+        </div>
+        <div class="card-body">
+            {if $issue.server || $issue.affecting}
+                <p class="h5">
+                    <strong>{lang key='networkissuesaffecting'} {$issue.type}</strong>
+                    -
+                    {if $issue.type eq "{lang key='networkissuestypeserver'}"}
+                        {$issue.server}
+                    {else}
+                        {$issue.affecting}
+                    {/if}
+                </p>
+            {/if}
+            <ul class="list-inline">
+                <li class="list-inline-item pr-3">
+                    <i class="far fa-calendar-alt fa-fw"></i>
+                    {$issue.startdate}
+                    {if $issue.enddate} - {$issue.enddate}{/if}
+                </li>
+                <li class="list-inline-item pr-3">
+                    <i class="far fa-clock fa-fw"></i>
+                    {lang key='networkissueslastupdated'}</strong> {$issue.lastupdate}
+                </li>
+            </ul>
+            {if $issue.clientaffected}
+                <div class="alert alert-warning p-1 text-center">
+                    {lang key='networkIssues.affectingYou'}
+                </div>
+            {/if}
+            <p>
+                {$issue.description}
+            </p>
+        </div>
+    </div>
+{foreachelse}
+    <p>{$noissuesmsg}</p>
+{/foreach}
+
+<nav aria-label="Network issues navigation">
+    <ul class="pagination">
+        <li class="page-item{if !$prevpage} disabled{/if}"><a class="page-link" href="?{if $view}view={$view}&amp;{/if}page={$prevpage}">{lang key='previouspage'}</a></li>
+        <li class="page-item{if !$nextpage} disabled{/if}"><a class="page-link" href="?{if $view}view={$view}&amp;{/if}page={$nextpage}">{lang key='nextpage'}</a></li>
+    </ul>
+</nav>

@@ -1,29 +1,81 @@
-{* VENOM CODES — View Single Announcement *}
+<div class="card">
+    <div class="card-body extra-padding">
+        <h1>
+            {$title}
+            {if $twittertweet}
+                <div class="float-right">
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-count="vertical" data-size="large" data-via="{$twitterusername}">
+                        Tweet
+                    </a>
+                    <script src="https://platform.twitter.com/widgets.js"></script>
+                </div>
+            {/if}
+        </h1>
 
-<div style="max-width: 48rem; margin: 0 auto;">
+        <ul class="list-inline">
+            <li class="list-inline-item text-muted pr-3">
+                <i class="far fa-calendar-alt fa-fw"></i>
+                {$carbon->createFromTimestamp($timestamp)->format('l, jS F, Y')}
+            </li>
+            <li class="list-inline-item text-muted pr-3">
+                <i class="far fa-clock fa-fw"></i>
+                {$carbon->createFromTimestamp($timestamp)->format('H:ia')}
+            </li>
+        </ul>
 
-  {* Breadcrumb *}
-  <nav style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: hsl(var(--muted-foreground));">
-    <a href="{$WEB_ROOT}/announcements" style="text-decoration: none; color: inherit;">Announcements</a>
-    <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-    <span style="color: hsl(var(--foreground)); font-weight: 500;">{$announcement.title|truncate:40}</span>
-  </nav>
+        <div class="py-5">
+            {$text}
+        </div>
 
-  <article style="border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card)); padding: 2rem;">
-    <header style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid hsl(var(--border));">
-      <h1 class="font-display" style="font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em;">{$announcement.title}</h1>
-      <time class="text-sm text-muted-foreground" style="margin-top: 0.5rem; display: block;">{$announcement.date}</time>
-    </header>
-    <div style="font-size: 0.9375rem; line-height: 1.75; color: hsl(var(--foreground) / 0.9);">
-      {$announcement.text}
+        {if $facebookrecommend}
+            <div id="fb-root"></div>
+            <script>
+                (function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) {
+                        return;
+                    }
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+            </script>
+            <div class="fb-like" data-href="{fqdnRoutePath('announcement-view', $id, $urlfriendlytitle)}" data-send="true" data-width="450" data-show-faces="true" data-action="recommend">
+            </div>
+        {/if}
     </div>
-  </article>
-
-  <div style="margin-top: 1.5rem; text-align: center;">
-    <a href="{$WEB_ROOT}/announcements" class="venom-btn-secondary text-sm" style="padding: 0.5rem 1.25rem;">
-      <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      Back to Announcements
-    </a>
-  </div>
-
 </div>
+
+{if $facebookcomments}
+    <div class="card">
+        <div class="card-body p-5">
+            <div id="fb-root">
+            </div>
+            <script>
+                (function(d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id)) {
+                        return;
+                    }
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+            </script>
+            <fb:comments href="{fqdnRoutePath('announcement-view', $id, $urlfriendlytitle)}" num_posts="5" width="100%"></fb:comments>
+        </div>
+    </div>
+{/if}
+
+<a href="{routePath('announcement-index')}" class="btn btn-default px-4">
+    {lang key='clientareabacklink'}
+</a>
+
+{if $editLink}
+    <a href="{$editLink}" class="btn btn-default px-4 float-right">
+        <i class="fas fa-pencil-alt fa-fw"></i>
+        {lang key='edit'}
+    </a>
+{/if}

@@ -1,65 +1,90 @@
-{* VENOM CODES — Domain DNS Management *}
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">{lang key='domaindnsmanagement'}</h3>
 
-{assign var="page_title" value="DNS Management"}
-{assign var="page_subtitle" value=$domain}
-{assign var="breadcrumbs" value=[["label" => "Domains", "href" => "{$WEB_ROOT}/clientarea.php?action=domains"], ["label" => $domain, "href" => "{$WEB_ROOT}/clientarea.php?action=domaindetails&id={$domainid}"], ["label" => "DNS"]]}
-{include file="$template/includes/client/pageheader.tpl"}
+        {include file="$template/includes/alert.tpl" type="info" msg="{lang key='domaindnsmanagementdesc'}"}
 
-{if $error}
-  {include file="$template/includes/client/alert.tpl" alert_type="error" alert_content=$error}
-{/if}
-{if $successful}
-  {include file="$template/includes/client/alert.tpl" alert_type="success" alert_content="DNS records updated successfully."}
-{/if}
+        {if $error}
+            {include file="$template/includes/alert.tpl" type="error" msg=$error}
+        {/if}
 
-<form method="post" action="{$smarty.server.PHP_SELF}">
-  <input type="hidden" name="sub" value="save" />
-  <input type="hidden" name="domainid" value="{$domainid}" />
-  <input type="hidden" name="token" value="{$token}" />
+        {if $external}
+            <div class="text-center px-4">
+                {$code}
+            </div>
+        {else}
 
-  <div style="border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card)); overflow: hidden;">
-    <div style="border-bottom: 1px solid hsl(var(--border)); padding: 0.75rem 1.25rem; display: flex; align-items: center; justify-content: space-between;">
-      <h3 class="font-display" style="font-size: 0.875rem; font-weight: 600;">DNS Records</h3>
+            <form method="post" action="{$smarty.server.PHP_SELF}?action=domaindns">
+                <input type="hidden" name="sub" value="save" />
+                <input type="hidden" name="domainid" value="{$domainid}" />
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{lang key='domaindnshostname'}</th>
+                            <th>{lang key='domaindnsrecordtype'}</th>
+                            <th>{lang key='domaindnsaddress'}</th>
+                            <th>{lang key='domaindnspriority'}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {foreach $dnsrecords as $dnsrecord}
+                            <tr>
+                                <td><input type="hidden" name="dnsrecid[]" value="{$dnsrecord.recid}" /><input type="text" name="dnsrecordhost[]" value="{$dnsrecord.hostname}" size="10" class="form-control" /></td>
+                                <td>
+                                    <select name="dnsrecordtype[]" class="form-control">
+                                        <option value="A"{if $dnsrecord.type eq "A"} selected="selected"{/if}>{lang key="domainDns.a"}</option>
+                                        <option value="AAAA"{if $dnsrecord.type eq "AAAA"} selected="selected"{/if}>{lang key="domainDns.aaaa"}</option>
+                                        <option value="MXE"{if $dnsrecord.type eq "MXE"} selected="selected"{/if}>{lang key="domainDns.mxe"}</option>
+                                        <option value="MX"{if $dnsrecord.type eq "MX"} selected="selected"{/if}>{lang key="domainDns.mx"}</option>
+                                        <option value="CNAME"{if $dnsrecord.type eq "CNAME"} selected="selected"{/if}>{lang key="domainDns.cname"}</option>
+                                        <option value="TXT"{if $dnsrecord.type eq "TXT"} selected="selected"{/if}>{lang key="domainDns.txt"}</option>
+                                        <option value="URL"{if $dnsrecord.type eq "URL"} selected="selected"{/if}>{lang key="domainDns.url"}</option>
+                                        <option value="FRAME"{if $dnsrecord.type eq "FRAME"} selected="selected"{/if}>{lang key="domainDns.frame"}</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" name="dnsrecordaddress[]" value="{$dnsrecord.address}" size="40" class="form-control" /></td>
+                                <td>
+                                    {if $dnsrecord.type eq "MX"}<input type="text" name="dnsrecordpriority[]" value="{$dnsrecord.priority}" size="2" class="form-control" />{else}<input type="hidden" name="dnsrecordpriority[]" value="N/A" />{lang key='domainregnotavailable'}{/if}
+                                </td>
+                            </tr>
+                        {/foreach}
+                        <tr>
+                            <td><input type="text" name="dnsrecordhost[]" size="10" class="form-control" /></td>
+                            <td>
+                                <select name="dnsrecordtype[]" class="form-control">
+                                    <option value="A">{lang key="domainDns.a"}</option>
+                                    <option value="AAAA">{lang key="domainDns.aaaa"}</option>
+                                    <option value="MXE">{lang key="domainDns.mxe"}</option>
+                                    <option value="MX">{lang key="domainDns.mx"}</option>
+                                    <option value="CNAME">{lang key="domainDns.cname"}</option>
+                                    <option value="TXT">{lang key="domainDns.txt"}</option>
+                                    <option value="URL">{lang key="domainDns.url"}</option>
+                                    <option value="FRAME">{lang key="domainDns.frame"}</option>
+                                </select>
+                            </td>
+                            <td><input type="text" name="dnsrecordaddress[]" size="40" class="form-control" /></td>
+                            <td><input type="text" name="dnsrecordpriority[]" size="2" class="form-control" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="text-right text-muted">
+                    <small>* {lang key='domaindnsmxonly'}</small>
+                </p>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">
+                        {lang key='clientareasavechanges'}
+                    </button>
+                    <button type="reset" class="btn btn-default">
+                        {lang key='clientareacancel'}
+                    </button>
+                </div>
+
+            </form>
+
+        {/if}
+
     </div>
-    <div style="overflow-x: auto;">
-      <table style="width: 100%; font-size: 0.875rem; border-collapse: collapse;">
-        <thead>
-          <tr style="border-bottom: 1px solid hsl(var(--border)); background: hsl(var(--muted) / 0.3);">
-            <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Hostname</th>
-            <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Type</th>
-            <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Address</th>
-            <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Priority</th>
-          </tr>
-        </thead>
-        <tbody>
-          {foreach $dnsrecords as $i => $record}
-            <tr style="border-bottom: 1px solid hsl(var(--border));">
-              <td style="padding: 0.5rem 1rem;"><input type="text" name="dnsrecordhost[{$i}]" value="{$record.hostname}" class="venom-input" /></td>
-              <td style="padding: 0.5rem 1rem;">
-                <select name="dnsrecordtype[{$i}]" class="venom-input">
-                  {foreach $dnsrecordtypes as $type}<option value="{$type}" {if $record.type eq $type}selected{/if}>{$type}</option>{/foreach}
-                </select>
-              </td>
-              <td style="padding: 0.5rem 1rem;"><input type="text" name="dnsrecordaddress[{$i}]" value="{$record.address}" class="venom-input" /></td>
-              <td style="padding: 0.5rem 1rem;"><input type="text" name="dnsrecordpriority[{$i}]" value="{$record.priority}" class="venom-input" style="width: 5rem;" /></td>
-            </tr>
-          {/foreach}
-          {* New record row *}
-          <tr style="background: hsl(var(--muted) / 0.1);">
-            <td style="padding: 0.5rem 1rem;"><input type="text" name="dnsrecordhost[]" class="venom-input" placeholder="New record" /></td>
-            <td style="padding: 0.5rem 1rem;">
-              <select name="dnsrecordtype[]" class="venom-input">
-                {foreach $dnsrecordtypes as $type}<option value="{$type}">{$type}</option>{/foreach}
-              </select>
-            </td>
-            <td style="padding: 0.5rem 1rem;"><input type="text" name="dnsrecordaddress[]" class="venom-input" placeholder="Address" /></td>
-            <td style="padding: 0.5rem 1rem;"><input type="text" name="dnsrecordpriority[]" class="venom-input" style="width: 5rem;" /></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div style="display: flex; justify-content: flex-end; gap: 0.5rem; border-top: 1px solid hsl(var(--border)); padding: 0.75rem 1.25rem;">
-      <button type="submit" class="venom-btn-primary text-sm" style="padding: 0.625rem 1.25rem;">Save Changes</button>
-    </div>
-  </div>
-</form>
+</div>

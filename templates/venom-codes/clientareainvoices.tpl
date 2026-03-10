@@ -1,50 +1,51 @@
-{* VENOM CODES — Invoices List *}
+{include file="$template/includes/tablelist.tpl" tableName="InvoicesList" filterColumn="4"}
 
-{assign var="breadcrumbs" value=[['label' => 'Invoices']]}
-{include file="$template/includes/client/pageheader.tpl" page_title="Invoices" page_subtitle="View and manage your billing history."}
+<script>
+    jQuery(document).ready(function() {
+        var table = jQuery('#tableInvoicesList').show().DataTable();
 
-{* Search & filter *}
-{capture assign="filter_html"}
-  <select name="status" class="venom-input" style="width: auto; padding: 0.5rem 0.75rem;">
-    <option value="">All Statuses</option>
-    <option value="Paid"{if $smarty.get.status eq 'Paid'} selected{/if}>Paid</option>
-    <option value="Unpaid"{if $smarty.get.status eq 'Unpaid'} selected{/if}>Unpaid</option>
-    <option value="Overdue"{if $smarty.get.status eq 'Overdue'} selected{/if}>Overdue</option>
-  </select>
-{/capture}
-{include file="$template/includes/client/searchfilterbar.tpl" search_placeholder="Search invoices…"}
+        {if $orderby == 'default'}
+            table.order([4, 'desc'], [2, 'asc']);
+        {elseif $orderby == 'invoicenum'}
+            table.order(0, '{$sort}');
+        {elseif $orderby == 'date'}
+            table.order(1, '{$sort}');
+        {elseif $orderby == 'duedate'}
+            table.order(2, '{$sort}');
+        {elseif $orderby == 'total'}
+            table.order(3, '{$sort}');
+        {elseif $orderby == 'status'}
+            table.order(4, '{$sort}');
+        {/if}
+        table.draw();
+        jQuery('#tableLoading').hide();
+    });
+</script>
 
-{* Invoices table *}
-{if $invoices|@count > 0}
-<div style="overflow: hidden; border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card));">
-  <div style="overflow-x: auto;">
-    <table style="width: 100%; font-size: 0.875rem; border-collapse: collapse;">
-      <thead>
-        <tr style="border-bottom: 1px solid hsl(var(--border)); background: hsl(var(--muted) / 0.3);">
-          <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Invoice #</th>
-          <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Date</th>
-          <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Due Date</th>
-          <th style="padding: 0.75rem 1rem; text-align: right; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Total</th>
-          <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {foreach $invoices as $invoice}
-          <tr style="border-bottom: 1px solid hsl(var(--border)); transition: background 0.15s;" onmouseover="this.style.background='hsl(var(--muted) / 0.2)'" onmouseout="this.style.background='transparent'">
-            <td style="padding: 0.75rem 1rem;"><a href="{$WEB_ROOT}/viewinvoice.php?id={$invoice.id}" style="font-weight: 500; color: hsl(var(--primary)); text-decoration: none;">{$invoice.invoicenum}</a></td>
-            <td style="padding: 0.75rem 1rem;" class="text-muted-foreground">{$invoice.datecreated}</td>
-            <td style="padding: 0.75rem 1rem;" class="text-muted-foreground">{$invoice.datedue}</td>
-            <td style="padding: 0.75rem 1rem; text-align: right; font-weight: 500;">{$invoice.total}</td>
-            <td style="padding: 0.75rem 1rem;"><td style="padding: 0.75rem 1rem;">{include file="$template/includes/client/statusbadge.tpl" status_variant=$invoice.status|lower}</td></td>
-          </tr>
-        {/foreach}
-      </tbody>
+<div class="table-container clearfix">
+    <table id="tableInvoicesList" class="table table-list w-hidden">
+        <thead>
+            <tr>
+                <th>{lang key='invoicestitle'}</th>
+                <th>{lang key='invoicesdatecreated'}</th>
+                <th>{lang key='invoicesdatedue'}</th>
+                <th>{lang key='invoicestotal'}</th>
+                <th>{lang key='invoicesstatus'}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach $invoices as $invoice}
+                <tr onclick="clickableSafeRedirect(event, 'viewinvoice.php?id={$invoice.id}', false)">
+                    <td>{$invoice.invoicenum}</td>
+                    <td><span class="w-hidden">{$invoice.normalisedDateCreated}</span>{$invoice.datecreated}</td>
+                    <td><span class="w-hidden">{$invoice.normalisedDateDue}</span>{$invoice.datedue}</td>
+                    <td data-order="{$invoice.totalnum}">{$invoice.total}</td>
+                    <td><span class="label status status-{$invoice.statusClass}">{$invoice.status}</span></td>
+                </tr>
+            {/foreach}
+        </tbody>
     </table>
-  </div>
+    <div class="text-center" id="tableLoading">
+        <p><i class="fas fa-spinner fa-spin"></i> {lang key='loading'}</p>
+    </div>
 </div>
-
-{include file="$template/includes/client/pagination.tpl"}
-
-{else}
-  {include file="$template/includes/client/emptystate.tpl" empty_title="No Invoices" empty_description="You don't have any invoices yet."}
-{/if}

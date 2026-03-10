@@ -1,41 +1,39 @@
-{* VENOM CODES — User Password Change *}
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">{lang key='sidebars.viewAccount.changePassword'}</h3>
 
-{assign var="page_title" value="Change Password"}
-{assign var="breadcrumbs" value=[["label" => "Account Settings"], ["label" => "Password"]]}
-{include file="$template/includes/client/pageheader.tpl"}
+        {include file="$template/includes/flashmessage.tpl"}
 
-{assign var="form_title" value="Update Password"}
-{assign var="form_description" value="Choose a strong password you haven't used before"}
+        <form class="using-password-strength" method="post" action="{routePath('user-password')}" role="form">
+            <input type="hidden" name="submit" value="true" />
+            <div class="form-group row">
+                <label for="inputExistingPassword" class="col-xl-4 col-form-label">{lang key='existingpassword'}</label>
+                <div class="col-xl-5">
+                    <input type="password" class="form-control" name="existingpw" id="inputExistingPassword" autocomplete="off" />
+                </div>
+            </div>
+            <div id="newPassword1" class="form-group has-feedback row">
+                <label for="inputNewPassword1" class="col-xl-4 col-form-label">{lang key='newpassword'}</label>
+                <div class="col-xl-5">
+                    <input type="password" class="form-control" name="newpw" id="inputNewPassword1" autocomplete="off" />
+                    {include file="$template/includes/pwstrength.tpl" maximumPasswordLength=$maximumPasswordLength}
+                </div>
+                <div class="col-xl-3">
+                    <button type="button" class="btn btn-default btn-block generate-password" data-targetfields="inputNewPassword1,inputNewPassword2">
+                        {lang key='generatePassword.btnLabel'}
+                    </button>
+                </div>
+            </div>
+            <div id="newPassword2" class="form-group has-feedback row">
+                <label for="inputNewPassword2" class="col-xl-4 col-form-label">{lang key='confirmnewpassword'}</label>
+                <div class="col-xl-5">
+                    <input type="password" class="form-control" name="confirmpw" id="inputNewPassword2" autocomplete="off" />
+                    <div id="inputNewPassword2Msg"></div>
+                </div>
+            </div>
+            <input class="btn btn-primary" type="submit" value="{lang key='clientareasavechanges'}" />
+            <input class="btn btn-default" type="reset" value="{lang key='cancel'}" />
+        </form>
 
-{capture assign="form_content"}
-<form method="post" action="{$systemurl}account/password" id="frmChangePassword" style="display: flex; flex-direction: column; gap: 1.25rem;">
-  <input type="hidden" name="token" value="{$token}" />
-
-  <div>
-    <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Current Password</label>
-    <input type="password" name="existingpw" class="venom-input" placeholder="Enter current password" required />
-  </div>
-
-  <div>
-    <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">New Password</label>
-    <input type="password" name="newpw" id="newpw" class="venom-input" placeholder="Min. 8 characters" required />
-    {if $pwstrengthaliases}
-      <div id="pwstrength" style="margin-top: 0.5rem; height: 0.25rem; border-radius: 9999px; background: hsl(var(--muted));"></div>
-    {/if}
-  </div>
-
-  <div>
-    <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Confirm New Password</label>
-    <input type="password" name="confirmpw" class="venom-input" placeholder="Re-enter new password" required />
-  </div>
-
-  <div style="display: flex; justify-content: flex-end; gap: 0.5rem; padding-top: 0.5rem;">
-    <button type="submit" id="btnChangePassword" class="venom-btn-primary text-sm" style="padding: 0.625rem 1.25rem;">
-      <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      Update Password
-    </button>
-  </div>
-</form>
-{/capture}
-
-{include file="$template/includes/client/formsection.tpl" form_title=$form_title form_description=$form_description form_content=$form_content}
+    </div>
+</div>

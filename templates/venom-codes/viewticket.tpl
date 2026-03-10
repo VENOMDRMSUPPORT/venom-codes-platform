@@ -1,75 +1,180 @@
-{* VENOM CODES — Ticket Details *}
-
-{assign var="breadcrumbs" value=[['label' => 'Support Tickets', 'href' => "`$WEB_ROOT`/supporttickets.php"], ['label' => "#`$tid`"]]}
-{capture assign="page_actions"}
-  <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;">
-    {if $status ne "Closed"}
-      <form method="post" action="{$WEB_ROOT}/viewticket.php?tid={$tid}&c={$c}" style="display: inline;">
-        <input type="hidden" name="token" value="{$token}" />
-        <input type="hidden" name="closerequest" value="close" />
-        <button type="submit" class="venom-btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 0.75rem;">Close Ticket</button>
-      </form>
+{if $invalidTicketId}
+    {include file="$template/includes/alert.tpl" type="danger" title="{lang key='thereisaproblem'}" msg="{lang key='supportticketinvalid'}" textcenter=true}
+{else}
+    {if $closedticket}
+        {include file="$template/includes/alert.tpl" type="warning" msg="{lang key='supportticketclosedmsg'}" textcenter=true}
     {/if}
-  </div>
-{/capture}
-{include file="$template/includes/client/pageheader.tpl" page_title=$subject page_subtitle="Ticket #`$tid`"}
 
-<div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
-  <style>@media (min-width: 1024px) { .ticket-detail-grid { grid-template-columns: 2fr 1fr !important; } }</style>
-  <div class="ticket-detail-grid" style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+    {if $errormessage}
+        {include file="$template/includes/alert.tpl" type="error" errorshtml=$errormessage}
+    {/if}
+{/if}
 
-    {* Conversation + Reply *}
-    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+{if !$invalidTicketId}
+    <div class="card view-ticket">
+        <div class="card-body p-3">
+            <h3 class="card-title">
+                {lang key='supportticketsviewticket'} #{$tid}
+                <div class="ticket-actions float-sm-right mt-3 mt-sm-0">
+                    <button id="ticketReply" type="button" class="btn btn-default btn-sm" onclick="smoothScroll('#ticketReplyContainer')">
+                        <i class="fas fa-pencil-alt fa-fw"></i>
+                        {lang key='supportticketsreply'}
+                    </button>
+                    {if $showCloseButton}
+                        {if $closedticket}
+                            <button class="btn btn-danger btn-sm" disabled="disabled">
+                                <i class="fas fa-times fa-fw"></i>
+                                {lang key='supportticketsstatusclosed'}
+                            </button>
+                        {else}
+                            <button class="btn btn-danger btn-sm" onclick="window.location='?tid={$tid}&amp;c={$c}&amp;closeticket=true&amp;token={$token}'">
+                                <i class="fas fa-times fa-fw"></i>
+                                {lang key='supportticketsclose'}
+                            </button>
+                        {/if}
+                    {/if}
+                </div>
+            </h3>
 
-      {* Conversation thread *}
-      {include file="$template/includes/client/ticketconversation.tpl" replies=$descreplies}
-
-      {* Reply form *}
-      {if $status ne "Closed"}
-        <div style="border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card));">
-          <div style="border-bottom: 1px solid hsl(var(--border)); padding: 0.75rem 1.25rem;">
-            <h3 class="font-display" style="font-size: 0.875rem; font-weight: 600;">Post Reply</h3>
-          </div>
-          <form method="post" action="{$WEB_ROOT}/viewticket.php?tid={$tid}&c={$c}" enctype="multipart/form-data">
-            <input type="hidden" name="token" value="{$token}" />
-            <div style="padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;">
-              <textarea name="replymessage" rows="5" class="venom-input" style="min-height: 120px; resize: vertical;" placeholder="Type your reply…" required></textarea>
-              <div style="display: flex; align-items: center; justify-content: space-between;">
-                <label class="venom-btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 0.75rem; cursor: pointer;">
-                  <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
-                  Attach File
-                  <input type="file" name="attachments[]" style="display: none;" />
-                </label>
-                <button type="submit" name="replyticket" value="1" class="venom-btn-primary" style="font-size: 0.875rem; padding: 0.5rem 0.75rem;">
-                  <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                  Submit Reply
-                </button>
-              </div>
-            </div>
-          </form>
+            <p>
+                {lang key='supportticketssubject'}:
+                <strong>{$subject}</strong>
+            </p>
         </div>
-      {/if}
 
+        {foreach $descreplies as $reply}
+            <div class="card-body">
+                <div class="ticket-reply markdown-content{if $reply.admin} staff{/if}">
+                    <div class="posted-by">
+                        {lang key="support.postedBy" name="<span class=\"posted-by-name\">{$reply.requestor.name}</span>" date="<span class=\"posted-on\">{$reply.date}</span>" requestorType="<span class=\"label requestor-badge requestor-type-{$reply.requestor.type_normalised} float-md-right\">{lang key='support.requestor.'|cat:$reply.requestor.type_normalised}</span>"}
+                    </div>
+                    <div class="message p-3">
+                        {$reply.message}
+                        {if $reply.ipaddress}
+                            <hr>
+                            {lang key='support.ipAddress'}: {$reply.ipaddress}
+                        {/if}
+                        {if $reply.id && $reply.admin && $ratingenabled}
+                            <div class="clearfix">
+                                {if $reply.rating}
+                                    <div class="rating-done">
+                                        {for $rating=1 to 5}
+                                            <span class="star{if (5 - $reply.rating) < $rating} active{/if}"></span>
+                                        {/for}
+                                        <div class="rated">{lang key='ticketreatinggiven'}</div>
+                                    </div>
+                                {else}
+                                    <div class="rating" ticketid="{$tid}" ticketkey="{$c}" ticketreplyid="{$reply.id}">
+                                        <span class="star" rate="5"></span>
+                                        <span class="star" rate="4"></span>
+                                        <span class="star" rate="3"></span>
+                                        <span class="star" rate="2"></span>
+                                        <span class="star" rate="1"></span>
+                                    </div>
+                                {/if}
+                            </div>
+                        {/if}
+                    </div>
+                    {if $reply.attachments}
+                        <div class="attachments p-3">
+                            <strong>
+                                <i class="far fa-paperclip fa-fw"></i>
+                                {lang key='supportticketsticketattachments'} ({$reply.attachments|count})
+                            </strong>
+                            {if $reply.attachments_removed} - {lang key='support.attachmentsRemoved'}{/if}
+                            <ul class="attachment-list">
+                                {foreach $reply.attachments as $num => $attachment}
+                                    <li>
+                                        {if $reply.attachments_removed}
+                                            <span>
+                                                <figure>
+                                                    <i class="far fa-file-minus"></i>
+                                                </figure>
+                                                <div class="caption">
+                                                    {$attachment}
+                                                </div>
+                                            </span>
+                                        {else}
+                                            <a href="dl.php?type={if $reply.id}ar&id={$reply.id}{else}a&id={$id}{/if}&i={$num}">
+                                                <span>
+                                                    <figure>
+                                                        <i class="far fa-file"></i>
+                                                    </figure>
+                                                    <div class="caption">
+                                                        {$attachment}
+                                                    </div>
+                                                </span>
+                                            </a>
+                                        {/if}
+                                    </li>
+                                {/foreach}
+                            </ul>
+                        </div>
+                    {/if}
+                </div>
+            </div>
+        {/foreach}
     </div>
 
-    {* Sidebar *}
-    <div style="display: flex; flex-direction: column; gap: 1rem;">
-      {assign var="panel_rows" value=[
-        ['label' => 'Ticket ID', 'value' => "<span style='font-family: monospace; font-size: 0.75rem;'>#`$tid`</span>"],
-        ['label' => 'Department', 'value' => $department],
-        ['label' => 'Priority', 'value' => $priority],
-        ['label' => 'Created', 'value' => $date],
-        ['label' => 'Last Updated', 'value' => $lastreply]
-      ]}
-      {include file="$template/includes/client/summarypanel.tpl" panel_title="Ticket Information"}
+    <div class="card d-print-none" id="ticketReplyContainer">
+        <div class="card-body">
+            <h3 class="card-title">{lang key='supportticketsreply'}</h3>
 
-      {if $service}
-        {assign var="panel_rows" value=[
-          ['label' => 'Service', 'value' => "<a href='`$WEB_ROOT`/clientarea.php?action=productdetails&id=`$service`' style='font-size: 0.75rem; color: hsl(var(--primary)); text-decoration: none;'>`$servicename`</a>"]
-        ]}
-        {include file="$template/includes/client/summarypanel.tpl" panel_title="Related Service"}
-      {/if}
+            <form method="post" action="{$smarty.server.PHP_SELF}?tid={$tid}&amp;c={$c}&amp;postreply=true" enctype="multipart/form-data" role="form" id="frmReply">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="inputName">{lang key='supportticketsclientname'}</label>
+                        <input class="form-control" type="text" name="replyname" id="inputName" value="{$replyname}"{if $loggedin} disabled="disabled"{/if}>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label for="inputEmail">{lang key='supportticketsclientemail'}</label>
+                        <input class="form-control" type="text" name="replyemail" id="inputEmail" value="{$replyemail}"{if $loggedin} disabled="disabled"{/if}>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputMessage">{lang key='contactmessage'}</label>
+                    <textarea name="replymessage" id="inputMessage" rows="12" class="form-control markdown-editor" data-auto-save-name="ctr{$tid}">{$replymessage}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputAttachments">{lang key='supportticketsticketattachments'}</label>
+                    <div class="input-group mb-1 attachment-group">
+                        <div class="custom-file">
+                            <label class="custom-file-label text-truncate" for="inputAttachment1" data-default="Choose file">
+                                {lang key='chooseFile'}
+                            </label>
+                            <input type="file" class="custom-file-input" name="attachments[]" id="inputAttachment1">
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-default" type="button" id="btnTicketAttachmentsAdd">
+                                <i class="fas fa-plus"></i>
+                                {lang key='addmore'}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="file-upload w-hidden">
+                        <div class="input-group mb-1 attachment-group">
+                            <div class="custom-file">
+                                <label class="custom-file-label text-truncate">
+                                    {lang key='chooseFile'}
+                                </label>
+                                <input type="file" class="custom-file-input" name="attachments[]">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="fileUploadsContainer"></div>
+                    <div class="text-muted">
+                        <small>{lang key='supportticketsallowedextensions'}: {$allowedfiletypes} ({lang key="maxFileSize" fileSize="$uploadMaxFileSize"})</small>
+                    </div>
+                </div>
+
+                <div class="form-group text-center">
+                    <input class="btn btn-primary" type="submit" name="save" value="{lang key='supportticketsticketsubmit'}" />
+                    <input class="btn btn-default" type="reset" value="{lang key='cancel'}" onclick="jQuery('#ticketReply').click()" />
+                </div>
+            </form>
+
+        </div>
     </div>
-
-  </div>
-</div>
+{/if}

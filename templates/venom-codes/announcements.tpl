@@ -1,32 +1,72 @@
-{* VENOM CODES — Announcements List *}
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">{lang key="announcementstitle"}</h3>
 
-<div style="max-width: 48rem; margin: 0 auto;">
+        <div class="announcements">
+            {foreach $announcements as $announcement}
+                <div class="announcement">
+                    <h1>
+                        <a href="{routePath('announcement-view', $announcement.id, $announcement.urlfriendlytitle)}">
+                            {$announcement.title}
+                        </a>
+                        {if $announcement.editLink}
+                            <a href="{$announcement.editLink}" class="btn btn-default btn-sm show-on-hover">
+                                <i class="fas fa-pencil-alt fa-fw"></i>
+                                {lang key='edit'}
+                            </a>
+                        {/if}
+                    </h1>
 
-  <div style="margin-bottom: 2rem;">
-    <h1 class="font-display" style="font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em;">Announcements</h1>
-    <p class="text-sm text-muted-foreground" style="margin-top: 0.25rem;">Latest news and updates from VENOM CODES.</p>
-  </div>
+                    <ul class="list-inline">
+                        <li class="list-inline-item text-muted pr-3">
+                            <i class="far fa-calendar-alt fa-fw"></i>
+                            {$carbon->createFromTimestamp($announcement.timestamp)->format('jS F Y')}
+                        </li>
+                    </ul>
 
-  {if $announcements}
-    <div style="display: flex; flex-direction: column; gap: 1rem;">
-      {foreach $announcements as $announcement}
-        <a href="{$WEB_ROOT}/announcements/{$announcement.id}/{$announcement.urlfriendlytitle}" style="text-decoration: none; color: inherit; display: block; border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card)); padding: 1.25rem; transition: border-color 0.15s;">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
-            <time class="text-xs text-muted-foreground">{$announcement.date}</time>
-          </div>
-          <h2 class="font-display" style="font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem;">{$announcement.title}</h2>
-          <p class="text-sm text-muted-foreground" style="line-height: 1.625; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-            {$announcement.text|strip_tags|truncate:200}
-          </p>
-        </a>
-      {/foreach}
+                    <article>
+                        {if $announcement.text|strip_tags|strlen < 350}
+                            {$announcement.text}
+                        {else}
+                            {$announcement.summary}
+                        {/if}
+                    </article>
+
+                    <a href="{routePath('announcement-view', $announcement.id, $announcement.urlfriendlytitle)}" class="btn btn-default btn-sm">
+                        {lang key="announcementscontinue"}
+                        <i class="far fa-arrow-right"></i>
+                    </a>
+                </div>
+            {foreachelse}
+                {include file="$template/includes/alert.tpl" type="info" msg="{lang key='noannouncements'}" textcenter=true}
+            {/foreach}
+        </div>
+
     </div>
-
-    {include file="$template/includes/client/pagination.tpl"}
-  {else}
-    <div style="border-radius: 0.75rem; border: 1px dashed hsl(var(--border)); background: hsl(var(--card)); padding: 3rem; text-align: center;">
-      <p class="text-muted-foreground" style="font-size: 0.875rem;">No announcements at this time.</p>
-    </div>
-  {/if}
-
 </div>
+
+{if $prevpage || $nextpage}
+    <nav aria-label="Announcements navigation">
+        <ul class="pagination">
+            {foreach $pagination as $item}
+                <li class="page-item{if $item.disabled} disabled{/if}{if $item.active} active{/if}">
+                    <a class="page-link" href="{$item.link}">{$item.text}</a>
+                </li>
+            {/foreach}
+        </ul>
+    </nav>
+{/if}
+
+{if $announcementsFbRecommend}
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/{lang key='locale'}/all.js#xfbml=1";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+{/if}

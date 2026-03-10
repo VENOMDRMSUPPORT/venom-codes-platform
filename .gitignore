@@ -309,7 +309,11 @@ bower_components/
 
 # Project Specific Temporary Folders
 .kilocode/
+.agents/
+.claude/
+.cursor/
 .github/
 _temp_venom_clone/
 temp_lovable/
 templates_c/
+.screenshots/

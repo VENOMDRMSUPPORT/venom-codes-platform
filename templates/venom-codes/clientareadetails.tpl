@@ -1,109 +1,197 @@
-{* VENOM CODES — Profile Settings *}
+{if $successful}
+    {include file="$template/includes/alert.tpl" type="success" msg="{lang key='changessavedsuccessfully'}" textcenter=true}
+{/if}
 
-{assign var="breadcrumbs" value=[['label' => 'Settings', 'href' => "`$WEB_ROOT`/clientarea.php?action=changesettings"], ['label' => 'Profile']]}
-{include file="$template/includes/client/pageheader.tpl" page_title="Profile Settings" page_subtitle="Manage your personal information and contact details."}
+{if $errormessage}
+    {include file="$template/includes/alert.tpl" type="error" errorshtml=$errormessage}
+{/if}
 
-{* Settings layout with nav *}
-{capture assign="settings_content"}
+{if in_array('state', $optionalFields)}
+    <script>
+        var stateNotRequired = true;
+    </script>
+{/if}
 
-  {include file="$template/includes/client/alert.tpl" alert_type="info" alert_content="Changes to your profile may require verification. Keep your contact details up to date."}
+<script type="text/javascript" src="{$BASE_PATH_JS}/StatesDropdown.js"></script>
 
-  {* Personal Information *}
-  <form method="post" action="{$WEB_ROOT}/clientarea.php?action=details">
-    <input type="hidden" name="token" value="{$token}" />
-    <input type="hidden" name="save" value="true" />
+<form method="post" action="?action=details" role="form">
 
-    <div style="border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card));">
-      <div style="border-bottom: 1px solid hsl(var(--border)); padding: 0.75rem 1.25rem;">
-        <h3 class="font-display" style="font-size: 0.875rem; font-weight: 600;">Personal Information</h3>
-        <p class="text-muted-foreground" style="margin-top: 0.125rem; font-size: 0.75rem;">Your basic account details.</p>
-      </div>
-      <div style="padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;">
-        <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
-          <style>@media (min-width: 640px) { .profile-row-2 { grid-template-columns: repeat(2, 1fr) !important; } }</style>
-          <div class="profile-row-2" style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
-            <div>
-              <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">First Name <span class="text-destructive">*</span></label>
-              <input type="text" name="firstname" value="{$clientsdetails.firstname}" class="venom-input" required />
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">{lang key='clientareanavdetails'}</h3>
+
+            <div class="row d-md-block">
+                <div class="col-md-6 float-md-left">
+
+                    <div class="form-group">
+                        <label for="inputFirstName" class="col-form-label">{lang key='clientareafirstname'}</label>
+                        <input type="text" name="firstname" id="inputFirstName" value="{$clientfirstname}"{if in_array('firstname', $uneditablefields)} disabled="disabled"{/if} class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputLastName" class="col-form-label">{lang key='clientarealastname'}</label>
+                        <input type="text" name="lastname" id="inputLastName" value="{$clientlastname}"{if in_array('lastname', $uneditablefields)} disabled="disabled"{/if} class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputCompanyName" class="col-form-label">{lang key='clientareacompanyname'}</label>
+                        <input type="text" name="companyname" id="inputCompanyName" value="{$clientcompanyname}"{if in_array('companyname', $uneditablefields)} disabled="disabled"{/if} class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-form-label">{lang key='clientareaemail'}</label>
+                        <input type="email" name="email" id="inputEmail" value="{$clientemail}"{if in_array('email', $uneditablefields)} disabled="disabled"{/if} class="form-control" />
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-12 float-md-right">
+
+                    <div class="form-group">
+                        <label for="inputAddress1" class="col-form-label">{lang key='clientareaaddress1'}</label>
+                        <input type="text" name="address1" id="inputAddress1" value="{$clientaddress1}"{if in_array('address1', $uneditablefields)} disabled="disabled"{/if} class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputAddress2" class="col-form-label">{lang key='clientareaaddress2'}</label>
+                        <input type="text" name="address2" id="inputAddress2" value="{$clientaddress2}"{if in_array('address2', $uneditablefields)} disabled="disabled"{/if} class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputCity" class="col-form-label">{lang key='clientareacity'}</label>
+                        <input type="text" name="city" id="inputCity" value="{$clientcity}"{if in_array('city', $uneditablefields)} disabled="disabled"{/if} class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputState" class="col-form-label">{lang key='clientareastate'}</label>
+                        <input type="text" name="state" id="inputState" value="{$clientstate}"{if in_array('state', $uneditablefields)} disabled="disabled"{/if} class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPostcode" class="col-form-label">{lang key='clientareapostcode'}</label>
+                        <input type="text" name="postcode" id="inputPostcode" value="{$clientpostcode}"{if in_array('postcode', $uneditablefields)} disabled="disabled"{/if} class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-form-label" for="country">{lang key='clientareacountry'}</label>
+                        {$clientcountriesdropdown}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPhone" class="col-form-label">{lang key='clientareaphonenumber'}</label>
+                        <input type="tel" name="phonenumber" id="inputPhone" value="{$clientphonenumber}"{if in_array('phonenumber',$uneditablefields)} disabled=""{/if} class="form-control" />
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-12 float-md-left">
+
+                    <div class="form-group">
+                        <label for="inputPaymentMethod" class="col-form-label">{lang key='paymentmethod'}</label>
+                        <select name="paymentmethod" id="inputPaymentMethod" class="form-control custom-select">
+                            <option value="none">{lang key='paymentmethoddefault'}</option>
+                            {foreach $paymentmethods as $method}
+                            <option value="{$method.sysname}"{if $method.sysname eq $defaultpaymentmethod} selected="selected"{/if}>{$method.name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputBillingContact" class="col-form-label">{lang key='defaultbillingcontact'}</label>
+                        <select name="billingcid" id="inputBillingContact" class="form-control custom-select">
+                            <option value="0">{lang key='usedefaultcontact'}</option>
+                            {foreach $contacts as $contact}
+                            <option value="{$contact.id}"{if $contact.id eq $billingcid} selected="selected"{/if}>{$contact.name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputLanguage" class="col-form-label">{lang key='clientarealanguage'}</label>
+                        <select name="accountLanguage" id="inputAccountLanguage" class="form-control custom-select"
+                            {if in_array('language', $uneditablefields)} disabled="disabled"{/if}>
+                            <option value="">{lang key='default'}</option>
+                            {foreach $languages as $language}
+                                <option value="{$language}"{if $language eq $clientLanguage} selected="selected"{/if}
+                                    >{$language|ucfirst}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+
+                    {if $showTaxIdField}
+                        <div class="form-group">
+                            <label for="inputTaxId" class="col-form-label">{lang key=$taxIdLabel}</label>
+                            <input type="text" name="tax_id" id="inputTaxId" class="form-control" value="{$clientTaxId}"{if in_array('tax_id', $uneditablefields)} disabled="disabled"{/if} />
+                        </div>
+                    {/if}
+
+                    {if $customfields}
+                        {foreach $customfields as $customfield}
+                            <div class="form-group">
+                                <label class="col-form-label" for="customfield{$customfield.id}">{$customfield.name}</label>
+                                <div class="control">
+                                    {$customfield.input} {$customfield.description}
+                                </div>
+                            </div>
+                        {/foreach}
+                    {/if}
+
+                </div>
+
             </div>
-            <div>
-              <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Last Name <span class="text-destructive">*</span></label>
-              <input type="text" name="lastname" value="{$clientsdetails.lastname}" class="venom-input" required />
-            </div>
-          </div>
         </div>
-        <div>
-          <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Company Name</label>
-          <input type="text" name="companyname" value="{$clientsdetails.companyname}" class="venom-input" />
-        </div>
-        <div>
-          <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Email Address <span class="text-destructive">*</span></label>
-          <input type="email" name="email" value="{$clientsdetails.email}" class="venom-input" required />
-          <p class="text-muted-foreground" style="margin-top: 0.25rem; font-size: 0.75rem;">We'll send important notifications to this address.</p>
-        </div>
-        <div>
-          <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Phone Number</label>
-          <input type="tel" name="phonenumber" value="{$clientsdetails.phonenumber}" class="venom-input" />
-        </div>
-      </div>
-      <div style="display: flex; justify-content: flex-end; gap: 0.5rem; border-top: 1px solid hsl(var(--border)); padding: 0.75rem 1.25rem;">
-        <button type="button" onclick="history.back()" class="venom-btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 0.75rem;">Cancel</button>
-        <button type="submit" class="venom-btn-primary" style="font-size: 0.875rem; padding: 0.5rem 0.75rem;">Save Changes</button>
-      </div>
     </div>
-  </form>
 
-  {* Billing Address *}
-  <form method="post" action="{$WEB_ROOT}/clientarea.php?action=details">
-    <input type="hidden" name="token" value="{$token}" />
-    <input type="hidden" name="save" value="true" />
+    {if !empty($accountDetailsExtraFields)}
+        <div class="card mt-4">
+            <div class="card-body">
+                <h3 class="card-title">{lang key='orderForm.additionalInformation'}</h3>
 
-    <div style="border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card));">
-      <div style="border-bottom: 1px solid hsl(var(--border)); padding: 0.75rem 1.25rem;">
-        <h3 class="font-display" style="font-size: 0.875rem; font-weight: 600;">Billing Address</h3>
-        <p class="text-muted-foreground" style="margin-top: 0.125rem; font-size: 0.75rem;">Used for invoicing and tax purposes.</p>
-      </div>
-      <div style="padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;">
-        <div>
-          <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Address Line 1 <span class="text-destructive">*</span></label>
-          <input type="text" name="address1" value="{$clientsdetails.address1}" class="venom-input" required />
-        </div>
-        <div>
-          <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Address Line 2</label>
-          <input type="text" name="address2" value="{$clientsdetails.address2}" class="venom-input" />
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
-          <style>@media (min-width: 640px) { .addr-row-3 { grid-template-columns: repeat(3, 1fr) !important; } }</style>
-          <div class="addr-row-3" style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
-            <div>
-              <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">City <span class="text-destructive">*</span></label>
-              <input type="text" name="city" value="{$clientsdetails.city}" class="venom-input" required />
+                <div class="row">
+                    {foreach $accountDetailsExtraFields as $field}
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label" for="{$field.name}">{$field.label|escape}{if $field.required} <span class="text-danger">*</span>{/if}</label>
+                                <div class="control">
+                                    {$field.input}
+                                </div>
+                            </div>
+                        </div>
+                    {/foreach}
+                </div>
             </div>
-            <div>
-              <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">State/Region</label>
-              <input type="text" name="state" value="{$clientsdetails.state}" class="venom-input" />
-            </div>
-            <div>
-              <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Postal Code <span class="text-destructive">*</span></label>
-              <input type="text" name="postcode" value="{$clientsdetails.postcode}" class="venom-input" required />
-            </div>
-          </div>
         </div>
-        <div>
-          <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Country <span class="text-destructive">*</span></label>
-          <select name="country" class="venom-input" required>
-            {foreach $countries as $country}
-              <option value="{$country.code}"{if $clientsdetails.country eq $country.code} selected{/if}>{$country.name}</option>
-            {/foreach}
-          </select>
+    {/if}
+
+    {if $emailPreferencesEnabled}
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{lang key='clientareacontactsemails'}</h3>
+
+                <div class="controls form-check">
+                    {foreach $emailPreferences as $emailType => $value}
+                        <label>
+                            <input type="hidden" name="email_preferences[{$emailType}]" value="0">
+                            <input type="checkbox" class="form-check-input" name="email_preferences[{$emailType}]" id="{$emailType}Emails" value="1"{if $value} checked="checked"{/if} />
+                            {lang key="emailPreferences."|cat:$emailType}
+                        </label>{if !($value@last)}<br />{/if}
+                    {/foreach}
+                </div>
+            </div>
         </div>
-      </div>
-      <div style="display: flex; justify-content: flex-end; gap: 0.5rem; border-top: 1px solid hsl(var(--border)); padding: 0.75rem 1.25rem;">
-        <button type="button" onclick="history.back()" class="venom-btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 0.75rem;">Cancel</button>
-        <button type="submit" class="venom-btn-primary" style="font-size: 0.875rem; padding: 0.5rem 0.75rem;">Save Address</button>
-      </div>
+    {/if}
+
+    {if $showMarketingEmailOptIn}
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{lang key='emailMarketing.joinOurMailingList'}</h3>
+                <p>{$marketingEmailOptInMessage}</p>
+                <input type="checkbox" name="marketingoptin" value="1"{if $marketingEmailOptIn} checked{/if} class="no-icheck toggle-switch-success form-check-input" data-size="small" data-on-text="{lang key='yes'}" data-off-text="{lang key='no'}">
+            </div>
+        </div>
+    {/if}
+
+    <div class="form-group text-center">
+        <input class="btn btn-primary" type="submit" name="save" value="{lang key='clientareasavechanges'}" />
+        <input class="btn btn-default" type="reset" value="{lang key='cancel'}" />
     </div>
-  </form>
 
-{/capture}
-{include file="$template/includes/client/accountsettingslayout.tpl" settings_active="profile"}
+</form>

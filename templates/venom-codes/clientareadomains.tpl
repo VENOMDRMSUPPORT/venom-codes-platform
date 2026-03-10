@@ -1,63 +1,113 @@
-{* VENOM CODES — Domains List *}
-
-{assign var="breadcrumbs" value=[['label' => 'Domains']]}
-{capture assign="page_actions"}
-  <div style="display: flex; gap: 0.5rem;">
-    <a href="{$WEB_ROOT}/cart.php?a=add&domain=transfer" class="venom-btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem;">Transfer Domain</a>
-    <a href="{$WEB_ROOT}/cart.php?a=add&domain=register" class="venom-btn-primary" style="font-size: 0.875rem; padding: 0.5rem 1rem;">
-      <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Register New
-    </a>
-  </div>
-{/capture}
-{include file="$template/includes/client/pageheader.tpl" page_title="My Domains" page_subtitle="Manage your registered domains."}
-
-{* Search & filter *}
-{capture assign="filter_html"}
-  <select name="status" class="venom-input" style="width: auto; padding: 0.5rem 0.75rem;">
-    <option value="">All Statuses</option>
-    <option value="Active"{if $smarty.get.status eq 'Active'} selected{/if}>Active</option>
-    <option value="Pending"{if $smarty.get.status eq 'Pending'} selected{/if}>Pending</option>
-    <option value="Expired"{if $smarty.get.status eq 'Expired'} selected{/if}>Expired</option>
-  </select>
-{/capture}
-{include file="$template/includes/client/searchfilterbar.tpl" search_placeholder="Search domains…"}
-
-{* Domains table *}
-{if $domains|@count > 0}
-<div style="overflow: hidden; border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card));">
-  <div style="overflow-x: auto;">
-    <table style="width: 100%; font-size: 0.875rem; border-collapse: collapse;">
-      <thead>
-        <tr style="border-bottom: 1px solid hsl(var(--border)); background: hsl(var(--muted) / 0.3);">
-          <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Domain</th>
-          <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Registered</th>
-          <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Expires</th>
-          <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Auto Renew</th>
-          <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {foreach $domains as $domain}
-          <tr style="border-bottom: 1px solid hsl(var(--border)); transition: background 0.15s;" onmouseover="this.style.background='hsl(var(--muted) / 0.2)'" onmouseout="this.style.background='transparent'">
-            <td style="padding: 0.75rem 1rem;"><a href="{$WEB_ROOT}/clientarea.php?action=domaindetails&id={$domain.id}" style="font-weight: 500; color: hsl(var(--primary)); text-decoration: none;">{$domain.domain}</a></td>
-            <td style="padding: 0.75rem 1rem;" class="text-muted-foreground">{$domain.registrationdate}</td>
-            <td style="padding: 0.75rem 1rem;" class="text-muted-foreground">{$domain.nextduedate}</td>
-            <td style="padding: 0.75rem 1rem;">
-              <span style="font-size: 0.75rem; font-weight: 500; {if $domain.autorenew}color: hsl(160 84% 39%);{else}color: hsl(var(--muted-foreground));{/if}">
-                {if $domain.autorenew}On{else}Off{/if}
-              </span>
-            </td>
-            <td style="padding: 0.75rem 1rem;">{include file="$template/includes/client/statusbadge.tpl" status_variant=$domain.statusClass}</td>
-          </tr>
-        {/foreach}
-      </tbody>
-    </table>
-  </div>
-</div>
-
-{include file="$template/includes/client/pagination.tpl"}
-
-{else}
-  {include file="$template/includes/client/emptystate.tpl" empty_title="No Domains Found" empty_description="You don't have any registered domains." empty_action="<a href='`$WEB_ROOT`/cart.php?a=add&domain=register' class='venom-btn-primary' style='font-size: 0.875rem; padding: 0.5rem 1rem;'>Register Domain</a>"}
+{if $warnings}
+    {include file="$template/includes/alert.tpl" type="warning" msg=$warnings textcenter=true}
 {/if}
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="tabOverview">
+        {include file="$template/includes/tablelist.tpl" tableName="DomainsList" noSortColumns="0, 1" startOrderCol="2" filterColumn="5"}
+        <script>
+            jQuery(document).ready(function () {
+                var table = jQuery('#tableDomainsList').show().DataTable();
+
+                {if $orderby == 'domain'}
+                    table.order(2, '{$sort}');
+                {elseif $orderby == 'regdate' || $orderby == 'registrationdate'}
+                    table.order(3, '{$sort}');
+                {elseif $orderby == 'nextduedate'}
+                    table.order(4, '{$sort}');
+                {elseif $orderby == 'autorenew'}
+                    table.order(5, '{$sort}');
+                {elseif $orderby == 'status'}
+                    table.order(6, '{$sort}');
+                {/if}
+                table.draw();
+                jQuery('#tableLoading').hide();
+            });
+        </script>
+        <form id="domainForm" method="post" action="clientarea.php?action=bulkdomain">
+            <input id="bulkaction" name="update" type="hidden" />
+
+            <div class="btn-group btn-group-sm mb-3" role="group">
+                <button type="button" class="btn btn-default setBulkAction" id="nameservers">
+                    <i class="fal fa-globe fa-fw"></i>
+                    {lang key='domainmanagens'}
+                </button>
+                <button type="button" class="btn btn-default setBulkAction" id="contactinfo">
+                    <i class="fal fa-user"></i>
+                    {lang key='domaincontactinfoedit'}
+                </button>
+                {if $allowrenew}
+                    <button type="button" class="btn btn-default setBulkAction" id="renewDomains">
+                        <i class="fal fa-sync"></i>
+                        {lang key='domainmassrenew'}
+                    </button>
+                {/if}
+                <div class="btn-group btn-group-sm" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {lang key="more"}...
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                      <a class="dropdown-item setBulkAction" href="#" id="autorenew"><i class="fal fa-sync"></i>
+                    {lang key='domainautorenewstatus'}</a>
+                      <a class="dropdown-item setBulkAction" href="#" id="reglock"><i class="fal fa-lock"></i>
+                    {lang key='domainreglockstatus'}</a>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="table-container clearfix">
+                <table id="tableDomainsList" class="table table-list w-hidden">
+                    <thead>
+                        <tr>
+                            <th class="width-fixed-20"></th>
+                            <th></th>
+                            <th>{lang key='orderdomain'}</th>
+                            <th>{lang key='clientareahostingregdate'}</th>
+                            <th>{lang key='clientareahostingnextduedate'}</th>
+                            <th>{lang key='domainstatus'}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {foreach $domains as $domain}
+                        <tr onclick="clickableSafeRedirect(event, 'clientarea.php?action=domaindetails&amp;id={$domain.id}', false)">
+                            <td>
+                                <input type="checkbox" name="domids[]" class="domids stopEventBubble" value="{$domain.id}" />
+                            </td>
+                            <td class="text-center ssl-info" data-element-id="{$domain.id}" data-type="domain" data-domain="{$domain.domain}">
+                                {if $domain.sslStatus}
+                                    <img src="{$domain.sslStatus->getImagePath()}" width="25" data-toggle="tooltip" title="{$domain.sslStatus->getTooltipContent()}" class="{$domain.sslStatus->getClass()}" width="25">
+                                {elseif !$domain.isActive}
+                                    <img src="{$BASE_PATH_IMG}/ssl/ssl-inactive-domain.png" width="25" data-toggle="tooltip" title="{lang key='sslState.sslInactiveDomain'}" width="25">
+                                {/if}
+                            </td>
+                            <td>
+                                <a href="http://{$domain.domain}" target="_blank">{$domain.domain}</a>
+                                <br>
+                                <small>
+                                    {if $domain.autorenew}
+                                        <i class="fas fa-fw fa-check text-success"></i>
+                                        {lang key='domainsautorenew'}
+                                    {else}
+                                        <i class="fas fa-fw fa-times text-danger"></i>
+                                        {lang key='domainsautorenew'}
+                                    {/if}
+                                </small>
+                            </td>
+                            <td><span class="w-hidden">{$domain.normalisedRegistrationDate}</span>{$domain.registrationdate}</td>
+                            <td><span class="w-hidden">{$domain.normalisedNextDueDate}</span>{$domain.nextduedate}</td>
+                            <td>
+                                <span class="label status status-{$domain.statusClass}">{$domain.statustext}</span>
+                                <span class="w-hidden">
+                                    {if $domain.expiringSoon}<span>{lang key="domainsExpiringSoon"}</span>{/if}
+                                </span>
+                            </td>
+                        </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                <div class="text-center" id="tableLoading">
+                    <p><i class="fas fa-spinner fa-spin"></i> {lang key='loading'}</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

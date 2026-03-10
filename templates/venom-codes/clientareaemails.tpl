@@ -1,35 +1,43 @@
-{* VENOM CODES — Email History *}
+{include file="$template/includes/tablelist.tpl" tableName="EmailsList" noSortColumns="-1"}
 
-{assign var="page_title" value="Email History"}
-{assign var="page_subtitle" value="All emails sent to your account"}
-{assign var="breadcrumbs" value=[["label" => "Email History"]]}
-{include file="$template/includes/client/pageheader.tpl"}
+<script>
+    jQuery(document).ready(function () {
+        var table = jQuery('#tableEmailsList').show().DataTable();
 
-{if $emails}
-  <div style="border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card)); overflow: hidden;">
-    <div style="overflow-x: auto;">
-      <table style="width: 100%; font-size: 0.875rem; border-collapse: collapse;">
+        {if $orderby == 'date'}
+            table.order(0, '{$sort}');
+        {elseif $orderby == 'subject'}
+            table.order(1, '{$sort}');
+        {/if}
+        table.draw();
+        jQuery('#tableLoading').hide();
+    });
+</script>
+
+<div class="table-container clearfix">
+    <table id="tableEmailsList" class="table table-list w-hidden">
         <thead>
-          <tr style="border-bottom: 1px solid hsl(var(--border)); background: hsl(var(--muted) / 0.3);">
-            <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Subject</th>
-            <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Date</th>
-          </tr>
+            <tr>
+                <th>{lang key='clientareaemailsdate'}</th>
+                <th>{lang key='clientareaemailssubject'}</th>
+                <th>&nbsp;</th>
+            </tr>
         </thead>
         <tbody>
-          {foreach $emails as $email}
-            <tr style="{if !$email@last}border-bottom: 1px solid hsl(var(--border));{/if} cursor: pointer;" onclick="window.location='{$WEB_ROOT}/clientarea.php?action=emails&id={$email.id}'">
-              <td style="padding: 0.75rem 1rem;">
-                <span style="font-weight: 500;">{$email.subject}</span>
-              </td>
-              <td style="padding: 0.75rem 1rem; color: hsl(var(--muted-foreground)); white-space: nowrap;">{$email.date}</td>
-            </tr>
-          {/foreach}
+            {foreach $emails as $email}
+                <tr onclick="popupWindow('viewemail.php?id={$email.id}', 'emailWin', '800', '600')">
+                    <td class="text-center"><span class="w-hidden">{$email.normalisedDate}</span>{$email.date}</td>
+                    <td>{$email.subject}{if $email.attachmentCount > 0} <i class="fal fa-paperclip"></i>{/if}</td>
+                    <td class="text-center">
+                        <button type="button" class="btn btn-info btn-sm text-nowrap" onclick="popupWindow('viewemail.php?id={$email.id}', 'emailWin', '800', '600', 'scrollbars=1,')">
+                            {lang key='emailviewmessage'}
+                        </button>
+                    </td>
+                </tr>
+            {/foreach}
         </tbody>
-      </table>
+    </table>
+    <div class="text-center" id="tableLoading">
+        <p><i class="fas fa-spinner fa-spin"></i> {lang key='loading'}</p>
     </div>
-  </div>
-
-  {include file="$template/includes/client/pagination.tpl"}
-{else}
-  {include file="$template/includes/client/emptystate.tpl" empty_title="No Emails" empty_description="No emails have been sent to your account yet."}
-{/if}
+</div>

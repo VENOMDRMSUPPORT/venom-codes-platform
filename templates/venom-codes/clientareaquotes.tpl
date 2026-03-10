@@ -1,37 +1,55 @@
-{* VENOM CODES — Quotes List *}
+{include file="$template/includes/tablelist.tpl" tableName="QuotesList"  noSortColumns="5" filterColumn="4"}
 
-{assign var="page_title" value="Quotes"}
-{assign var="page_subtitle" value="View your price quotes"}
-{assign var="breadcrumbs" value=[["label" => "Quotes"]]}
-{include file="$template/includes/client/pageheader.tpl"}
+<script>
+    jQuery(document).ready(function() {
+        var table = jQuery('#tableQuotesList').show().DataTable();
 
-{if $quotes}
-  <div style="border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card)); overflow: hidden;">
-    <div style="overflow-x: auto;">
-      <table style="width: 100%; font-size: 0.875rem; border-collapse: collapse;">
+        {if $orderby == 'id'}
+            table.order(0, '{$sort}');
+        {elseif $orderby == 'date'}
+            table.order(2, '{$sort}');
+        {elseif $orderby == 'validuntil'}
+            table.order(3, '{$sort}');
+        {elseif $orderby == 'stage'}
+            table.order(4, '{$sort}');
+        {/if}
+        table.draw();
+        jQuery('#tableLoading').hide();
+    });
+</script>
+
+<div class="table-container clearfix">
+    <table id="tableQuotesList" class="table table-list w-hidden">
         <thead>
-          <tr style="border-bottom: 1px solid hsl(var(--border)); background: hsl(var(--muted) / 0.3);">
-            <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Quote #</th>
-            <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Subject</th>
-            <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Date</th>
-            <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Valid Until</th>
-            <th style="padding: 0.75rem 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: hsl(var(--muted-foreground));">Status</th>
-          </tr>
+            <tr>
+                <th>{lang key='quotenumber'}</th>
+                <th>{lang key='quotesubject'}</th>
+                <th>{lang key='quotedatecreated'}</th>
+                <th>{lang key='quotevaliduntil'}</th>
+                <th>{lang key='quotestage'}</th>
+                <th>&nbsp;</th>
+            </tr>
         </thead>
         <tbody>
-          {foreach $quotes as $quote}
-            <tr style="{if !$quote@last}border-bottom: 1px solid hsl(var(--border));{/if}" onclick="window.location='{$WEB_ROOT}/viewquote.php?id={$quote.id}'" style="cursor: pointer;">
-              <td style="padding: 0.75rem 1rem; font-weight: 500;">#{$quote.id}</td>
-              <td style="padding: 0.75rem 1rem;">{$quote.subject}</td>
-              <td style="padding: 0.75rem 1rem; color: hsl(var(--muted-foreground));">{$quote.datecreated}</td>
-              <td style="padding: 0.75rem 1rem; color: hsl(var(--muted-foreground));">{$quote.validuntil}</td>
-              <td style="padding: 0.75rem 1rem;"><td style="padding: 0.75rem 1rem;">{include file="$template/includes/client/statusbadge.tpl" status_variant=$quote.stage|lower}</td></td>
-            </tr>
-          {/foreach}
+            {foreach $quotes as $quote}
+                <tr onclick="clickableSafeRedirect(event, 'viewquote.php?id={$quote.id}', true)">
+                    <td>{$quote.id}</td>
+                    <td>{$quote.subject}</td>
+                    <td><span class="w-hidden">{$quote.normalisedDateCreated}</span>{$quote.datecreated}</td>
+                    <td><span class="w-hidden">{$quote.normalisedValidUntil}</span>{$quote.validuntil}</td>
+                    <td><span class="label status status-{$quote.stageClass}">{$quote.stage}</span></td>
+                    <td class="text-center">
+                        <form method="post" action="dl.php">
+                            <input type="hidden" name="type" value="q" />
+                            <input type="hidden" name="id" value="{$quote.id}" />
+                            <button type="submit" class="btn btn-default btn-sm"><i class="fas fa-download"></i> {lang key='quotedownload'}</button>
+                        </form>
+                    </td>
+                </tr>
+            {/foreach}
         </tbody>
-      </table>
+    </table>
+    <div class="text-center" id="tableLoading">
+        <p><i class="fas fa-spinner fa-spin"></i> {lang key='loading'}</p>
     </div>
-  </div>
-{else}
-  {include file="$template/includes/client/emptystate.tpl" empty_title="No Quotes" empty_description="You don't have any quotes yet."}
-{/if}
+</div>

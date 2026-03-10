@@ -1,44 +1,59 @@
-{* VENOM CODES — Domain Email Forwarding *}
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">{lang key='domainemailforwarding'}</h3>
 
-{assign var="page_title" value="Email Forwarding"}
-{assign var="page_subtitle" value=$domain}
-{assign var="breadcrumbs" value=[["label" => "Domains", "href" => "{$WEB_ROOT}/clientarea.php?action=domains"], ["label" => $domain, "href" => "{$WEB_ROOT}/clientarea.php?action=domaindetails&id={$domainid}"], ["label" => "Email Forwarding"]]}
-{include file="$template/includes/client/pageheader.tpl"}
+        {include file="$template/includes/alert.tpl" type="info" msg="{lang key='domainemailforwardingdesc'}"}
 
-{if $error}
-  {include file="$template/includes/client/alert.tpl" alert_type="error" alert_content=$error}
-{/if}
-{if $successful}
-  {include file="$template/includes/client/alert.tpl" alert_type="success" alert_content="Email forwarding settings updated successfully."}
-{/if}
+        {if $error}
+            {include file="$template/includes/alert.tpl" type="error" msg=$error}
+        {/if}
 
-<form method="post" action="{$smarty.server.PHP_SELF}">
-  <input type="hidden" name="domainid" value="{$domainid}" />
-  <input type="hidden" name="sub" value="save" />
-  <input type="hidden" name="token" value="{$token}" />
+        {if $external}
+            <div class="text-center px-4">
+                {$code}
+            </div>
+        {else}
 
-  <div style="border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card)); overflow: hidden;">
-    <div style="border-bottom: 1px solid hsl(var(--border)); padding: 0.75rem 1.25rem;">
-      <h3 class="font-display" style="font-size: 0.875rem; font-weight: 600;">Forwarding Rules</h3>
-      <p class="text-muted-foreground" style="margin-top: 0.125rem; font-size: 0.75rem;">Forward emails from your domain to another address</p>
+            <form method="post" action="{$smarty.server.PHP_SELF}?action=domainemailforwarding">
+                <input type="hidden" name="sub" value="save" />
+                <input type="hidden" name="domainid" value="{$domainid}" />
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{lang key='domainemailforwardingprefix'}</th>
+                            <th></th>
+                            <th>{lang key='domainemailforwardingforwardto'}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {foreach $emailforwarders as $num => $emailforwarder}
+                        <tr>
+                            <td><input type="text" name="emailforwarderprefix[{$num}]" value="{$emailforwarder.prefix}" class="form-control" /></td>
+                            <td class="text-center">@{$domain} => </td>
+                            <td><input type="text" name="emailforwarderforwardto[{$num}]" value="{$emailforwarder.forwardto}" class="form-control" /></td>
+                        </tr>
+                        {/foreach}
+                        <tr>
+                            <td><input type="text" name="emailforwarderprefixnew" class="form-control" /></td>
+                            <td class="text-center">@{$domain} => </td>
+                            <td><input type="text" name="emailforwarderforwardtonew" class="form-control" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">
+                        {lang key='clientareasavechanges'}
+                    </button>
+                    <button type="reset" class="btn btn-default">
+                        {lang key='clientareacancel'}
+                    </button>
+                </div>
+
+            </form>
+
+        {/if}
+
     </div>
-    <div style="padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
-      {foreach $emailforwarders as $i => $forwarder}
-        <div style="display: flex; align-items: center; gap: 0.5rem;">
-          <input type="text" name="prefix[{$i}]" value="{$forwarder.prefix}" class="venom-input" style="flex: 1;" placeholder="user" />
-          <span class="text-sm text-muted-foreground">@{$domain} →</span>
-          <input type="text" name="forwardto[{$i}]" value="{$forwarder.forwardto}" class="venom-input" style="flex: 2;" placeholder="user@example.com" />
-        </div>
-      {/foreach}
-      {* New rule *}
-      <div style="display: flex; align-items: center; gap: 0.5rem;">
-        <input type="text" name="prefix[]" class="venom-input" style="flex: 1;" placeholder="new" />
-        <span class="text-sm text-muted-foreground">@{$domain} →</span>
-        <input type="text" name="forwardto[]" class="venom-input" style="flex: 2;" placeholder="user@example.com" />
-      </div>
-    </div>
-    <div style="display: flex; justify-content: flex-end; gap: 0.5rem; border-top: 1px solid hsl(var(--border)); padding: 0.75rem 1.25rem;">
-      <button type="submit" class="venom-btn-primary text-sm" style="padding: 0.625rem 1.25rem;">Save Changes</button>
-    </div>
-  </div>
-</form>
+</div>

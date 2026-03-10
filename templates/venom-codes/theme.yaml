@@ -1,6 +1,11 @@
-# VENOM CODES — WHMCS Theme Configuration
-# This file is required by WHMCS to register the theme.
+# WHMCS Twenty-One Theme Configuration File
 
-name: "Venom Codes"
-author: "Venom Codes"
-responsive: true
+name: "Twenty-One"
+description: "The Default Theme for WHMCS 2021"
+author: "WHMCS Limited"
+properties:
+  serverSidePagination: false # Defines client side will handle pagination
+provides:
+  bootstrap: 4.5.3
+  jquery: 1.12.4
+  fontawesome: 5.10.1

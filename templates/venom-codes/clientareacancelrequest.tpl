@@ -1,57 +1,69 @@
-{* VENOM CODES — Service Cancellation Request *}
+{if $invalid}
 
-{assign var="page_title" value="Request Cancellation"}
-{assign var="breadcrumbs" value=[["label" => "Services", "href" => "{$WEB_ROOT}/clientarea.php?action=products"], ["label" => $groupname|cat:" - "|cat:$product, "href" => "{$WEB_ROOT}/clientarea.php?action=productdetails&id={$id}"], ["label" => "Cancel"]]}
-{include file="$template/includes/client/pageheader.tpl"}
+    {include file="$template/includes/alert.tpl" type="error" msg="{lang key='clientareacancelinvalid'}" textcenter=true}
+    <p class="text-center">
+        <a href="clientarea.php?action=productdetails&amp;id={$id}" class="btn btn-primary">{lang key='clientareabacklink'}</a>
+    </p>
 
-<div style="max-width: 40rem;">
+{elseif $requested}
 
-  {if $cancellationRequestAlreadyExists}
-    {include file="$template/includes/client/alert.tpl" alert_type="info" alert_title="Cancellation Pending" alert_content="A cancellation request for this service is already pending."}
-  {else}
+    {include file="$template/includes/alert.tpl" type="success" msg="{lang key='clientareacancelconfirmation'}" textcenter=true}
 
-    {assign var="form_title" value="Cancellation Details"}
-    {assign var="form_description" value="Please let us know why you'd like to cancel this service"}
+    <p class="text-center">
+        <a href="clientarea.php?action=productdetails&amp;id={$id}" class="btn btn-primary">{lang key='clientareabacklink'}</a>
+    </p>
 
-    {capture assign="form_content"}
-    <form method="post" action="{$smarty.server.PHP_SELF}?action=cancel" id="frmCancelRequest">
-      <input type="hidden" name="id" value="{$id}" />
-      <input type="hidden" name="token" value="{$token}" />
+{else}
 
-      <div style="display: flex; flex-direction: column; gap: 1.25rem;">
-        {* Service info *}
-        <div style="padding: 0.75rem; border-radius: 0.5rem; background: hsl(var(--muted) / 0.3); border: 1px solid hsl(var(--border));">
-          <p style="font-size: 0.875rem; font-weight: 500;">{$groupname} - {$product}</p>
-          {if $domain}<p class="text-xs text-muted-foreground" style="margin-top: 0.25rem;">{$domain}</p>{/if}
+    {if $error}
+        {include file="$template/includes/alert.tpl" type="error" errorshtml="<li>{lang key='clientareacancelreasonrequired'}</li>"}
+    {/if}
+
+    {include file="$template/includes/alert.tpl" type="info" textcenter=true msg="{lang key='clientareacancelproduct'}: <strong>{$groupname} - {$productname}</strong>{if $domain} ({$domain}){/if}"}
+
+    <div class="card">
+        <div class="card-body">
+
+            <form method="post" action="{$smarty.server.PHP_SELF}?action=cancel&amp;id={$id}" class="form-stacked">
+                <input type="hidden" name="sub" value="submit" />
+
+                <fieldset>
+                    <div class="form-group">
+                        <label for="cancellationreason">{lang key='clientareacancelreason'}</label>
+                    <textarea name="cancellationreason" id="cancellationreason" class="form-control fullwidth" rows="6"></textarea>
+                    </div>
+
+                    {if $domainid}
+                        <div class="alert alert-warning">
+                            <p><strong>{lang key='cancelrequestdomain'}</strong></p>
+                            <p>{"{lang key='cancelrequestdomaindesc'}"|sprintf2:$domainnextduedate:$domainprice:$domainregperiod}</p>
+                            <label class="form-check text-center">
+                                <input type="checkbox" class="form-check-input" name="canceldomain" id="canceldomain" /> {lang key='cancelrequestdomainconfirm'}
+                            </label>
+                        </div>
+                    {/if}
+
+                    <div class="form-group text-center">
+                        <label class="col-form-label" for="type">{lang key='clientareacancellationtype'}</label>
+                        <span class="d-inline-block">
+                            <select name="type" id="type" class="form-control">
+                                <option value="Immediate">{lang key='clientareacancellationimmediate'}</option>
+                                <option value="End of Billing Period">{lang key='clientareacancellationendofbillingperiod'}</option>
+                            </select>
+                        </span>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-danger">
+                            {lang key='clientareacancelrequestbutton'}
+                        </button>
+                        <a href="clientarea.php?action=productdetails&id={$id}" class="btn btn-default">{lang key='cancel'}</a>
+                    </div>
+                </fieldset>
+
+            </form>
+
         </div>
+    </div>
 
-        {* Cancellation type *}
-        <div>
-          <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Cancellation Type</label>
-          <select name="type" class="venom-input">
-            <option value="Immediate">{lang key='cancellationimmediate'}</option>
-            <option value="End of Billing Period">{lang key='cancellationendofbillingperiod'}</option>
-          </select>
-        </div>
-
-        {* Reason *}
-        <div>
-          <label style="display: block; margin-bottom: 0.375rem; font-size: 0.875rem; font-weight: 500;">Reason for Cancellation</label>
-          <textarea name="reason" class="venom-input" rows="4" placeholder="Please let us know how we could improve…" style="resize: vertical;"></textarea>
-        </div>
-
-        <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
-          <a href="{$WEB_ROOT}/clientarea.php?action=productdetails&id={$id}" class="venom-btn-secondary text-sm" style="padding: 0.625rem 1.25rem;">Cancel</a>
-          <button type="submit" name="submit" class="venom-btn-primary text-sm" style="padding: 0.625rem 1.25rem; background: hsl(var(--destructive)); color: hsl(var(--destructive-foreground));">
-            Request Cancellation
-          </button>
-        </div>
-      </div>
-    </form>
-    {/capture}
-
-    {include file="$template/includes/client/formsection.tpl" form_title=$form_title form_description=$form_description form_content=$form_content}
-
-  {/if}
-
-</div>
+{/if}

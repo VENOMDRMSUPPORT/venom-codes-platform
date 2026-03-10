@@ -1,56 +1,92 @@
-{* VENOM CODES — Knowledge Base Article *}
+{if $kbarticle.voted}
+    {include file="$template/includes/alert.tpl" type="success alert-bordered-left" msg="{lang key="knowledgebaseArticleRatingThanks"}" textcenter=true}
+{/if}
 
-<div style="max-width: 48rem; margin: 0 auto;">
+<div class="card">
+    <div class="card-body">
+        <h1>
+            {$kbarticle.title}
+            <a href="#" class="btn btn-default btn-sm float-right" onclick="window.print();return false">
+                <i class="fas fa-print"></i>
+                {lang key='print'}
+            </a>
+        </h1>
 
-  {* Breadcrumb *}
-  <nav style="margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem; font-size: 0.75rem; color: hsl(var(--muted-foreground));">
-    <a href="{$WEB_ROOT}/knowledgebase.php" style="text-decoration: none; color: inherit;">Knowledge Base</a>
-    {if $kbcatname}
-      <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-      <a href="{$WEB_ROOT}/knowledgebase/{$kbcatid}/{$kbcaturlfriendlyname}" style="text-decoration: none; color: inherit;">{$kbcatname}</a>
-    {/if}
-    <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-    <span style="color: hsl(var(--foreground)); font-weight: 500;">{$kbarticle.title|truncate:40}</span>
-  </nav>
+        <ul class="list-inline">
+            {if $kbarticle.tags}
+                <li class="list-inline-item pr-3">
+                    <span class="badge badge-pill badge-info">
+                        <i class="fas fa-code mr-1"></i>
+                        {$kbarticle.tags}
+                    </span>
+                </li>
+            {/if}
+            <li class="list-inline-item text-sm pr-3 text-muted"><i class="fas fa-thumbs-up mr-2"></i>{$kbarticle.useful}</li>
+        </ul>
 
-  <article style="border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card)); padding: 2rem;">
-    <header style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid hsl(var(--border));">
-      <h1 class="font-display" style="font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em;">{$kbarticle.title}</h1>
-      <div class="text-sm text-muted-foreground" style="margin-top: 0.5rem; display: flex; align-items: center; gap: 1rem;">
-        <span>{$kbarticle.views} views</span>
-        {if $kbarticle.rating}
-          <span>Rating: {$kbarticle.rating}%</span>
+        <hr>
+
+        <article>
+            {$kbarticle.text}
+        </article>
+
+        {if !$kbarticle.voted}
+            <hr>
+            <h4>{lang key='knowledgebasehelpful'}</h4>
+            <form action="{routePath('knowledgebase-article-view', {$kbarticle.id}, {$kbarticle.urlfriendlytitle})}" method="post" class="d-flex justify-content-between">
+                <input type="hidden" name="useful" value="vote">
+                <div>
+                    <button class="btn btn-sm btn-secondary px-4" type="submit" name="vote" value="yes">
+                        <i class="fas fa-thumbs-up"></i>
+                        {lang key='knowledgebaseyes'}
+                    </button>
+                    <button class="btn btn-sm btn-secondary px-4" type="submit" name="vote" value="no">
+                        <i class="fas fa-thumbs-down"></i>
+                        {lang key='knowledgebaseno'}
+                    </button>
+                </div>
+            </form>
         {/if}
-      </div>
-    </header>
 
-    <div style="font-size: 0.9375rem; line-height: 1.75; color: hsl(var(--foreground) / 0.9);">
-      {$kbarticle.text}
     </div>
-  </article>
-
-  {* Vote *}
-  {if $kbarticle.voteable}
-    <div style="margin-top: 1.5rem; border-radius: 0.75rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card)); padding: 1.25rem; text-align: center;">
-      <p class="text-sm" style="font-weight: 500; margin-bottom: 0.75rem;">Was this article helpful?</p>
-      <div style="display: flex; justify-content: center; gap: 0.5rem;">
-        <a href="{$WEB_ROOT}/knowledgebase.php?action=vote&articleid={$kbarticle.id}&vote=yes" class="venom-btn-secondary text-sm" style="padding: 0.5rem 1rem;">
-          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
-          Yes
-        </a>
-        <a href="{$WEB_ROOT}/knowledgebase.php?action=vote&articleid={$kbarticle.id}&vote=no" class="venom-btn-secondary text-sm" style="padding: 0.5rem 1rem;">
-          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg>
-          No
-        </a>
-      </div>
-    </div>
-  {/if}
-
-  <div style="margin-top: 1.5rem; text-align: center;">
-    <a href="{$WEB_ROOT}/knowledgebase.php" class="venom-btn-secondary text-sm" style="padding: 0.5rem 1.25rem;">
-      <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      Back to Knowledge Base
-    </a>
-  </div>
-
 </div>
+
+{if $kbarticles}
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title m-0">
+                <i class="fal fa-folder-open fa-fw"></i>
+                {lang key='knowledgebaserelated'}
+            </h3>
+        </div>
+        <div class="list-group list-group-flush">
+            {foreach $kbarticles as $kbarticle}
+                <a href="{routePath('knowledgebase-article-view', {$kbarticle.id}, {$kbarticle.urlfriendlytitle})}" class="list-group-item kb-article-item" data-id="{$kbarticle.id}">
+                    <i class="fal fa-file-alt fa-fw text-black-50"></i>
+                    {$kbarticle.title}
+                    {if $kbarticle.editLink}
+                        <button class="btn btn-sm btn-default show-on-card-hover" id="btnEditArticle-{$kbarticle.id}" data-url="{$kbarticle.editLink}" type="button">
+                            {lang key="edit"}
+                        </button>
+                    {/if}
+                    <small>{$kbarticle.article|truncate:100:"..."}</small>
+                </a>
+            {foreachelse}
+                <div class="list-group-item">
+                    {lang key='knowledgebasenoarticles'}
+                </div>
+            {/foreach}
+        </div>
+    </div>
+{/if}
+
+<a href="javascript:history.go(-1)" class="btn btn-default px-4">
+    {lang key='clientareabacklink'}
+</a>
+
+{if $kbarticle.editLink}
+    <a href="{$kbarticle.editLink}" class="btn btn-default px-4 float-right">
+        <i class="fas fa-pencil-alt fa-fw"></i>
+        {lang key='edit'}
+    </a>
+{/if}

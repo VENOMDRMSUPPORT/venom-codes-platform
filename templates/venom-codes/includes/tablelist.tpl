@@ -1,5 +1,3 @@
-{* VENOM CODES — Data Table List Component *}
-
 {if isset($filterColumn) && $filterColumn}
 <script>
     if (typeof(buildFilterRegex) !== "function") {
@@ -119,37 +117,3 @@
     alreadyReady = true;
     });
 </script>
-
-<style>
-/* VENOM CODES DataTable Styling */
-.listtable {
-    border-radius: 0.75rem;
-    overflow: hidden;
-}
-.dataTables_wrapper .dataTables_filter input {
-    border: 1px solid var(--gray-300, #d1d5db);
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    transition: all 0.2s;
-}
-.dataTables_wrapper .dataTables_filter input:focus {
-    outline: none;
-    border-color: var(--primary-500, #3b82f6);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-.dataTables_wrapper .dataTables_length select {
-    border: 1px solid var(--gray-300, #d1d5db);
-    border-radius: 0.5rem;
-    padding: 0.375rem 2rem 0.375rem 0.75rem;
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-    border-radius: 0.375rem;
-    margin: 0 0.125rem;
-    padding: 0.5rem 0.75rem;
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background: linear-gradient(135deg, var(--primary-600, #2563eb) 0%, var(--primary-700, #1d4ed8) 100%);
-    color: white !important;
-    border: none;
-}
-</style>
