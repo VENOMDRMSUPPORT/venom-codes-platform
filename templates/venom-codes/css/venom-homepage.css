@@ -1,0 +1,937 @@
+/* Homepage component styles - CSS variables are consolidated in theme.css */
+html[data-venom-home="1"] body {
+    background: var(--venom-bg);
+    color: var(--venom-text);
+}
+
+html[data-venom-home="1"] #header,
+html[data-venom-home="1"] .master-breadcrumb,
+html[data-venom-home="1"] .home-domain-search,
+html[data-venom-home="1"] #footer {
+    display: none;
+}
+
+html[data-venom-home="1"] #main-body,
+html[data-venom-home="1"] #main-body > .container,
+html[data-venom-home="1"] #main-body .row,
+html[data-venom-home="1"] #main-body .primary-content {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+html[data-venom-home="1"] #main-body .row {
+    display: block;
+}
+
+html[data-venom-home="1"] #main-body .primary-content {
+    float: none;
+}
+
+.venom-homepage {
+    position: relative;
+    background: var(--venom-bg);
+    color: var(--venom-text);
+    font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+.venom-shell {
+    width: min(1180px, calc(100% - 2rem));
+    margin: 0 auto;
+}
+
+.venom-floating-controls {
+    position: fixed;
+    z-index: 60;
+    right: 1rem;
+    top: 6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem;
+    background: color-mix(in srgb, var(--venom-bg-elevated) 88%, transparent);
+    border: 1px solid var(--venom-border);
+    border-radius: 999px;
+    box-shadow: var(--venom-shadow);
+    backdrop-filter: blur(10px);
+}
+
+.venom-toggle-btn {
+    border: 1px solid var(--venom-border);
+    border-radius: 999px;
+    background: var(--venom-bg);
+    color: var(--venom-text);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.venom-toggle-btn:hover {
+    border-color: var(--venom-accent);
+    color: var(--venom-accent);
+}
+
+.venom-accent-picker {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.venom-accent-dot {
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.venom-accent-dot:hover {
+    transform: scale(1.08);
+}
+
+.venom-accent-dot.is-active {
+    border-color: var(--venom-text);
+    box-shadow: 0 0 0 4px var(--venom-ring);
+}
+
+.venom-accent-dot[data-accent="ocean"] { background: color-mix(in srgb, var(--blue) 82%, var(--cyan) 18%); }
+.venom-accent-dot[data-accent="emerald"] { background: color-mix(in srgb, var(--green) 64%, var(--cyan) 36%); }
+.venom-accent-dot[data-accent="crimson"] { background: color-mix(in srgb, var(--red) 76%, var(--orange) 24%); }
+.venom-accent-dot[data-accent="amber"] { background: color-mix(in srgb, var(--orange) 72%, var(--yellow) 28%); }
+.venom-accent-dot[data-accent="violet"] { background: color-mix(in srgb, var(--purple) 74%, var(--pink) 26%); }
+
+.venom-announcement {
+    background: var(--venom-accent);
+    color: var(--venom-on-accent);
+    text-align: center;
+    padding: 0.55rem 1rem;
+    font-size: 0.77rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+html[data-venom-theme="dark"] .venom-announcement {
+    color: var(--venom-on-accent);
+}
+
+.venom-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--venom-border);
+    backdrop-filter: blur(12px);
+    background: var(--venom-header-bg);
+}
+
+.venom-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 5rem;
+    gap: 1rem;
+}
+
+.venom-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.venom-brand__logo {
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius:var(--rounding-lg);
+    background: var(--venom-accent);
+    color: var(--venom-on-accent);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+html[data-venom-theme="dark"] .venom-brand__logo {
+    color: var(--venom-on-accent);
+}
+
+.venom-brand__logo svg {
+    width: 1.35rem;
+    height: 1.35rem;
+}
+
+.venom-brand__text-wrap {
+    display: flex;
+    flex-direction: column;
+}
+
+.venom-brand__text {
+    font-family: "Montserrat", "Inter", sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+.venom-brand__text span {
+    color: var(--venom-accent);
+}
+
+.venom-brand__sub {
+    margin-top: 0.1rem;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.21em;
+    text-transform: uppercase;
+    color: var(--venom-text-soft);
+}
+
+.venom-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.35rem;
+}
+
+.venom-nav a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+}
+
+.venom-nav a:hover {
+    color: var(--venom-accent);
+}
+
+.venom-nav__cta {
+    min-height: 2.5rem;
+    padding: 0.4rem 1.15rem;
+}
+
+.venom-nav a.venom-nav__cta,
+.venom-nav a.venom-nav__cta:hover,
+.venom-nav a.venom-nav__cta:focus {
+    color: var(--venom-on-accent);
+}
+
+.venom-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 6.5rem 0 7rem;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--venom-accent) 8%, var(--venom-bg)) 0%, var(--venom-bg) 54%);
+}
+
+.venom-hero::before {
+    content: "";
+    position: absolute;
+    inset: -20% auto auto 50%;
+    width: 44rem;
+    height: 44rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--venom-accent-soft) 36%, transparent) 0%, transparent 68%);
+    transform: translateX(-50%);
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+html[data-venom-theme="dark"] .venom-hero::before {
+    opacity: 0.64;
+}
+
+html[data-venom-theme="dark"] .venom-hero {
+    background: linear-gradient(180deg, color-mix(in srgb, var(--venom-accent) 16%, var(--venom-bg)) 0%, var(--venom-bg) 56%);
+}
+
+.venom-hero__inner {
+    position: relative;
+    text-align: center;
+    z-index: 1;
+}
+
+.venom-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--venom-accent) 40%, transparent);
+    background: color-mix(in srgb, var(--venom-accent) 10%, transparent);
+    color: var(--venom-accent);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.venom-hero h1 {
+    margin: 0;
+    font-size: clamp(2.15rem, 7vw, 4.7rem);
+    line-height: 1.09;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+}
+
+.venom-gradient-text {
+    background: linear-gradient(90deg, var(--venom-accent), var(--venom-accent-soft));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.venom-hero p {
+    margin: 1.4rem auto 0;
+    max-width: 45rem;
+    color: var(--venom-text-muted);
+    font-size: clamp(1rem, 2.2vw, 1.24rem);
+    line-height: 1.68;
+}
+
+.venom-hero__actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.venom-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.5rem 1.45rem;
+    border-radius:var(--rounding-md);
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.venom-btn--solid {
+    background: var(--venom-accent);
+    color: var(--venom-on-accent);
+    box-shadow: 0 14px 30px color-mix(in srgb, var(--venom-accent) 28%, transparent);
+}
+
+html[data-venom-theme="dark"] .venom-btn--solid {
+    color: var(--venom-on-accent);
+}
+
+.venom-btn--solid:hover {
+    transform: translateY(-2px) scale(1.01);
+}
+
+.venom-btn--ghost {
+    border-color: var(--venom-border);
+    background: var(--venom-bg-elevated);
+    color: var(--venom-text);
+}
+
+.venom-btn--ghost:hover {
+    border-color: var(--venom-accent);
+    color: var(--venom-accent);
+}
+
+.venom-architecture {
+    padding: 6.3rem 0;
+    border-top: 1px solid var(--venom-border);
+    border-bottom: 1px solid var(--venom-border);
+    background: color-mix(in srgb, var(--venom-bg-muted) 82%, var(--venom-bg));
+}
+
+.venom-section-head {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.venom-section-head h2 {
+    margin: 0;
+    font-size: clamp(2rem, 3.8vw, 3.3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.venom-section-head p {
+    margin: 0.9rem 0 0;
+    color: var(--venom-text-muted);
+    font-size: 1.02rem;
+}
+
+.venom-architecture__grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+.venom-diagram-card {
+    padding: 1.6rem;
+    border-radius:var(--rounding-lg);
+    border: 1px solid var(--venom-border);
+    background: var(--venom-bg-elevated);
+    box-shadow: var(--venom-shadow);
+}
+
+.venom-diagram-grid {
+    position: relative;
+    display: grid;
+    gap: 1.3rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.venom-main-node-wrap {
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.7rem;
+}
+
+.venom-main-node {
+    width: min(13.5rem, 100%);
+    padding: 1.2rem;
+    text-align: center;
+    border-radius:var(--rounding-lg);
+    border: 1px solid color-mix(in srgb, var(--venom-accent) 45%, transparent);
+    background: color-mix(in srgb, var(--venom-accent) 10%, var(--venom-bg-elevated));
+}
+
+.venom-main-node__icon {
+    width: 3rem;
+    height: 3rem;
+    margin: 0 auto 0.6rem;
+    display: grid;
+    place-items: center;
+    border-radius:var(--rounding-lg);
+    background: var(--venom-accent);
+    color: var(--venom-on-accent);
+}
+
+html[data-venom-theme="dark"] .venom-main-node__icon {
+    color: var(--venom-on-accent);
+}
+
+.venom-main-node__icon svg {
+    width: 1.45rem;
+    height: 1.45rem;
+}
+
+.venom-main-node h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.venom-main-node p {
+    margin: 0.25rem 0 0;
+    color: var(--venom-accent);
+    font-size: 0.64rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.venom-node-column {
+    display: grid;
+    gap: 0.8rem;
+}
+
+.venom-lb-node {
+    border: 1px solid color-mix(in srgb, var(--venom-accent-soft) 34%, var(--venom-border));
+    background: color-mix(in srgb, var(--venom-accent-soft) 8%, var(--venom-bg-elevated));
+    border-radius:var(--rounding-lg);
+    min-height: 3rem;
+    display: grid;
+    place-items: center;
+    font-family: "JetBrains Mono", "Consolas", monospace;
+    font-size: 0.75rem;
+    color: var(--venom-text);
+}
+
+.venom-lb-node--muted {
+    opacity: 0.65;
+}
+
+.venom-node-lines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.32;
+}
+
+.venom-line {
+    position: absolute;
+    background: var(--venom-accent);
+}
+
+.venom-line--v {
+    width: 1px;
+    height: 4.6rem;
+    top: 7.5rem;
+    left: 50%;
+}
+
+.venom-line--h-left {
+    height: 1px;
+    width: 6.2rem;
+    top: 12rem;
+    left: 21%;
+}
+
+.venom-line--h-right {
+    height: 1px;
+    width: 6.2rem;
+    top: 12rem;
+    right: 21%;
+}
+
+.venom-architecture__details {
+    display: grid;
+    gap: 1.4rem;
+}
+
+.venom-architecture__details article h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--venom-accent);
+}
+
+.venom-architecture__details article:last-child h3 {
+    color: var(--venom-text);
+}
+
+.venom-architecture__details article p {
+    margin: 0.55rem 0 0;
+    color: var(--venom-text-muted);
+    line-height: 1.72;
+}
+
+.venom-pricing {
+    padding: 6.3rem 0;
+    background: var(--venom-bg);
+}
+
+.venom-pricing__grid {
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.venom-plan-card {
+    position: relative;
+    padding: 1.7rem;
+    border-radius:var(--rounding-lg);
+    border: 1px solid var(--venom-border);
+    background: var(--venom-bg-elevated);
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--venom-shadow);
+}
+
+.venom-plan-card--featured {
+    border-width: 2px;
+    border-color: var(--venom-accent);
+    transform: scale(1.02);
+}
+
+.venom-badge {
+    position: absolute;
+    top: -0.7rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    padding: 0.2rem 0.62rem;
+    background: var(--venom-accent);
+    color: var(--venom-on-accent);
+    font-size: 0.56rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 900;
+}
+
+html[data-venom-theme="dark"] .venom-badge {
+    color: var(--venom-on-accent);
+}
+
+.venom-plan-card h3 {
+    margin: 0;
+    font-size: 1.22rem;
+    font-weight: 800;
+}
+
+.venom-plan-subtitle {
+    margin: 0.45rem 0 0;
+    color: var(--venom-text-soft);
+    font-size: 0.9rem;
+}
+
+.venom-price {
+    margin: 1.2rem 0;
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--venom-text);
+}
+
+.venom-price span {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--venom-text-soft);
+}
+
+.venom-plan-card ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.65rem;
+    flex: 1;
+}
+
+.venom-plan-card li {
+    position: relative;
+    padding-left: 1.35rem;
+    color: var(--venom-text-muted);
+    line-height: 1.6;
+}
+
+.venom-plan-card li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.46rem;
+    width: 0.62rem;
+    height: 0.62rem;
+    border-radius: 999px;
+    background: var(--venom-accent);
+}
+
+.venom-plan-card li.venom-unavailable {
+    color: var(--venom-text-soft);
+}
+
+.venom-plan-card li.venom-unavailable::before {
+    background: var(--venom-text-soft);
+}
+
+.venom-plan-btn {
+    margin-top: 1.25rem;
+    min-height: 2.9rem;
+    border-radius:var(--rounding-md);
+    font-weight: 700;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.venom-plan-btn--solid {
+    background: var(--venom-accent);
+    color: var(--venom-on-accent);
+}
+
+html[data-venom-theme="dark"] .venom-plan-btn--solid {
+    color: var(--venom-on-accent);
+}
+
+.venom-plan-btn--outline {
+    border-color: var(--venom-border);
+    background: transparent;
+    color: var(--venom-text);
+}
+
+.venom-plan-btn:hover {
+    border-color: var(--venom-accent);
+    color: var(--venom-accent);
+}
+
+.venom-plan-btn--solid:hover {
+    color: var(--venom-on-accent);
+}
+
+html[data-venom-theme="dark"] .venom-plan-btn--solid:hover {
+    color: var(--venom-on-accent);
+}
+
+.venom-main-footer {
+    background: color-mix(in srgb, var(--venom-bg-elevated) 88%, var(--venom-bg));
+    border-top: 1px solid var(--venom-border);
+    padding: 4.6rem 0 2rem;
+}
+
+.venom-footer-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.venom-footer-brand__top {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.venom-footer-brand__logo {
+    width: 2rem;
+    height: 2rem;
+    border-radius:var(--rounding-md);
+    background: var(--venom-accent);
+    color: var(--venom-on-accent);
+    display: grid;
+    place-items: center;
+}
+
+html[data-venom-theme="dark"] .venom-footer-brand__logo {
+    color: var(--venom-on-accent);
+}
+
+.venom-footer-brand__logo svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+.venom-footer-brand p {
+    margin: 0.85rem 0 0;
+    max-width: 28rem;
+    color: var(--venom-text-soft);
+    line-height: 1.7;
+}
+
+.venom-footer-grid h4 {
+    margin: 0 0 0.75rem;
+    font-size: 0.92rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--venom-accent);
+}
+
+.venom-footer-grid ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.venom-footer-grid a {
+    color: var(--venom-text-soft);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.venom-footer-grid a:hover {
+    color: var(--venom-accent);
+}
+
+.venom-disclaimer {
+    margin-top: 1.8rem;
+    padding: 1rem;
+    border-radius:var(--rounding-md);
+    border: 1px solid var(--venom-border);
+    background: color-mix(in srgb, var(--venom-bg-muted) 78%, transparent);
+}
+
+.venom-disclaimer p {
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.64rem;
+    line-height: 1.7;
+    color: var(--venom-text-soft);
+}
+
+.venom-copyright {
+    margin: 1.1rem 0 0;
+    font-size: 0.72rem;
+    text-align: center;
+    color: var(--venom-text-soft);
+}
+
+.venom-jump-top {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    width: 2.85rem;
+    height: 2.85rem;
+    border: none;
+    border-radius: 999px;
+    background: var(--venom-accent);
+    color: var(--venom-on-accent);
+    box-shadow: var(--venom-shadow);
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    transform: translateY(0.75rem);
+    pointer-events: none;
+    transition: all 0.24s ease;
+    z-index: 40;
+}
+
+html[data-venom-theme="dark"] .venom-jump-top {
+    color: var(--venom-on-accent);
+}
+
+.venom-jump-top.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.venom-jump-top svg {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.venom-cookie {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 40;
+    width: min(22rem, calc(100% - 2rem));
+    border-radius:var(--rounding-lg);
+    border: 1px solid var(--venom-border);
+    background: color-mix(in srgb, var(--venom-bg-elevated) 94%, transparent);
+    box-shadow: var(--venom-shadow);
+    padding: 1rem;
+}
+
+.venom-cookie__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.venom-cookie.hidden {
+    display: none;
+}
+
+.venom-cookie h5 {
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 800;
+}
+
+.venom-cookie__close {
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 999px;
+    border: 1px solid var(--venom-border);
+    background: transparent;
+    color: var(--venom-text-muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-size: 0.85rem;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.venom-cookie__close:hover {
+    color: var(--venom-text);
+    border-color: color-mix(in srgb, var(--venom-accent) 42%, var(--venom-border) 58%);
+    background: color-mix(in srgb, var(--venom-accent) 8%, transparent);
+}
+
+.venom-cookie p {
+    margin: 0.55rem 0 0;
+    color: var(--venom-text-muted);
+    font-size: 0.78rem;
+    line-height: 1.45;
+}
+
+.venom-cookie__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin-top: 0.9rem;
+}
+
+.venom-cookie__btn {
+    border-radius:var(--rounding-md);
+    border: 1px solid transparent;
+    font-size: 0.72rem;
+    font-weight: 700;
+    min-height: 2rem;
+    padding: 0.2rem 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.venom-cookie__btn--solid {
+    background: var(--venom-accent);
+    color: var(--venom-on-accent);
+}
+
+html[data-venom-theme="dark"] .venom-cookie__btn--solid {
+    color: var(--venom-on-accent);
+}
+
+.venom-cookie__btn--ghost {
+    background: transparent;
+    border-color: var(--venom-border);
+    color: var(--venom-text);
+}
+
+@media (max-width: 420px) {
+    .venom-cookie__actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 1100px) {
+    .venom-nav {
+        display: none;
+    }
+
+    .venom-architecture__grid,
+    .venom-pricing__grid,
+    .venom-footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .venom-plan-card--featured {
+        transform: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .venom-floating-controls {
+        top: auto;
+        bottom: 4.7rem;
+        right: 0.75rem;
+        left: 0.75rem;
+        justify-content: space-between;
+        border-radius:var(--rounding-lg);
+    }
+
+    .venom-toggle-btn {
+        flex: 1;
+    }
+
+    .venom-chip {
+        font-size: 0.66rem;
+    }
+
+    .venom-hero {
+        padding-top: 5rem;
+    }
+
+    .venom-jump-top {
+        bottom: 4.2rem;
+    }
+
+    .venom-cookie {
+        bottom: 8.8rem;
+    }
+}

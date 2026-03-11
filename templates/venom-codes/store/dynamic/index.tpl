@@ -1,5 +1,3 @@
-<link href="{assetPath file='store.css'}?v={$versionHash}" rel="stylesheet">
-<link href="{assetPath ns='store/dynamic/assets' file='dynamic-store.css'}?v={$versionHash}" rel="stylesheet">
 
 <div class="dynamic-landing-page"
      style="

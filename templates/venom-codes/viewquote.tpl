@@ -6,15 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{$companyname} - {lang key='quotenumber'}{$id}</title>
 
-    <link href="{assetPath file='all.min.css'}?v={$versionHash}" rel="stylesheet">
-    <link href="{assetPath file='theme.min.css'}?v={$versionHash}" rel="stylesheet">
+    <link href="{$WEB_ROOT}/templates/{$template}/css/theme.css?v={$versionHash}" rel="stylesheet">
     <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome.min.css" rel="stylesheet">
     <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome-solid.min.css" rel="stylesheet">
     <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome-regular.min.css" rel="stylesheet">
     <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome-light.min.css" rel="stylesheet">
     <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome-brands.min.css" rel="stylesheet">
     <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome-duotone.min.css" rel="stylesheet">
-    <link href="{assetPath file='invoice.min.css'}?v={$versionHash}" rel="stylesheet">
+    <link href="{$WEB_ROOT}/templates/{$template}/css/invoice.css?v={$versionHash}" rel="stylesheet">
     <script src="{assetPath file='scripts.min.js'}?v={$versionHash}"></script>
 </head>
 <body>

@@ -1,4 +1,3 @@
-<link href="{assetPath file='store.css'}?v={$versionHash}" rel="stylesheet">
 <div class="landing-page bg-white threesixtymonitoring">
     <section class="section-header" style="background-image: url('{$WEB_ROOT}/assets/img/marketconnect/threesixtymonitoring/section-header-bg.png')">
         <div class="container">

@@ -1,4 +1,3 @@
-<link href="{assetPath file='store.css'}?v={$versionHash}" rel="stylesheet">
 
 <div class="landing-page xovinow">
     <div class="header text-center text-lg-left mb-xl-5">

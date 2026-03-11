@@ -4,7 +4,6 @@
 
 <link type="text/css" rel="stylesheet" href="{$BASE_PATH_CSS}/ion.rangeSlider.css" property="stylesheet" />
 <link type="text/css" rel="stylesheet" href="{$BASE_PATH_CSS}/ion.rangeSlider.skinHTML5.css" property="stylesheet" />
-<link href="{assetPath file='store.css'}" rel="stylesheet">
 
 <div class="landing-page bg-white codeguard">
 

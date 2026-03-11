@@ -1,4 +1,3 @@
-<link href="{assetPath file='store.css'}" rel="stylesheet">
 
 <div class="container">
     <div class="row">

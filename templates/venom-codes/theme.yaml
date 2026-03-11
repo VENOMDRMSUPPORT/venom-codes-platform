@@ -1,8 +1,8 @@
-# Venom Codes Theme Configuration File
+# WHMCS Venom Codes Theme Configuration File
 
 name: "Venom Codes"
-description: "Official Venom Codes client area theme for WHMCS"
-author: "Venom Solutions"
+description: "Premium WHMCS template foundation for VENOM CODES"
+author: "Venom Codes"
 properties:
   serverSidePagination: false # Defines client side will handle pagination
 provides:
