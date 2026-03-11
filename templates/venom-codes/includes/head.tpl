@@ -39,11 +39,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
-<link href="{$WEB_ROOT}/templates/{$template}/css/venom-homepage.css?v={$versionHash}" rel="stylesheet">
 {/if}
 
 <!-- Styling -->
 {\WHMCS\View\Asset::fontCssInclude('open-sans-family.css')}
+{include file="$template/includes/tokens.tpl"}
 <link href="{$WEB_ROOT}/templates/{$template}/css/theme.css?v={$versionHash}" rel="stylesheet">
 <link href="{$WEB_ROOT}/templates/{$template}/css/flags.css?v={$versionHash}" rel="stylesheet">
 <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome.min.css" rel="stylesheet">
