@@ -171,6 +171,8 @@
   --venom-header-bg: color-mix(in srgb, var(--venom-bg-elevated) 92%, transparent);
   --venom-shadow: 0 20px 40px color-mix(in srgb, var(--venom-text) 10%, transparent);
   --venom-ring: color-mix(in srgb, var(--venom-accent) 34%, transparent);
+  --venom-interactive-border: color-mix(in srgb, var(--venom-border) 72%, var(--venom-accent) 28%);
+  --venom-focus-outline: color-mix(in srgb, var(--venom-ring) 78%, var(--venom-border) 22%);
   --venom-on-accent: var(--text-inverted);
 }
 
@@ -186,6 +188,8 @@ html[data-venom-theme="dark"] {
   --venom-header-bg: color-mix(in srgb, var(--venom-bg) 92%, var(--venom-accent) 8%);
   --venom-shadow: 0 24px 48px color-mix(in srgb, black 70%, var(--venom-accent) 30%);
   --venom-ring: color-mix(in srgb, var(--venom-accent-soft) 40%, transparent);
+  --venom-interactive-border: color-mix(in srgb, var(--venom-border) 68%, var(--venom-accent) 32%);
+  --venom-focus-outline: color-mix(in srgb, var(--venom-ring) 84%, var(--venom-border) 16%);
   --venom-on-accent: color-mix(in srgb, black 84%, var(--venom-accent) 16%);
 }
 
@@ -9634,6 +9638,37 @@ a.admin-inline-edit:hover {
   max-width: 400px;
 }
 
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
 /*
  * We use a larger font-size than the bootstrap default, which requires an increase
  * in the top offset to maintain correct alignment in form control feedback.
@@ -13225,7 +13260,7 @@ header.header .toolbar .nav-link:hover {
 .venom-toggle-btn:focus-visible,
 .venom-cookie__btn:focus-visible,
 .venom-jump-top:focus-visible {
-  outline: var(--outline-md) solid color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent);
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
   outline-offset: 2px;
 }
 
@@ -19535,6 +19570,8 @@ section#footer {
 html[data-venom-home="1"] body {
     background: var(--venom-bg);
     color: var(--venom-text);
+    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 html[data-venom-home="1"] #header,
@@ -19575,68 +19612,363 @@ html[data-venom-home="1"] #main-body .primary-content {
 }
 
 .venom-floating-controls {
+    --venom-switch-size: 3.4rem;
+    --venom-switch-overhang: 1.05rem;
+    --venom-dot-size: 1.04rem;
+    --venom-arc-radius: 3.35rem;
     position: fixed;
-    z-index: 60;
-    right: 1rem;
-    top: 6rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.6rem;
-    background: color-mix(in srgb, var(--venom-bg-elevated) 88%, transparent);
-    border: 1px solid var(--venom-border);
-    border-radius:var(--venom-legacy-radius, 999px);
-    box-shadow: var(--venom-shadow);
-    backdrop-filter: blur(10px);
+    z-index: 12000;
+    right: 0;
+    top: 6.5rem;
+    width: 9.25rem;
+    height: 9.25rem;
+    pointer-events: none;
+    overflow: visible;
+    isolation: isolate;
 }
 
-.venom-toggle-btn {
-    border: 1px solid var(--venom-border);
-    border-radius:var(--venom-legacy-radius, 999px);
-    background: var(--venom-bg);
-    color: var(--venom-text);
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.45rem 0.85rem;
-    transition: all 0.2s ease;
+.venom-floating-controls__anchor {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-50%);
+    pointer-events: auto;
+    overflow: visible;
 }
 
-.venom-toggle-btn:hover {
-    border-color: var(--venom-accent);
-    color: var(--venom-accent);
+.venom-floating-controls .venom-toggle-btn {
+    position: absolute;
+    right: calc(-1 * var(--venom-switch-overhang));
+    top: 50%;
+    width: var(--venom-switch-size);
+    height: var(--venom-switch-size);
+    transform: translateY(-50%);
+    border-radius: 50%;
+    border: 1px solid var(--venom-interactive-border);
+    background: var(--venom-accent);
+    color: var(--venom-on-accent);
+    box-shadow:
+        0 10px 22px color-mix(in srgb, var(--venom-accent) 34%, transparent),
+        0 0 0 1px color-mix(in srgb, var(--venom-bg-elevated) 55%, transparent) inset;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: transform 0.24s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.22s ease, border-color 0.22s ease;
+    touch-action: manipulation;
+}
+
+.venom-floating-controls .venom-toggle-btn:hover,
+.venom-floating-controls .venom-toggle-btn:focus-visible {
+    transform: translate(-0.12rem, -50%) scale(1.02);
+    border-color: color-mix(in srgb, var(--venom-interactive-border) 76%, var(--venom-accent) 24%);
+    box-shadow:
+        0 13px 26px color-mix(in srgb, var(--venom-accent) 42%, transparent),
+        0 0 0 1px color-mix(in srgb, var(--venom-bg-elevated) 64%, transparent) inset;
+}
+
+.venom-floating-controls .venom-toggle-btn:focus-visible {
+    outline: var(--outline-md) solid var(--venom-focus-outline);
+    outline-offset: 2px;
+}
+
+.venom-floating-controls .venom-toggle-icon {
+    position: absolute;
+    width: 1.28rem;
+    height: 1.28rem;
+    display: grid;
+    place-items: center;
+    color: var(--venom-on-accent);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.venom-toggle-icon svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 1px 1px color-mix(in srgb, var(--venom-bg) 38%, transparent));
+}
+
+.venom-floating-controls .venom-toggle-btn[data-theme="light"] .venom-toggle-icon--sun,
+.venom-floating-controls .venom-toggle-btn[data-theme="dark"] .venom-toggle-icon--moon {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+.venom-floating-controls .venom-toggle-btn[data-theme="light"] .venom-toggle-icon--moon,
+.venom-floating-controls .venom-toggle-btn[data-theme="dark"] .venom-toggle-icon--sun {
+    opacity: 0;
+    transform: scale(0.7) rotate(-12deg);
+    pointer-events: none;
 }
 
 .venom-accent-picker {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
+    position: absolute;
+    right: calc((var(--venom-switch-size) * 0.5) - (var(--venom-dot-size) * 0.5) - var(--venom-switch-overhang));
+    top: 50%;
+    width: 0;
+    height: 0;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.venom-accent-picker::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--venom-arc-radius));
+    top: calc(-1 * var(--venom-arc-radius));
+    width: calc(var(--venom-arc-radius) * 2);
+    height: calc(var(--venom-arc-radius) * 2);
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--venom-border) 74%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--venom-accent) 14%, transparent) inset;
+    clip-path: inset(0 50% 0 0);
+    opacity: 0;
+    transform: scale(0.9);
+    transform-origin: center;
+    transition: opacity 0.24s ease, transform 0.32s cubic-bezier(0.22, 0.61, 0.36, 1);
+    pointer-events: none;
+}
+
+.venom-accent-picker::after {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--venom-arc-radius) + 0.5rem);
+    top: calc(-1 * var(--venom-arc-radius) + 0.5rem);
+    width: calc(var(--venom-arc-radius) * 2 - 1rem);
+    height: calc(var(--venom-arc-radius) * 2 - 1rem);
+    border-radius: 50%;
+    background: radial-gradient(circle at 64% 50%, color-mix(in srgb, var(--venom-accent) 28%, transparent) 0%, transparent 70%);
+    opacity: 0;
+    transform: scale(0.88) rotate(-10deg);
+    transform-origin: center;
+    transition: opacity 0.26s ease, transform 0.32s cubic-bezier(0.22, 0.61, 0.36, 1);
+    pointer-events: none;
+    filter: blur(7px);
 }
 
 .venom-accent-dot {
-    width: 1.1rem;
-    height: 1.1rem;
-    border-radius:var(--venom-legacy-radius, 50%);
-    border: 2px solid transparent;
+    width: var(--venom-dot-size);
+    height: var(--venom-dot-size);
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--venom-border) 80%, transparent);
+    box-shadow: 0 6px 14px color-mix(in srgb, var(--venom-accent) 26%, transparent);
     cursor: pointer;
-    transition: transform 0.2s ease;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(0, 0) scale(0.42) rotate(-12deg);
+    transition: transform 0.34s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.24s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.28s ease;
+}
+
+.venom-accent-dot::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0;
+    filter: blur(6px);
+    transform: scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: -1;
+}
+
+.venom-accent-dot:nth-child(1) {
+    --arc-x: -1.6rem;
+    --arc-y: -2.77rem;
+    transition-delay: 0ms;
+}
+
+.venom-accent-dot:nth-child(2) {
+    --arc-x: -2.77rem;
+    --arc-y: -1.6rem;
+    transition-delay: 25ms;
+}
+
+.venom-accent-dot:nth-child(3) {
+    --arc-x: -3.2rem;
+    --arc-y: 0;
+    transition-delay: 50ms;
+}
+
+.venom-accent-dot:nth-child(4) {
+    --arc-x: -2.77rem;
+    --arc-y: 1.6rem;
+    transition-delay: 75ms;
+}
+
+.venom-accent-dot:nth-child(5) {
+    --arc-x: -1.6rem;
+    --arc-y: 2.77rem;
+    transition-delay: 100ms;
+}
+
+.venom-floating-controls:hover .venom-accent-picker,
+.venom-floating-controls:focus-within .venom-accent-picker,
+.venom-floating-controls.is-open .venom-accent-picker {
+    pointer-events: auto;
+}
+
+.venom-floating-controls:hover .venom-accent-picker::before,
+.venom-floating-controls:focus-within .venom-accent-picker::before,
+.venom-floating-controls.is-open .venom-accent-picker::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.venom-floating-controls:hover .venom-accent-picker::after,
+.venom-floating-controls:focus-within .venom-accent-picker::after,
+.venom-floating-controls.is-open .venom-accent-picker::after {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+.venom-floating-controls:hover .venom-accent-dot,
+.venom-floating-controls:focus-within .venom-accent-dot,
+.venom-floating-controls.is-open .venom-accent-dot {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translate(var(--arc-x), var(--arc-y)) scale(1) rotate(0deg);
+    animation: venom-dot-enter 0.42s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
 .venom-accent-dot:hover {
-    transform: scale(1.08);
+    transform: translate(var(--arc-x), var(--arc-y)) scale(1.08) rotate(4deg);
+    box-shadow: 0 8px 18px color-mix(in srgb, var(--venom-accent) 34%, transparent);
+}
+
+.venom-accent-dot:focus-visible {
+    outline: var(--outline-md) solid var(--venom-focus-outline);
+    outline-offset: 2px;
 }
 
 .venom-accent-dot.is-active {
-    border-color: var(--venom-text);
-    box-shadow: 0 0 0 4px var(--venom-ring);
+    border-color: var(--venom-interactive-border);
+    box-shadow:
+        0 0 0 2px var(--venom-bg-elevated),
+        0 0 0 4px color-mix(in srgb, var(--venom-ring) 82%, transparent),
+        0 8px 18px color-mix(in srgb, var(--venom-accent) 34%, transparent);
+    transform: translate(var(--arc-x), var(--arc-y)) scale(1.1) rotate(0deg);
 }
 
-.venom-accent-dot[data-accent="ocean"] { background: color-mix(in srgb, var(--blue) 82%, var(--cyan) 18%); }
-.venom-accent-dot[data-accent="emerald"] { background: color-mix(in srgb, var(--green) 64%, var(--cyan) 36%); }
-.venom-accent-dot[data-accent="crimson"] { background: color-mix(in srgb, var(--red) 76%, var(--orange) 24%); }
-.venom-accent-dot[data-accent="amber"] { background: color-mix(in srgb, var(--orange) 72%, var(--yellow) 28%); }
-.venom-accent-dot[data-accent="violet"] { background: color-mix(in srgb, var(--purple) 74%, var(--pink) 26%); }
+.venom-accent-dot[data-accent="ocean"] { 
+    background: linear-gradient(135deg, color-mix(in srgb, var(--blue) 75%, transparent) 0%, color-mix(in srgb, var(--cyan) 65%, transparent) 100%); 
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--blue) 35%, transparent), 0 0 20px color-mix(in srgb, var(--blue) 15%, transparent);
+}
+.venom-accent-dot[data-accent="emerald"] { 
+    background: linear-gradient(135deg, color-mix(in srgb, var(--green) 75%, transparent) 0%, color-mix(in srgb, var(--cyan) 65%, transparent) 100%); 
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--green) 35%, transparent), 0 0 20px color-mix(in srgb, var(--green) 15%, transparent);
+}
+.venom-accent-dot[data-accent="crimson"] { 
+    background: linear-gradient(135deg, color-mix(in srgb, var(--red) 75%, transparent) 0%, color-mix(in srgb, var(--orange) 65%, transparent) 100%); 
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--red) 35%, transparent), 0 0 20px color-mix(in srgb, var(--red) 15%, transparent);
+}
+.venom-accent-dot[data-accent="amber"] { 
+    background: linear-gradient(135deg, color-mix(in srgb, var(--orange) 75%, transparent) 0%, color-mix(in srgb, var(--yellow) 65%, transparent) 100%); 
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--orange) 35%, transparent), 0 0 20px color-mix(in srgb, var(--orange) 15%, transparent);
+}
+.venom-accent-dot[data-accent="violet"] { 
+    background: linear-gradient(135deg, color-mix(in srgb, var(--purple) 75%, transparent) 0%, color-mix(in srgb, var(--pink) 65%, transparent) 100%); 
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--purple) 35%, transparent), 0 0 20px color-mix(in srgb, var(--purple) 15%, transparent);
+}
+
+.venom-accent-dot[data-accent="ocean"]::after,
+.venom-accent-dot[data-accent="emerald"]::after,
+.venom-accent-dot[data-accent="crimson"]::after,
+.venom-accent-dot[data-accent="amber"]::after,
+.venom-accent-dot[data-accent="violet"]::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0;
+    filter: blur(8px);
+    z-index: -1;
+    transition: opacity 0.35s ease;
+}
+
+.venom-accent-dot:hover::after {
+    opacity: 0.45;
+}
+
+.venom-accent-dot.is-active::after {
+    opacity: 0.4;
+}
+
+@keyframes venom-dot-enter {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(0.42) rotate(-12deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(var(--arc-x), var(--arc-y)) scale(1) rotate(0deg);
+    }
+}
+
+@media (max-width: 767px) {
+    .venom-floating-controls {
+        --venom-switch-size: 3.02rem;
+        --venom-switch-overhang: 0.95rem;
+        --venom-dot-size: 0.94rem;
+        --venom-arc-radius: 2.75rem;
+        top: 5.25rem;
+        width: 7.95rem;
+        height: 7.95rem;
+    }
+
+    .venom-floating-controls .venom-toggle-btn {
+        width: var(--venom-switch-size);
+        height: var(--venom-switch-size);
+    }
+
+    .venom-floating-controls .venom-toggle-icon {
+        width: 1.16rem;
+        height: 1.16rem;
+    }
+
+    .venom-accent-dot {
+        width: var(--venom-dot-size);
+        height: var(--venom-dot-size);
+    }
+
+    .venom-accent-dot:nth-child(1) {
+        --arc-x: -1.35rem;
+        --arc-y: -2.34rem;
+    }
+
+    .venom-accent-dot:nth-child(2) {
+        --arc-x: -2.34rem;
+        --arc-y: -1.35rem;
+    }
+
+    .venom-accent-dot:nth-child(3) {
+        --arc-x: -2.7rem;
+        --arc-y: 0;
+    }
+
+    .venom-accent-dot:nth-child(4) {
+        --arc-x: -2.34rem;
+        --arc-y: 1.35rem;
+    }
+
+    .venom-accent-dot:nth-child(5) {
+        --arc-x: -1.35rem;
+        --arc-y: 2.34rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .venom-toggle-btn,
+    .venom-toggle-icon,
+    .venom-accent-dot {
+        transition-duration: 0.05s;
+    }
+}
 
 .venom-announcement {
     background: var(--venom-accent);
@@ -20413,7 +20745,7 @@ html[data-venom-theme="dark"] .venom-cookie__btn--solid {
 
 .venom-cookie__btn--ghost {
     background: transparent;
-    border-color: var(--venom-border);
+    border-color: var(--venom-interactive-border);
     color: var(--venom-text);
 }
 
@@ -20441,16 +20773,14 @@ html[data-venom-theme="dark"] .venom-cookie__btn--solid {
 
 @media (max-width: 768px) {
     .venom-floating-controls {
-        top: auto;
-        bottom: 4.7rem;
-        right: 0.75rem;
-        left: 0.75rem;
-        justify-content: space-between;
-        border-radius:var(--rounding-lg);
+        top: 5.25rem;
+        right: 0;
+        left: auto;
+        bottom: auto;
     }
 
     .venom-toggle-btn {
-        flex: 1;
+        flex: 0 0 auto;
     }
 
     .venom-chip {
@@ -30681,3 +31011,1331 @@ body {
   padding: 20px;
   max-width: 400px;
 }
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+.invoice-container .invoice-status {
+  margin: 20px 0 0 0;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Invoice Status Colors */
+.draft {
+  color: var(--venom-legacy-color, #888);
+}
+
+.unpaid {
+  color: var(--venom-legacy-color, #cc0000);
+}
+
+.paid {
+  color: var(--venom-legacy-color, #779500);
+}
+
+.refunded {
+  color: var(--venom-legacy-color, #224488);
+}
+
+.cancelled {
+  color: var(--venom-legacy-color, #888);
+}
+
+.collections {
+  color: var(--venom-legacy-color, #ffcc00);
+}
+
+/* Payment Button Formatting */
+.invoice-container .payment-btn-container {
+  margin-top: 5px;
+  text-align: center;
+}
+
+.invoice-container .payment-btn-container table {
+  margin: 0 auto;
+}
+
+/* Text Formatting */
+.invoice-container .small-text {
+  font-size: 0.9em;
+}
+
+/* Invoice Items Table Formatting */
+.invoice-container td.total-row {
+  background-color: var(--venom-legacy-color, #f8f8f8);
+}
+
+.invoice-container td.no-line {
+  border: 0;
+}
+
+.invoice-container .invoice-header img {
+  max-width: 100%;
+}
+
+/* Overlay */
+#fullpage-overlay {
+  display: table;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  background-color: var(--venom-legacy-color, rgba(0, 0, 0, 0.8));
+  color: var(--venom-legacy-color, #fff);
+}
+
+#fullpage-overlay .outer-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+
+
+@media (min-width: 500px) {
+  .invoice-col {
+    float: left;
+    width: 50%;
+  }
+  .invoice-col.right {
+    float: right;
+    text-align: right;
+  }
+}
+/* Invoice Status Formatting */
+.invoice-container .invoice-status {
+  margin: 20px 0 0 0;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Invoice Status Colors */
+.draft {
+  color: var(--venom-legacy-color, #888);
+}
+
+.unpaid {
+  color: var(--venom-legacy-color, #cc0000);
+}
+
+.paid {
+  color: var(--venom-legacy-color, #779500);
+}
+
+.refunded {
+  color: var(--venom-legacy-color, #224488);
+}
+
+.cancelled {
+  color: var(--venom-legacy-color, #888);
+}
+
+.collections {
+  color: var(--venom-legacy-color, #ffcc00);
+}
+
+/* Payment Button Formatting */
+.invoice-container .payment-btn-container {
+  margin-top: 5px;
+  text-align: center;
+}
+
+.invoice-container .payment-btn-container table {
+  margin: 0 auto;
+}
+
+/* Text Formatting */
+.invoice-container .small-text {
+  font-size: 0.9em;
+}
+
+/* Invoice Items Table Formatting */
+.invoice-container td.total-row {
+  background-color: var(--venom-legacy-color, #f8f8f8);
+}
+
+.invoice-container td.no-line {
+  border: 0;
+}
+
+.invoice-container .invoice-header img {
+  max-width: 100%;
+}
+
+/* Overlay */
+#fullpage-overlay {
+  display: table;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  background-color: var(--venom-legacy-color, rgba(0, 0, 0, 0.8));
+  color: var(--venom-legacy-color, #fff);
+}
+
+#fullpage-overlay .outer-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+
+/* Invoice Status Colors */
+.draft {
+  color: var(--venom-legacy-color, #888);
+}
+
+.unpaid {
+  color: var(--venom-legacy-color, #cc0000);
+}
+
+.paid {
+  color: var(--venom-legacy-color, #779500);
+}
+
+.refunded {
+  color: var(--venom-legacy-color, #224488);
+}
+
+.cancelled {
+  color: var(--venom-legacy-color, #888);
+}
+
+.collections {
+  color: var(--venom-legacy-color, #ffcc00);
+}
+
+/* Payment Button Formatting */
+.invoice-container .payment-btn-container {
+  margin-top: 5px;
+  text-align: center;
+}
+
+.invoice-container .payment-btn-container table {
+  margin: 0 auto;
+}
+
+/* Text Formatting */
+.invoice-container .small-text {
+  font-size: 0.9em;
+}
+
+/* Invoice Items Table Formatting */
+.invoice-container td.total-row {
+  background-color: var(--venom-legacy-color, #f8f8f8);
+}
+
+.invoice-container td.no-line {
+  border: 0;
+}
+
+.invoice-container .invoice-header img {
+  max-width: 100%;
+}
+
+/* Overlay */
+#fullpage-overlay {
+  display: table;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  background-color: var(--venom-legacy-color, rgba(0, 0, 0, 0.8));
+  color: var(--venom-legacy-color, #fff);
+}
+
+#fullpage-overlay .outer-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+
+
+
+@media (min-width: 500px) {
+  .invoice-col {
+    float: left;
+    width: 50%;
+  }
+  .invoice-col.right {
+    float: right;
+    text-align: right;
+  }
+}
+/* Invoice Status Formatting */
+.invoice-container .invoice-status {
+  margin: 20px 0 0 0;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Invoice Status Colors */
+.draft {
+  color: var(--venom-legacy-color, #888);
+}
+
+.unpaid {
+  color: var(--venom-legacy-color, #cc0000);
+}
+
+.paid {
+  color: var(--venom-legacy-color, #779500);
+}
+
+.refunded {
+  color: var(--venom-legacy-color, #224488);
+}
+
+.cancelled {
+  color: var(--venom-legacy-color, #888);
+}
+
+.collections {
+  color: var(--venom-legacy-color, #ffcc00);
+}
+
+/* Payment Button Formatting */
+.invoice-container .payment-btn-container {
+  margin-top: 5px;
+  text-align: center;
+}
+
+.invoice-container .payment-btn-container table {
+  margin: 0 auto;
+}
+
+/* Text Formatting */
+.invoice-container .small-text {
+  font-size: 0.9em;
+}
+
+/* Invoice Items Table Formatting */
+.invoice-container td.total-row {
+  background-color: var(--venom-legacy-color, #f8f8f8);
+}
+
+.invoice-container td.no-line {
+  border: 0;
+}
+
+.invoice-container .invoice-header img {
+  max-width: 100%;
+}
+
+/* Overlay */
+#fullpage-overlay {
+  display: table;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  background-color: var(--venom-legacy-color, rgba(0, 0, 0, 0.8));
+  color: var(--venom-legacy-color, #fff);
+}
+
+#fullpage-overlay .outer-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+.invoice-container .invoice-status {
+  margin: 20px 0 0 0;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Invoice Status Colors */
+.draft {
+  color: var(--venom-legacy-color, #888);
+}
+
+.unpaid {
+  color: var(--venom-legacy-color, #cc0000);
+}
+
+.paid {
+  color: var(--venom-legacy-color, #779500);
+}
+
+.refunded {
+  color: var(--venom-legacy-color, #224488);
+}
+
+.cancelled {
+  color: var(--venom-legacy-color, #888);
+}
+
+.collections {
+  color: var(--venom-legacy-color, #ffcc00);
+}
+
+/* Payment Button Formatting */
+.invoice-container .payment-btn-container {
+  margin-top: 5px;
+  text-align: center;
+}
+
+.invoice-container .payment-btn-container table {
+  margin: 0 auto;
+}
+
+/* Text Formatting */
+.invoice-container .small-text {
+  font-size: 0.9em;
+}
+
+/* Invoice Items Table Formatting */
+.invoice-container td.total-row {
+  background-color: var(--venom-legacy-color, #f8f8f8);
+}
+
+.invoice-container td.no-line {
+  border: 0;
+}
+
+.invoice-container .invoice-header img {
+  max-width: 100%;
+}
+
+/* Overlay */
+#fullpage-overlay {
+  display: table;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  background-color: var(--venom-legacy-color, rgba(0, 0, 0, 0.8));
+  color: var(--venom-legacy-color, #fff);
+}
+
+#fullpage-overlay .outer-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+
+
+@media (min-width: 500px) {
+  .invoice-col {
+    float: left;
+    width: 50%;
+  }
+  .invoice-col.right {
+    float: right;
+    text-align: right;
+  }
+}
+/* Invoice Status Formatting */
+.invoice-container .invoice-status {
+  margin: 20px 0 0 0;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Invoice Status Colors */
+.draft {
+  color: var(--venom-legacy-color, #888);
+}
+
+.unpaid {
+  color: var(--venom-legacy-color, #cc0000);
+}
+
+.paid {
+  color: var(--venom-legacy-color, #779500);
+}
+
+.refunded {
+  color: var(--venom-legacy-color, #224488);
+}
+
+.cancelled {
+  color: var(--venom-legacy-color, #888);
+}
+
+.collections {
+  color: var(--venom-legacy-color, #ffcc00);
+}
+
+/* Payment Button Formatting */
+.invoice-container .payment-btn-container {
+  margin-top: 5px;
+  text-align: center;
+}
+
+.invoice-container .payment-btn-container table {
+  margin: 0 auto;
+}
+
+/* Text Formatting */
+.invoice-container .small-text {
+  font-size: 0.9em;
+}
+
+/* Invoice Items Table Formatting */
+.invoice-container td.total-row {
+  background-color: var(--venom-legacy-color, #f8f8f8);
+}
+
+.invoice-container td.no-line {
+  border: 0;
+}
+
+.invoice-container .invoice-header img {
+  max-width: 100%;
+}
+
+/* Overlay */
+#fullpage-overlay {
+  display: table;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  background-color: var(--venom-legacy-color, rgba(0, 0, 0, 0.8));
+  color: var(--venom-legacy-color, #fff);
+}
+
+#fullpage-overlay .outer-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+.invoice-container .invoice-status {
+  margin: 20px 0 0 0;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Invoice Status Colors */
+.draft {
+  color: var(--venom-legacy-color, #888);
+}
+
+.unpaid {
+  color: var(--venom-legacy-color, #cc0000);
+}
+
+.paid {
+  color: var(--venom-legacy-color, #779500);
+}
+
+.refunded {
+  color: var(--venom-legacy-color, #224488);
+}
+
+.cancelled {
+  color: var(--venom-legacy-color, #888);
+}
+
+.collections {
+  color: var(--venom-legacy-color, #ffcc00);
+}
+
+/* Payment Button Formatting */
+.invoice-container .payment-btn-container {
+  margin-top: 5px;
+  text-align: center;
+}
+
+.invoice-container .payment-btn-container table {
+  margin: 0 auto;
+}
+
+/* Text Formatting */
+.invoice-container .small-text {
+  font-size: 0.9em;
+}
+
+/* Invoice Items Table Formatting */
+.invoice-container td.total-row {
+  background-color: var(--venom-legacy-color, #f8f8f8);
+}
+
+.invoice-container td.no-line {
+  border: 0;
+}
+
+.invoice-container .invoice-header img {
+  max-width: 100%;
+}
+
+/* Overlay */
+#fullpage-overlay {
+  display: table;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  background-color: var(--venom-legacy-color, rgba(0, 0, 0, 0.8));
+  color: var(--venom-legacy-color, #fff);
+}
+
+#fullpage-overlay .outer-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+#fullpage-overlay .inner-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30%;
+  width: 50%;
+  margin: -3% 0 0 -25%;
+  text-align: center;
+}
+
+#fullpage-overlay .msg {
+  display: inline-block;
+  padding: 20px;
+  max-width: 400px;
+}
+
+button:focus,
+[type=button]:focus,
+[type=submit]:focus,
+[type=reset]:focus,
+.btn:focus,
+.btn.focus,
+.venom-btn:focus,
+.venom-plan-btn:focus,
+.venom-nav__cta:focus,
+.venom-toggle-btn:focus,
+.venom-cookie__btn:focus,
+.venom-jump-top:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button:focus-visible,
+[type=button]:focus-visible,
+[type=submit]:focus-visible,
+[type=reset]:focus-visible,
+.btn:focus-visible,
+.venom-btn:focus-visible,
+.venom-plan-btn:focus-visible,
+.venom-nav__cta:focus-visible,
+.venom-toggle-btn:focus-visible,
+.venom-cookie__btn:focus-visible,
+.venom-jump-top:focus-visible {
+  outline: var(--outline-md) solid var(--venom-focus-outline, color-mix(in srgb, var(--venom-accent, var(--primary)) 36%, transparent));
+  outline-offset: 2px;
+}
+
+
+
+
+

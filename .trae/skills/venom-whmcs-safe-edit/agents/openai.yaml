@@ -1,0 +1,3 @@
+interface:
+  display_name: Venom WHMCS Safe Edit
+  short_description: Keep Smarty, WHMCS, and shared include edits safe, minimal, and consistent.

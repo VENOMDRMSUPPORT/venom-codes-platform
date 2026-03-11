@@ -20,7 +20,7 @@
         try {
             window.localStorage.setItem(key, value);
         } catch (e) {
-            // Intentionally empty; template should still function without storage.
+            /* template should still function without storage */
         }
     }
 
@@ -33,9 +33,14 @@
         document.documentElement.setAttribute("data-venom-theme", normalizedTheme);
         safeSetStorage(STORAGE_THEME, normalizedTheme);
 
-        var toggleLabel = document.querySelector("#venomThemeToggle .venom-toggle-btn__label");
-        if (toggleLabel) {
-            toggleLabel.textContent = normalizedTheme === "light" ? "Dark Theme" : "Light Theme";
+        var toggleButton = document.getElementById("venomThemeToggle");
+        if (toggleButton) {
+            toggleButton.setAttribute("data-theme", normalizedTheme);
+            toggleButton.setAttribute("aria-pressed", String(normalizedTheme === "dark"));
+            toggleButton.setAttribute(
+                "aria-label",
+                normalizedTheme === "light" ? "Switch to Dark Theme" : "Switch to Light Theme"
+            );
         }
     }
 
@@ -52,19 +57,95 @@
         });
     }
 
+    function toggleThemeNow() {
+        var currentTheme = document.documentElement.getAttribute("data-venom-theme") || DEFAULT_THEME;
+        setTheme(currentTheme === "light" ? "dark" : "light");
+    }
+
     function initThemeControls() {
+        var floatingControls = document.getElementById("venomThemeControls") || document.querySelector(".venom-floating-controls");
         var toggleButton = document.getElementById("venomThemeToggle");
+        var accentPalette = document.getElementById("venomAccentPalette");
+        var isTouchLike = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+        var closeTimer = null;
+
+        function setControlsOpen(isOpen) {
+            if (!floatingControls || !toggleButton) {
+                return;
+            }
+            floatingControls.classList.toggle("is-open", isOpen);
+            toggleButton.setAttribute("aria-expanded", String(isOpen));
+        }
+
+        function clearTouchCloseTimer() {
+            if (!closeTimer) {
+                return;
+            }
+            window.clearTimeout(closeTimer);
+            closeTimer = null;
+        }
+
+        function scheduleTouchClose() {
+            if (!isTouchLike) {
+                return;
+            }
+            clearTouchCloseTimer();
+            closeTimer = window.setTimeout(function () {
+                setControlsOpen(false);
+            }, 3000);
+        }
+
+        if (floatingControls) {
+            floatingControls.addEventListener("focusout", function (event) {
+                if (!floatingControls.contains(event.relatedTarget)) {
+                    setControlsOpen(false);
+                }
+            });
+
+            document.addEventListener("click", function (event) {
+                if (!floatingControls.contains(event.target)) {
+                    setControlsOpen(false);
+                }
+            }, false);
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape") {
+                    setControlsOpen(false);
+                }
+            });
+
+            if (!isTouchLike) {
+                floatingControls.addEventListener("mouseleave", function () {
+                    setControlsOpen(false);
+                });
+            }
+        }
+
         if (toggleButton) {
-            toggleButton.addEventListener("click", function () {
-                var currentTheme = document.documentElement.getAttribute("data-venom-theme") || DEFAULT_THEME;
-                setTheme(currentTheme === "light" ? "dark" : "light");
+            toggleButton.addEventListener("click", function (event) {
+                event.stopPropagation();
+                toggleThemeNow();
+                setControlsOpen(true);
+                scheduleTouchClose();
+            });
+        }
+
+        if (accentPalette) {
+            accentPalette.addEventListener("click", function (event) {
+                event.stopPropagation();
+                scheduleTouchClose();
             });
         }
 
         var accentButtons = document.querySelectorAll(".venom-accent-dot[data-accent]");
         accentButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
+            button.addEventListener("click", function (event) {
+                event.stopPropagation();
                 setAccent(button.getAttribute("data-accent"));
+
+                if (isTouchLike) {
+                    setControlsOpen(false);
+                }
             });
         });
     }
