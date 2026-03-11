@@ -38,14 +38,12 @@ $RECYCLE.BIN/
 # IDE & Editor Files
 # --------------------------------------------------
 # VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
+.vscode/
 .history/
 *.code-workspace
+
+# Trae
+.trae/
 
 # PhpStorm / IntelliJ IDEA
 .idea/
@@ -226,6 +224,8 @@ secrets.json
 # --------------------------------------------------
 # PHP Specific
 # --------------------------------------------------
+configuration.php
+
 # Compiled PHP files
 *.class
 *.so
