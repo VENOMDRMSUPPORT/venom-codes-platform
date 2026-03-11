@@ -7,7 +7,6 @@
     <title>{$companyname} - {$pagetitle}</title>
 
     <link href="{$WEB_ROOT}/templates/{$template}/css/theme.css?v={$versionHash}" rel="stylesheet">
-    <link href="{$WEB_ROOT}/templates/{$template}/includes/invoice.css?v={$versionHash}" rel="stylesheet">
     <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome.min.css" rel="stylesheet">
     <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome-solid.min.css" rel="stylesheet">
     <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome-regular.min.css" rel="stylesheet">

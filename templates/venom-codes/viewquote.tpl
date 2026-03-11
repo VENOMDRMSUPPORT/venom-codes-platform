@@ -13,7 +13,6 @@
     <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome-light.min.css" rel="stylesheet">
     <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome-brands.min.css" rel="stylesheet">
     <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome-duotone.min.css" rel="stylesheet">
-    <link href="{$WEB_ROOT}/templates/{$template}/includes/invoice.css?v={$versionHash}" rel="stylesheet">
     <script src="{assetPath file='scripts.min.js'}?v={$versionHash}"></script>
 </head>
 <body>

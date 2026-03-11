@@ -43,9 +43,9 @@
 
 <!-- Styling -->
 {\WHMCS\View\Asset::fontCssInclude('open-sans-family.css')}
+{include file="$template/includes/variables.tpl"}
 {include file="$template/includes/tokens.tpl"}
 <link href="{$WEB_ROOT}/templates/{$template}/css/theme.css?v={$versionHash}" rel="stylesheet">
-<link href="{$WEB_ROOT}/templates/{$template}/css/flags.css?v={$versionHash}" rel="stylesheet">
 <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome.min.css" rel="stylesheet">
 <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome-solid.min.css" rel="stylesheet">
 <link href="{$WEB_ROOT}/assets/fonts/css/fontawesome-regular.min.css" rel="stylesheet">
