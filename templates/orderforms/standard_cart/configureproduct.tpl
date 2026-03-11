@@ -305,6 +305,20 @@ var _localLang = {
                                                         {$addon.name}
                                                     </label><br />
                                                     {$addon.description}
+                                                    {if $addon.allowqty || $addon.name eq 'Additional Load Balancer'}
+                                                        <div class="form-group mt-2 mb-0">
+                                                            <label for="inputAddonQty{$addon.id}" class="small text-muted d-block">{$LANG.orderForm.qty}</label>
+                                                            <input
+                                                                type="number"
+                                                                id="inputAddonQty{$addon.id}"
+                                                                name="addonqty[{$addon.id}]"
+                                                                value="{if $addon.qty gt 0}{$addon.qty}{elseif $addon.status}1{else}0{/if}"
+                                                                min="0"
+                                                                class="form-control"
+                                                                {if !$addon.status}disabled="disabled"{/if}
+                                                            />
+                                                        </div>
+                                                    {/if}
                                                 </div>
                                                 <div class="panel-price">
                                                     {$addon.pricing}
@@ -353,6 +367,92 @@ var _localLang = {
     </div>
 </div>
 
-<script>recalctotals();</script>
+<script>
+(function($) {
+    function syncAddonQtyState(scopeSelector) {
+        $(scopeSelector).find('.addon-products .panel').each(function() {
+            var $panel = $(this);
+            var $toggle = $panel.find('input[type="checkbox"][name^="addons["]').first();
+            var $qty = $panel.find('input[name^="addonqty["]').first();
+            if (!$qty.length) {
+                return;
+            }
+
+            var checked = $toggle.is(':checked');
+            var qtyValue = parseInt($qty.val(), 10);
+            if (isNaN(qtyValue) || qtyValue < 0) {
+                qtyValue = 0;
+            }
+
+            if (checked && qtyValue < 1) {
+                $qty.val(1);
+            } else if (!checked && qtyValue !== 0) {
+                $qty.val(0);
+            }
+
+            $qty.prop('disabled', !checked);
+        });
+    }
+
+    $(document).on('click mousedown mouseup touchstart touchend keydown keyup', '#productAddonsContainer input[name^="addonqty["], #productAddonsContainer label[for^="inputAddonQty"]', function(e) {
+        e.stopPropagation();
+    });
+
+    $(document).on('input change', '#productAddonsContainer input[name^="addonqty["]', function() {
+        var $input = $(this);
+        var qty = parseInt($input.val(), 10);
+        if (isNaN(qty) || qty < 0) {
+            qty = 0;
+            $input.val(0);
+        }
+
+        var $toggle = $input.closest('.panel').find('input[type="checkbox"][name^="addons["]').first();
+        if (qty > 0) {
+            $toggle.iCheck('check');
+        } else {
+            $toggle.iCheck('uncheck');
+        }
+
+        if (typeof recalctotals === 'function') {
+            recalctotals();
+        }
+    });
+
+    $(document).on('ifChecked', '.addon-products input[type="checkbox"][name^="addons["]', function() {
+        var $qty = $(this).closest('.panel').find('input[name^="addonqty["]').first();
+        if (!$qty.length) {
+            return;
+        }
+
+        if ((parseInt($qty.val(), 10) || 0) < 1) {
+            $qty.val(1);
+        }
+        $qty.prop('disabled', false);
+    });
+
+    $(document).on('ifUnchecked', '.addon-products input[type="checkbox"][name^="addons["]', function() {
+        var $qty = $(this).closest('.panel').find('input[name^="addonqty["]').first();
+        if (!$qty.length) {
+            return;
+        }
+
+        $qty.val(0).prop('disabled', true);
+    });
+
+    $(document).ajaxComplete(function(event, xhr, settings) {
+        if (!settings || !settings.url || settings.url.indexOf('/cart.php') === -1) {
+            return;
+        }
+        syncAddonQtyState('#productAddonsContainer');
+    });
+
+    $(function() {
+        syncAddonQtyState('#productAddonsContainer');
+        if (typeof recalctotals === 'function') {
+            recalctotals();
+        }
+    });
+})(jQuery);
+</script>
 
 {include file="orderforms/standard_cart/recommendations-modal.tpl"}

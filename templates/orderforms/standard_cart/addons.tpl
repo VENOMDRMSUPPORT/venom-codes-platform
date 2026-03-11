@@ -48,6 +48,13 @@
                                             {/foreach}
                                         </select>
                                     </div>
+                                    {if $addon.allowqty || $addon.name eq 'Additional Load Balancer'}
+                                        <div class="form-group">
+                                            <label for="inputAddonQty{$num}" class="small text-muted d-block">{$LANG.orderForm.qty}</label>
+                                            <input type="number" id="inputAddonQty{$num}" name="qty" value="1" min="1" class="field form-control" />
+                                            <input type="hidden" name="addonqty" value="1" />
+                                        </div>
+                                    {/if}
                                 </div>
                                 <div class="clearfix"></div>
                                 <footer class="col-12 text-right">
@@ -77,3 +84,21 @@
         </div>
     </div>
 </div>
+<script>
+jQuery(document).on('submit', '#order-standard_cart .product form', function() {
+    var $form = jQuery(this);
+    var $qty = $form.find('input[name="qty"]');
+    var $qtyShadow = $form.find('input[name="addonqty"]');
+    if (!$qty.length || !$qtyShadow.length) {
+        return true;
+    }
+
+    var qty = parseInt($qty.val(), 10);
+    if (isNaN(qty) || qty < 1) {
+        qty = 1;
+        $qty.val(1);
+    }
+    $qtyShadow.val(qty);
+    return true;
+});
+</script>

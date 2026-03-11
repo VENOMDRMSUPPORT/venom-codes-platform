@@ -60,7 +60,8 @@
         locale = '{if !empty($mdeLocale)}{$mdeLocale}{else}en{/if}',
         saved = '{lang|addslashes key="markdown.saved"}',
         saving = '{lang|addslashes key="markdown.saving"}',
-        whmcsBaseUrl = "{\WHMCS\Utility\Environment\WebHelper::getBaseUrl()}";
+        webRoot = '{$WEB_ROOT}',
+        whmcsBaseUrl = window.location.origin + ((webRoot && webRoot !== '/') ? webRoot : '');
     {if $captcha}{$captcha->getPageJs()}{/if}
 </script>
 <script src="{assetPath file='scripts.min.js'}?v={$versionHash}"></script>

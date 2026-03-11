@@ -12,7 +12,7 @@
                     <p>{lang key="captchaverify"}</p>
 
                     <div class="col-6 captchaimage">
-                        <img id="inputCaptchaImage" data-src="{$systemurl}includes/verifyimage.php" src="{$systemurl}includes/verifyimage.php" align="middle" />
+                        <img id="inputCaptchaImage" data-src="{$WEB_ROOT}/includes/verifyimage.php" src="{$WEB_ROOT}/includes/verifyimage.php" align="middle" />
                     </div>
 
                     <div class="col-6">
