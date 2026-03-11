@@ -1,3 +1,0 @@
-interface:
-  display_name: Venom Fast Path
-  short_description: Force a small, search-first, minimal-diff workflow for simple fixes instead of over-planning.

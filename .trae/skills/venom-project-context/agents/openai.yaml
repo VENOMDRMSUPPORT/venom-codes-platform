@@ -1,3 +1,0 @@
-interface:
-  display_name: Venom Project Context
-  short_description: Load the essential Venom context, priorities, and recurring failure modes before doing work.
