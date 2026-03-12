@@ -60,7 +60,7 @@
             </div>
         </footer>
     {else}
-        <footer id="footer" class="footer">
+        <footer id="footer" class="footer footer-public">
             <div class="container">
                 <ul class="list-inline mb-7 text-center float-lg-right">
                     {include file="$template/includes/social-accounts.tpl"}

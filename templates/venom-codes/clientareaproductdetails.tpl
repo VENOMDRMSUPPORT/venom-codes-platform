@@ -21,7 +21,8 @@
     </div>
 {/if}
 
-<div class="tab-content margin-bottom">
+<div class="venom-client-page venom-product-page">
+<div class="tab-content margin-bottom venom-product-tab-root">
     <div class="tab-pane fade show active" role="tabpanel" id="tabOverview">
         {if $tplOverviewTabOutput}
             {$tplOverviewTabOutput}
@@ -39,7 +40,7 @@
             {/if}
         {/if}
 
-        <div class="venom-diagram-card mb-4">
+        <div class="venom-diagram-card venom-product-hero mb-4">
             <div class="row align-items-lg-center">
                 <div class="col-12 col-lg-8 mb-4 mb-lg-0">
                     <span class="venom-chip">Service Details</span>
@@ -57,7 +58,7 @@
                     </p>
                 </div>
                 <div class="col-12 col-lg-4">
-                    <div class="d-flex flex-wrap justify-content-lg-end">
+                    <div class="d-flex flex-wrap justify-content-lg-end venom-product-hero__actions">
                         {if $packagesupgrade}
                             <a href="upgrade.php?type=package&amp;id={$id}" class="btn btn-success btn-sm mr-2 mb-2">
                                 <i class="fas fa-level-up-alt fa-fw"></i>
@@ -91,7 +92,7 @@
 
         <div class="row mb-4">
             <div class="col-12 col-sm-6 col-xl-3 mb-3">
-                <div class="venom-plan-card h-100">
+                <div class="venom-plan-card venom-product-stat-card h-100">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <h3 class="h6 font-weight-bold mb-0">Service State</h3>
                         <span class="label status status-{$serviceStatusClass}">{$status}</span>
@@ -101,7 +102,7 @@
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-xl-3 mb-3">
-                <div class="venom-plan-card h-100">
+                <div class="venom-plan-card venom-product-stat-card h-100">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <h3 class="h6 font-weight-bold mb-0">{lang key='orderbillingcycle'}</h3>
                         <i class="fas fa-calendar-alt text-muted"></i>
@@ -111,7 +112,7 @@
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-xl-3 mb-3">
-                <div class="venom-plan-card h-100">
+                <div class="venom-plan-card venom-product-stat-card h-100">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <h3 class="h6 font-weight-bold mb-0">{lang key='clientareahostingnextduedate'}</h3>
                         <i class="fas fa-clock text-muted"></i>
@@ -121,7 +122,7 @@
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-xl-3 mb-3">
-                <div class="venom-plan-card h-100">
+                <div class="venom-plan-card venom-product-stat-card h-100">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <h3 class="h6 font-weight-bold mb-0">{lang key='recurringamount'}</h3>
                         <i class="fas fa-receipt text-muted"></i>
@@ -146,7 +147,7 @@
 
         <div class="row mb-4">
             <div class="col-12 col-xl-7 mb-4 mb-xl-0">
-                <div class="venom-diagram-card h-100">
+                <div class="venom-diagram-card venom-product-topology h-100">
                     <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between mb-3">
                         <div>
                             <h2 class="h5 font-weight-bold mb-1">Infrastructure Topology</h2>
@@ -191,7 +192,7 @@
                 </div>
             </div>
             <div class="col-12 col-xl-5">
-                <div class="card h-100">
+                <div class="card h-100 venom-product-summary-card">
                     <div class="card-header">
                         <h3 class="card-title m-0">
                             <i class="fas fa-cogs"></i>
@@ -254,7 +255,7 @@
 
             {if $domain || $moduleclientarea || $configurableoptions || $customfields || $lastupdate}
 
-                <ul class="nav nav-tabs responsive-tabs-sm">
+                <ul class="nav nav-tabs responsive-tabs-sm venom-product-tabs">
                     {if $domain}
                         <li class="nav-item">
                             <a href="#domain" data-toggle="tab" class="nav-link active"><i class="fas fa-globe fa-fw"></i> {if $type eq "server"}{lang key='sslserverinfo'}{elseif ($type eq "hostingaccount" || $type eq "reselleraccount") && $serverdata}{lang key='hostingInfo'}{else}{lang key='clientareahostingdomain'}{/if}</a>
@@ -286,7 +287,7 @@
                     {/if}
                 </ul>
                 <div class="responsive-tabs-sm-connector"><div class="channel"></div><div class="bottom-border"></div></div>
-                <div class="tab-content bg-white product-details-tab-container">
+                <div class="tab-content bg-white product-details-tab-container venom-product-details-body">
                     {if $domain}
                         <div class="tab-pane fade show active text-center" role="tabpanel" id="domain">
                             {if $type eq "server"}
@@ -652,4 +653,5 @@
         </div>
 
     </div>
+</div>
 </div>

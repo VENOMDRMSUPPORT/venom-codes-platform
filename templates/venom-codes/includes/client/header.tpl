@@ -1,10 +1,10 @@
-<header id="header" class="header header-client">
+<header id="header" class="header header-client venom-client-header">
     {if $loggedin}
-        <div class="topbar">
-            <div class="container">
-                <div class="d-flex">
+        <div class="topbar venom-client-topbar">
+            <div class="container venom-client-topbar__inner">
+                <div class="d-flex venom-client-topbar__row">
                     <div class="mr-auto">
-                        <button type="button" class="btn" data-toggle="popover" id="accountNotifications" data-placement="bottom">
+                        <button type="button" class="btn venom-client-topbar__btn" data-toggle="popover" id="accountNotifications" data-placement="bottom">
                             <i class="far fa-flag"></i>
                             {if count($clientAlerts) > 0}
                                 {count($clientAlerts)}
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="ml-auto">
-                        <div class="input-group active-client" role="group">
+                        <div class="input-group active-client venom-client-active-group" role="group">
                             <div class="input-group-prepend d-none d-md-inline">
                                 <span class="input-group-text">{lang key='loggedInAs'}:</span>
                             </div>
@@ -63,8 +63,8 @@
         </div>
     {/if}
 
-    <div class="navbar navbar-light">
-        <div class="container">
+    <div class="navbar navbar-light venom-client-navbar">
+        <div class="container venom-client-navbar__inner">
             <a class="navbar-brand mr-3" href="{$WEB_ROOT}/clientarea.php">
                 {if $assetLogoPath}
                     <img src="{$assetLogoPath}" alt="{$companyname}" class="logo-img">
@@ -72,19 +72,20 @@
                     {$companyname}
                 {/if}
             </a>
+            <span class="venom-client-shell-pill d-none d-md-inline-flex">Client Workspace</span>
 
-            <ul class="navbar-nav toolbar flex-row align-items-center ml-auto">
+            <ul class="navbar-nav toolbar flex-row align-items-center ml-auto venom-client-toolbar">
                 <li class="nav-item">
-                    <a class="btn nav-link" href="{$WEB_ROOT}/clientarea.php">{lang key='clientareanavhome'}</a>
+                    <a class="btn nav-link venom-client-nav-link" href="{$WEB_ROOT}/clientarea.php">{lang key='clientareanavhome'}</a>
                 </li>
                 <li class="nav-item ml-2">
-                    <a class="btn nav-link" href="{$WEB_ROOT}/clientarea.php?action=services">{lang key='clientareanavservices'}</a>
+                    <a class="btn nav-link venom-client-nav-link" href="{$WEB_ROOT}/clientarea.php?action=services">{lang key='clientareanavservices'}</a>
                 </li>
                 <li class="nav-item ml-2">
-                    <a class="btn nav-link" href="{$WEB_ROOT}/clientarea.php?action=invoices">{lang key='navinvoices'}</a>
+                    <a class="btn nav-link venom-client-nav-link" href="{$WEB_ROOT}/clientarea.php?action=invoices">{lang key='navinvoices'}</a>
                 </li>
                 <li class="nav-item ml-2">
-                    <a class="btn nav-link" href="{$WEB_ROOT}/supporttickets.php">{lang key='navtickets'}</a>
+                    <a class="btn nav-link venom-client-nav-link" href="{$WEB_ROOT}/supporttickets.php">{lang key='navtickets'}</a>
                 </li>
             </ul>
         </div>

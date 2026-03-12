@@ -1,14 +1,20 @@
 {include file="$template/includes/flashmessage.tpl"}
 
-<div class="venom-diagram-card mb-4">
-    <div class="row align-items-lg-center">
-        <div class="col-12 col-lg-8 mb-4 mb-lg-0">
+<div class="venom-client-page venom-client-home-page">
+<div class="venom-diagram-card venom-client-hero mb-4">
+    <div class="row align-items-lg-center venom-client-hero__grid">
+        <div class="col-12 col-lg-8 mb-4 mb-lg-0 venom-client-hero__lead">
             <span class="venom-chip">Client Control Center</span>
             <h1 class="h3 font-weight-bold mb-2">System Dashboard</h1>
             <p class="text-muted mb-0">Monitor your active software licenses, billing signals, and support operations from one enterprise workspace.</p>
+            <div class="venom-client-hero__metrics mt-3">
+                <span><strong>{$clientsstats.productsnumactive}</strong> Active Licenses</span>
+                <span><strong>{$clientsstats.numunpaidinvoices}</strong> Invoice Alerts</span>
+                <span><strong>{$clientsstats.numactivetickets}</strong> Open Tickets</span>
+            </div>
         </div>
-        <div class="col-12 col-lg-4">
-            <div class="d-flex flex-wrap justify-content-lg-end">
+        <div class="col-12 col-lg-4 venom-client-hero__actions-col">
+            <div class="d-flex flex-wrap justify-content-lg-end venom-client-hero__actions">
                 <a href="clientarea.php?action=services" class="btn btn-default btn-sm mr-2 mb-2">
                     <i class="fas fa-cube fa-fw"></i>
                     Manage Services
@@ -26,13 +32,13 @@
     </div>
 </div>
 
-<div class="mb-4">
+<div class="mb-4 venom-client-summary">
     <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between mb-2">
         <h2 class="h5 font-weight-bold mb-1 mb-sm-0">Infrastructure Summary</h2>
         <small class="text-muted">License management and account telemetry</small>
     </div>
 
-    <div class="tiles">
+    <div class="tiles venom-kpi-tiles">
         <div class="row no-gutters">
             <div class="col-6 col-xl-3">
                 <a href="clientarea.php?action=services" class="tile">
@@ -90,11 +96,11 @@
     </div>
 </div>
 
-<div class="row mb-4">
-    <div class="col-12 col-lg-8 mb-4 mb-lg-0">
+<div class="row mb-4 venom-client-kpi-grid">
+    <div class="col-12 col-lg-8 mb-4 mb-lg-0 venom-client-kpi-grid__main">
         <div class="row">
             <div class="col-12 col-md-4 mb-3">
-                <div class="venom-plan-card h-100">
+                <div class="venom-plan-card venom-kpi-card h-100">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <h3 class="h6 font-weight-bold mb-0">Service Health</h3>
                         <span class="label status status-{if $clientsstats.productsnumactive > 0}active{else}suspended{/if}">
@@ -106,7 +112,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-4 mb-3">
-                <div class="venom-plan-card h-100">
+                <div class="venom-plan-card venom-kpi-card h-100">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <h3 class="h6 font-weight-bold mb-0">Billing Signal</h3>
                         <span class="label status status-{if $clientsstats.numunpaidinvoices > 0}unpaid{else}paid{/if}">
@@ -118,7 +124,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-4 mb-3">
-                <div class="venom-plan-card h-100">
+                <div class="venom-plan-card venom-kpi-card h-100">
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <h3 class="h6 font-weight-bold mb-0">Support Queue</h3>
                         <span class="label status status-{if $clientsstats.numactivetickets > 0}open{else}closed{/if}">
@@ -131,7 +137,7 @@
             </div>
         </div>
     </div>
-    <div class="col-12 col-lg-4">
+    <div class="col-12 col-lg-4 venom-client-kpi-grid__aside">
         <div class="card card-accent-midnight-blue h-100">
             <div class="card-header">
                 <h3 class="card-title m-0">
@@ -164,7 +170,7 @@
 </div>
 
 {foreach $addons_html as $addon_html}
-    <div class="mb-4">
+    <div class="mb-4 venom-addon-slot">
         {$addon_html}
     </div>
 {/foreach}
@@ -180,7 +186,7 @@
     <small class="text-muted">Live panels, notices, and automation outputs</small>
 </div>
 
-<div class="client-home-cards">
+<div class="client-home-cards venom-client-module-cards">
     <div class="row">
         <div class="col-12">
             {function name=outputHomePanels}
@@ -259,4 +265,5 @@
 
         </div>
     </div>
+</div>
 </div>

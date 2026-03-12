@@ -6,10 +6,6 @@
     <title>{if $kbarticle.title}{$kbarticle.title} - {/if}{$pagetitle} - {$companyname}</title>
     {include file="$template/includes/head.tpl"}
     {$headoutput}
-</head>
-<body class="primary-bg-color" data-phone-cc-input="{$phoneNumberInputStyle}">
-    {if $captcha}{$captcha->getMarkup()}{/if}
-    {$headeroutput}
 
     {assign var="isAuthShell" value=false}
     {if $templatefile == 'login'
@@ -30,6 +26,32 @@
         {assign var="isClientShell" value=true}
     {/if}
 
+    {assign var="venomShellClass" value='venom-shell-public'}
+    {if $isAuthShell}
+        {assign var="venomShellClass" value='venom-shell-auth'}
+    {elseif $isClientShell}
+        {assign var="venomShellClass" value='venom-shell-client'}
+    {/if}
+
+    {assign var="isLoginPage" value=false}
+    {if $templatefile == 'login'}
+        {assign var="isLoginPage" value=true}
+    {/if}
+
+    {assign var="isClientHomePage" value=false}
+    {if $templatefile == 'clientareahome'}
+        {assign var="isClientHomePage" value=true}
+    {/if}
+
+    {assign var="isClientProductDetailsPage" value=false}
+    {if $templatefile == 'clientareaproductdetails'}
+        {assign var="isClientProductDetailsPage" value=true}
+    {/if}
+</head>
+<body class="primary-bg-color {$venomShellClass}{if $isLoginPage} venom-page-login{/if}{if $isClientHomePage} venom-page-client-home{/if}{if $isClientProductDetailsPage} venom-page-product-details{/if}" data-phone-cc-input="{$phoneNumberInputStyle}">
+    {if $captcha}{$captcha->getMarkup()}{/if}
+    {$headeroutput}
+
     {if $isClientShell}
         {include file="$template/includes/client/header.tpl"}
     {elseif $isAuthShell}
@@ -47,7 +69,7 @@
             </div>
         </header>
     {else}
-    <header id="header" class="header">
+    <header id="header" class="header header-public">
         {if $loggedin}
             <div class="topbar">
                 <div class="container">
