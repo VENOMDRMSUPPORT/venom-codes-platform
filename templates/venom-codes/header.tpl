@@ -259,9 +259,8 @@
     {if $isClientShell}
         {include file="$template/clientarea.tpl" mode="start"}
     {elseif $isAuthShell}
-        <section id="main-body">
-            <div class="container">
-                <div class="primary-content">
+        <main class="venom-public-stage venom-public-stage--auth">
+            <section id="main-body" class="venom-auth-stage">
     {else}
         <section id="main-body">
             <div class="{if !$skipMainBodyContainer}container{/if}">

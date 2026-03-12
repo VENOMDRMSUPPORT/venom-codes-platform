@@ -20,9 +20,8 @@
     {if $isClientShell}
         {include file="$template/clientarea.tpl" mode="end"}
     {elseif $isAuthShell}
-                </div>
-            </div>
-        </section>
+            </section>
+        </main>
     {else}
                         </div>
 

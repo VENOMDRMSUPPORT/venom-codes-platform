@@ -32358,20 +32358,19 @@ body.venom-shell-client {
   color: var(--venom-text-strong);
 }
 
-body.venom-shell-auth #main-body > .container {
-  max-width: 1280px;
-}
-
-body.venom-shell-auth .venom-auth-section {
-  margin-bottom: 1.5rem;
-}
-
-body.venom-shell-auth .primary-content {
-  border: 0;
-  background: transparent;
-  box-shadow: none;
+body.venom-shell-auth .venom-public-stage--auth {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
   padding: 0;
-  backdrop-filter: none;
+}
+
+body.venom-shell-auth .venom-public-stage--auth > #main-body.venom-auth-stage {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
 }
 
 body.venom-shell-public #header,
@@ -32707,7 +32706,7 @@ body.venom-shell-auth .alert {
 
 /* ===== Venom Theme Parity: Auth + Client Shell Unification ===== */
 body.venom-shell-auth .venom-auth-shell {
-  width: min(1240px, calc(100% - 1rem));
+  width: min(1240px, calc(100% - 2rem));
   margin: 1.25rem auto 0;
 }
 
@@ -33138,8 +33137,7 @@ body.venom-shell-auth .form-control {
 }
 
 @media (max-width: 767.98px) {
-  body.venom-shell-client .venom-client-shell-container,
-  body.venom-shell-auth .primary-content {
+  body.venom-shell-client .venom-client-shell-container {
     padding: 0.75rem;
     border-radius: var(--venom-radius-lg);
   }
