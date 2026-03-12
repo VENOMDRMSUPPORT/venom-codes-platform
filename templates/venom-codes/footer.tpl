@@ -1,26 +1,10 @@
-    {assign var="isAuthShell" value=false}
-    {if $templatefile == 'login'
-        || $templatefile == 'clientregister'
-        || $templatefile == 'password-reset-container'
-        || $templatefile == 'password-reset-email-prompt'
-        || $templatefile == 'password-reset-security-prompt'
-        || $templatefile == 'password-reset-change-prompt'
-        || $templatefile == 'two-factor-challenge'
-        || $templatefile == 'two-factor-new-backup-code'
-        || $templatefile == 'user-verify-email'
-        || $templatefile == 'user-invite-accept'}
-        {assign var="isAuthShell" value=true}
-    {/if}
-
     {assign var="isClientShell" value=false}
-    {if !$isAuthShell && $loggedin && ($templatefile|substr:0:10 == 'clientarea' || $templatefile == 'account-paymentmethods' || $templatefile == 'account-contacts-manage' || $templatefile == 'account-contacts-new' || $templatefile == 'account-user-management' || $templatefile == 'account-user-permissions' || $templatefile == 'user-profile' || $templatefile == 'user-password' || $templatefile == 'user-security' || $templatefile == 'supportticketslist' || $templatefile == 'supportticketsubmit-stepone' || $templatefile == 'supportticketsubmit-steptwo' || $templatefile == 'supportticketsubmit-confirm' || $templatefile == 'viewticket' || $templatefile == 'masspay' || $templatefile == 'invoice-payment')}
+    {if $loggedin && ($templatefile|substr:0:10 == 'clientarea' || $templatefile == 'account-paymentmethods' || $templatefile == 'account-contacts-manage' || $templatefile == 'account-contacts-new' || $templatefile == 'account-user-management' || $templatefile == 'account-user-permissions' || $templatefile == 'user-profile' || $templatefile == 'user-password' || $templatefile == 'user-security' || $templatefile == 'supportticketslist' || $templatefile == 'supportticketsubmit-stepone' || $templatefile == 'supportticketsubmit-steptwo' || $templatefile == 'supportticketsubmit-confirm' || $templatefile == 'viewticket' || $templatefile == 'masspay' || $templatefile == 'invoice-payment')}
         {assign var="isClientShell" value=true}
     {/if}
 
     {if $isClientShell}
         {include file="$template/clientarea.tpl" mode="end"}
-    {elseif $isAuthShell}
-        </section>
     {else}
                         </div>
 

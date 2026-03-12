@@ -180,7 +180,6 @@ html[data-venom-theme="light"] .vs-logo-text .vs-solutions {
 
 html[data-venom-home="1"] body,
 body.venom-shell-public,
-body.venom-shell-auth,
 body.venom-shell-client {
   position: relative;
   background: var(--venom-bg);
@@ -188,8 +187,6 @@ body.venom-shell-client {
 
 body.venom-shell-public::before,
 body.venom-shell-public::after,
-body.venom-shell-auth::before,
-body.venom-shell-auth::after,
 body.venom-shell-client::before,
 body.venom-shell-client::after {
   content: none;

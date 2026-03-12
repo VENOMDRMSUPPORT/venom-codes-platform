@@ -32388,21 +32388,11 @@ button:focus-visible,
 
 /* ===== Venom Premium Shell Overhaul ===== */
 body.venom-shell-public,
-body.venom-shell-auth,
 body.venom-shell-client {
   color: var(--venom-text-strong);
 }
 
-body.venom-shell-auth #main-body.venom-public-stage {
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-  min-height: 0;
-}
-
 body.venom-shell-public #header,
-body.venom-shell-auth #header,
 body.venom-shell-client #header {
   position: sticky;
   top: 0;
@@ -32425,7 +32415,6 @@ body.venom-shell-public .master-breadcrumb .breadcrumb {
 }
 
 body.venom-shell-public footer.footer-public,
-body.venom-shell-auth footer.footer-public,
 body.venom-shell-client footer.footer {
   margin-top: 2rem;
   border-top: 1px solid var(--venom-border-ui-soft);
@@ -32433,7 +32422,6 @@ body.venom-shell-client footer.footer {
 }
 
 body.venom-shell-public footer.footer-public .container,
-body.venom-shell-auth footer.footer-public .container,
 body.venom-shell-client footer.footer .container {
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -32547,8 +32535,8 @@ body.venom-shell-client .venom-client-shell-content {
 body.venom-shell-client .card,
 body.venom-shell-client .venom-plan-card,
 body.venom-shell-client .venom-diagram-card,
-body.venom-shell-auth .venom-plan-card,
-body.venom-shell-auth .venom-diagram-card {
+.venom-auth-shell .venom-plan-card,
+.venom-auth-shell .venom-diagram-card {
   border: 1px solid var(--venom-border-ui-soft);
   background: color-mix(in srgb, var(--venom-surface-shell) 90%, transparent);
   box-shadow: var(--venom-shadow-surface);
@@ -32557,14 +32545,14 @@ body.venom-shell-auth .venom-diagram-card {
 body.venom-shell-client .card:hover,
 body.venom-shell-client .venom-plan-card:hover,
 body.venom-shell-client .venom-diagram-card:hover,
-body.venom-shell-auth .venom-plan-card:hover,
-body.venom-shell-auth .venom-diagram-card:hover {
+.venom-auth-shell .venom-plan-card:hover,
+.venom-auth-shell .venom-diagram-card:hover {
   border-color: var(--venom-border-ui-strong);
   box-shadow: var(--venom-shadow-raised);
 }
 
 body.venom-shell-client .btn,
-body.venom-shell-auth .btn {
+.venom-auth-shell .btn {
   min-height: 2.5rem;
   border: 1px solid var(--venom-border-ui-soft);
   background: color-mix(in srgb, var(--venom-surface-shell-soft) 88%, transparent);
@@ -32575,16 +32563,16 @@ body.venom-shell-auth .btn {
 }
 
 body.venom-shell-client .btn:hover,
-body.venom-shell-auth .btn:hover {
+.venom-auth-shell .btn:hover {
   border-color: var(--venom-border-ui-strong);
   box-shadow: var(--venom-shadow-raised);
   transform: translateY(-1px);
 }
 
 body.venom-shell-client .btn-primary,
-body.venom-shell-auth .btn-primary,
+.venom-auth-shell .btn-primary,
 body.venom-shell-client .venom-btn--solid,
-body.venom-shell-auth .venom-btn--solid {
+.venom-auth-shell .venom-btn--solid {
   border-color: color-mix(in srgb, var(--venom-accent) 58%, transparent);
   background: linear-gradient(
     135deg,
@@ -32596,7 +32584,7 @@ body.venom-shell-auth .venom-btn--solid {
 }
 
 body.venom-shell-client .btn-success,
-body.venom-shell-auth .btn-success {
+.venom-auth-shell .btn-success {
   border-color: color-mix(in srgb, var(--success) 52%, transparent);
   background: linear-gradient(
     135deg,
@@ -32607,7 +32595,7 @@ body.venom-shell-auth .btn-success {
 }
 
 body.venom-shell-client .btn-danger,
-body.venom-shell-auth .btn-danger {
+.venom-auth-shell .btn-danger {
   border-color: color-mix(in srgb, var(--danger) 56%, transparent);
   background: linear-gradient(
     135deg,
@@ -32618,14 +32606,14 @@ body.venom-shell-auth .btn-danger {
 }
 
 body.venom-shell-client .btn-default,
-body.venom-shell-auth .btn-default {
+.venom-auth-shell .btn-default {
   background: color-mix(in srgb, var(--venom-surface-shell-soft) 92%, transparent);
 }
 
 body.venom-shell-client .form-control,
 body.venom-shell-client .custom-select,
-body.venom-shell-auth .form-control,
-body.venom-shell-auth .custom-select {
+.venom-auth-shell .form-control,
+.venom-auth-shell .custom-select {
   min-height: 2.75rem;
   border: 1px solid var(--venom-border-ui-soft);
   background: color-mix(in srgb, var(--venom-surface-shell-soft) 90%, transparent);
@@ -32633,7 +32621,7 @@ body.venom-shell-auth .custom-select {
 }
 
 body.venom-shell-client .input-group-text,
-body.venom-shell-auth .input-group-text {
+.venom-auth-shell .input-group-text {
   border-color: var(--venom-border-ui-soft);
   background: color-mix(in srgb, var(--venom-surface-shell-soft) 82%, transparent);
   color: var(--venom-text-soft);
@@ -32641,21 +32629,21 @@ body.venom-shell-auth .input-group-text {
 
 body.venom-shell-client .form-control:focus,
 body.venom-shell-client .custom-select:focus,
-body.venom-shell-auth .form-control:focus,
-body.venom-shell-auth .custom-select:focus {
+.venom-auth-shell .form-control:focus,
+.venom-auth-shell .custom-select:focus {
   border-color: var(--venom-border-ui-strong);
   box-shadow: var(--venom-ring-strong);
   background: color-mix(in srgb, var(--venom-surface-shell-soft) 95%, transparent);
 }
 
 body.venom-shell-client .nav-tabs,
-body.venom-shell-auth .nav-tabs {
+.venom-auth-shell .nav-tabs {
   border-bottom: 1px solid var(--venom-border-ui-soft);
   gap: 0.35rem;
 }
 
 body.venom-shell-client .nav-tabs .nav-link,
-body.venom-shell-auth .nav-tabs .nav-link {
+.venom-auth-shell .nav-tabs .nav-link {
   border: 1px solid transparent;
   background: color-mix(in srgb, var(--venom-surface-shell-soft) 72%, transparent);
   color: var(--venom-text-soft);
@@ -32663,14 +32651,14 @@ body.venom-shell-auth .nav-tabs .nav-link {
 }
 
 body.venom-shell-client .nav-tabs .nav-link:hover,
-body.venom-shell-auth .nav-tabs .nav-link:hover {
+.venom-auth-shell .nav-tabs .nav-link:hover {
   color: var(--venom-text-strong);
   border-color: var(--venom-border-ui-soft);
   background: color-mix(in srgb, var(--venom-surface-shell-soft) 88%, transparent);
 }
 
 body.venom-shell-client .nav-tabs .nav-link.active,
-body.venom-shell-auth .nav-tabs .nav-link.active {
+.venom-auth-shell .nav-tabs .nav-link.active {
   color: var(--venom-text-strong);
   border-color: var(--venom-border-ui-strong);
   border-bottom-color: color-mix(in srgb, var(--venom-surface-shell) 86%, transparent);
@@ -32678,14 +32666,14 @@ body.venom-shell-auth .nav-tabs .nav-link.active {
 }
 
 body.venom-shell-client .table,
-body.venom-shell-auth .table {
+.venom-auth-shell .table {
   border: 1px solid var(--venom-border-ui-soft);
   overflow: hidden;
   background: color-mix(in srgb, var(--venom-surface-shell-soft) 84%, transparent);
 }
 
 body.venom-shell-client .table thead th,
-body.venom-shell-auth .table thead th {
+.venom-auth-shell .table thead th {
   border-bottom: 1px solid var(--venom-border-ui-strong);
   background: color-mix(in srgb, var(--venom-surface-shell-soft) 70%, transparent);
   color: var(--venom-text-soft);
@@ -32697,21 +32685,21 @@ body.venom-shell-auth .table thead th {
 
 body.venom-shell-client .table td,
 body.venom-shell-client .table th,
-body.venom-shell-auth .table td,
-body.venom-shell-auth .table th {
+.venom-auth-shell .table td,
+.venom-auth-shell .table th {
   border-top-color: var(--venom-border-ui-soft);
   vertical-align: middle;
 }
 
 body.venom-shell-client .table-hover tbody tr:hover,
-body.venom-shell-auth .table-hover tbody tr:hover {
+.venom-auth-shell .table-hover tbody tr:hover {
   background: color-mix(in srgb, var(--venom-accent) 8%, transparent);
 }
 
 body.venom-shell-client .label,
 body.venom-shell-client .badge,
-body.venom-shell-auth .label,
-body.venom-shell-auth .badge {
+.venom-auth-shell .label,
+.venom-auth-shell .badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -32726,31 +32714,31 @@ body.venom-shell-auth .badge {
 }
 
 body.venom-shell-client .alert,
-body.venom-shell-auth .alert {
+.venom-auth-shell .alert {
   border: 1px solid var(--venom-border-ui-soft);
   box-shadow: var(--venom-shadow-sm);
   background: color-mix(in srgb, var(--venom-surface-shell-soft) 88%, transparent);
 }
 
 /* ===== Venom Theme Parity: Auth + Client Shell Unification ===== */
-body.venom-shell-auth .venom-auth-shell {
+.venom-auth-shell {
   width: min(1240px, calc(100% - 2rem));
   margin: 1.25rem auto 0;
 }
 
-body.venom-shell-auth .venom-auth-frame {
+.venom-auth-shell .venom-auth-frame {
   padding: 0;
   overflow: hidden;
   border-color: var(--venom-border-ui-strong);
   box-shadow: var(--venom-shadow-shell);
 }
 
-body.venom-shell-auth .venom-auth-main,
-body.venom-shell-auth .venom-auth-side {
+.venom-auth-shell .venom-auth-main,
+.venom-auth-shell .venom-auth-side {
   position: relative;
 }
 
-body.venom-shell-auth .venom-auth-main::after {
+.venom-auth-shell .venom-auth-main::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -32762,36 +32750,36 @@ body.venom-shell-auth .venom-auth-main::after {
   pointer-events: none;
 }
 
-body.venom-shell-auth .venom-auth-main__inner {
+.venom-auth-shell .venom-auth-main__inner {
   position: relative;
   z-index: 1;
   padding: 2.2rem;
 }
 
-body.venom-shell-auth .venom-auth-side__inner {
+.venom-auth-shell .venom-auth-side__inner {
   height: 100%;
   padding: 2.2rem;
   background: color-mix(in srgb, var(--venom-surface-shell-strong) 82%, transparent);
   border-left: 1px solid var(--venom-border-ui-soft);
 }
 
-body.venom-shell-auth .venom-auth-story,
-body.venom-shell-auth .venom-auth-trust-card,
-body.venom-shell-auth .venom-auth-linked-card {
+.venom-auth-shell .venom-auth-story,
+.venom-auth-shell .venom-auth-trust-card,
+.venom-auth-shell .venom-auth-linked-card {
   border: 1px solid var(--venom-border-ui-soft);
   background: color-mix(in srgb, var(--venom-surface-shell-soft) 88%, transparent);
   box-shadow: var(--venom-shadow-sm);
   padding: 1.2rem;
 }
 
-body.venom-shell-auth .venom-auth-story ul,
-body.venom-shell-auth .venom-auth-trust-card ul {
+.venom-auth-shell .venom-auth-story ul,
+.venom-auth-shell .venom-auth-trust-card ul {
   display: grid;
   gap: 0.55rem;
 }
 
-body.venom-shell-auth .venom-auth-story li,
-body.venom-shell-auth .venom-auth-trust-card li {
+.venom-auth-shell .venom-auth-story li,
+.venom-auth-shell .venom-auth-trust-card li {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -32799,30 +32787,30 @@ body.venom-shell-auth .venom-auth-trust-card li {
   color: var(--venom-text-soft);
 }
 
-body.venom-shell-auth .venom-auth-story li i,
-body.venom-shell-auth .venom-auth-trust-card li i {
+.venom-auth-shell .venom-auth-story li i,
+.venom-auth-shell .venom-auth-trust-card li i {
   color: var(--venom-accent);
 }
 
-body.venom-shell-auth .venom-auth-content > :last-child {
+.venom-auth-shell .venom-auth-content > :last-child {
   margin-bottom: 0;
 }
 
-body.venom-shell-auth .venom-auth-content .card {
+.venom-auth-shell .venom-auth-content .card {
   margin-bottom: 1rem;
   border: 1px solid var(--venom-border-ui-soft);
   background: color-mix(in srgb, var(--venom-surface-shell) 90%, transparent);
   box-shadow: var(--venom-shadow-surface);
 }
 
-body.venom-shell-auth .venom-auth-content .card > [class*="header"] {
+.venom-auth-shell .venom-auth-content .card > [class*="header"] {
   border-bottom: 1px solid var(--venom-border-ui-soft);
   background: color-mix(in srgb, var(--venom-surface-shell-soft) 84%, transparent);
 }
 
-body.venom-shell-auth .venom-auth-content .card h3,
-body.venom-shell-auth .venom-auth-content .card .h3,
-body.venom-shell-auth .venom-auth-content .card .h5 {
+.venom-auth-shell .venom-auth-content .card h3,
+.venom-auth-shell .venom-auth-content .card .h3,
+.venom-auth-shell .venom-auth-content .card .h5 {
   margin-bottom: 1rem;
   font-size: 1rem;
   font-weight: 800;
@@ -32830,41 +32818,41 @@ body.venom-shell-auth .venom-auth-content .card .h5 {
   color: var(--venom-text-strong);
 }
 
-body.venom-shell-auth .venom-auth-content .providerLinkingFeedback {
+.venom-auth-shell .venom-auth-content .providerLinkingFeedback {
   margin-top: 0.85rem;
 }
 
-body.venom-shell-auth .venom-auth-content .login-form {
+.venom-auth-shell .venom-auth-content .login-form {
   margin-bottom: 0;
 }
 
-body.venom-shell-auth .venom-auth-form-group {
+.venom-auth-shell .venom-auth-form-group {
   margin-bottom: 1.1rem;
 }
 
-body.venom-shell-auth .venom-auth-input-group {
+.venom-auth-shell .venom-auth-input-group {
   box-shadow: 0 8px 16px color-mix(in srgb, var(--venom-accent) 12%, transparent);
 }
 
-body.venom-shell-auth .venom-auth-input-group .form-control,
-body.venom-shell-auth .venom-auth-input-group .input-group-text,
-body.venom-shell-auth .venom-auth-input-group .btn {
+.venom-auth-shell .venom-auth-input-group .form-control,
+.venom-auth-shell .venom-auth-input-group .input-group-text,
+.venom-auth-shell .venom-auth-input-group .btn {
   border-color: var(--venom-border-ui-soft);
 }
 
-body.venom-shell-auth .venom-auth-inline-link {
+.venom-auth-shell .venom-auth-inline-link {
   color: var(--venom-accent);
 }
 
-body.venom-shell-auth .venom-auth-form-actions {
+.venom-auth-shell .venom-auth-form-actions {
   gap: 0.8rem;
 }
 
-body.venom-shell-auth .venom-auth-register {
+.venom-auth-shell .venom-auth-register {
   border-top-color: var(--venom-border-ui-soft);
 }
 
-body.venom-shell-auth .venom-auth-intro {
+.venom-auth-shell .venom-auth-intro {
   margin-bottom: 1rem;
   padding: 1rem 1.1rem;
   border: 1px solid var(--venom-border-ui-soft);
@@ -32872,17 +32860,17 @@ body.venom-shell-auth .venom-auth-intro {
   box-shadow: var(--venom-shadow-sm);
 }
 
-body.venom-shell-auth .venom-auth-reset-form {
+.venom-auth-shell .venom-auth-reset-form {
   display: grid;
   gap: 0.95rem;
 }
 
-body.venom-shell-auth .venom-auth-reset-form .form-group {
+.venom-auth-shell .venom-auth-reset-form .form-group {
   margin-bottom: 0;
 }
 
-body.venom-shell-auth .venom-auth-reset-form .form-group.text-center .btn,
-body.venom-shell-auth .venom-auth-reset-form .form-group .text-center .btn {
+.venom-auth-shell .venom-auth-reset-form .form-group.text-center .btn,
+.venom-auth-shell .venom-auth-reset-form .form-group .text-center .btn {
   min-width: 12rem;
 }
 
@@ -33124,10 +33112,10 @@ body.venom-shell-client .venom-diagram-card,
 body.venom-shell-client .btn,
 body.venom-shell-client .form-control,
 body.venom-shell-client .nav-link,
-body.venom-shell-auth .venom-plan-card,
-body.venom-shell-auth .venom-diagram-card,
-body.venom-shell-auth .btn,
-body.venom-shell-auth .form-control {
+.venom-auth-shell .venom-plan-card,
+.venom-auth-shell .venom-diagram-card,
+.venom-auth-shell .btn,
+.venom-auth-shell .form-control {
   transition: border-color 0.24s ease, background 0.24s ease, color 0.24s ease, box-shadow 0.24s ease, transform 0.24s ease;
 }
 
@@ -33136,8 +33124,8 @@ body.venom-shell-auth .form-control {
     border-radius: var(--venom-radius-xl);
   }
 
-  body.venom-shell-auth .venom-auth-main__inner,
-  body.venom-shell-auth .venom-auth-side__inner {
+  .venom-auth-shell .venom-auth-main__inner,
+  .venom-auth-shell .venom-auth-side__inner {
     padding: 1.7rem;
   }
 }
@@ -33175,7 +33163,7 @@ body.venom-shell-auth .form-control {
     min-height: 2.1rem;
   }
 
-  body.venom-shell-auth .venom-auth-side__inner {
+  .venom-auth-shell .venom-auth-side__inner {
     border-left: 0;
     border-top: 1px solid var(--venom-border-ui-soft);
   }
@@ -33210,15 +33198,15 @@ body.venom-shell-auth .form-control {
   body.venom-shell-client .btn,
   body.venom-shell-client .form-control,
   body.venom-shell-client .nav-link,
-  body.venom-shell-auth .venom-plan-card,
-  body.venom-shell-auth .venom-diagram-card,
-  body.venom-shell-auth .btn,
-  body.venom-shell-auth .form-control {
+  .venom-auth-shell .venom-plan-card,
+  .venom-auth-shell .venom-diagram-card,
+  .venom-auth-shell .btn,
+  .venom-auth-shell .form-control {
     transition: none;
   }
 
   body.venom-shell-client .btn:hover,
-  body.venom-shell-auth .btn:hover,
+  .venom-auth-shell .btn:hover,
   body.venom-page-client-home .venom-kpi-tiles .tile:hover {
     transform: none;
   }

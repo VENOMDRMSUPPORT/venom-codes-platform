@@ -47,29 +47,13 @@
     {include file="$template/includes/head.tpl"}
     {$headoutput}
 
-    {assign var="isAuthShell" value=false}
-    {if $templatefile == 'login'
-        || $templatefile == 'clientregister'
-        || $templatefile == 'password-reset-container'
-        || $templatefile == 'password-reset-email-prompt'
-        || $templatefile == 'password-reset-security-prompt'
-        || $templatefile == 'password-reset-change-prompt'
-        || $templatefile == 'two-factor-challenge'
-        || $templatefile == 'two-factor-new-backup-code'
-        || $templatefile == 'user-verify-email'
-        || $templatefile == 'user-invite-accept'}
-        {assign var="isAuthShell" value=true}
-    {/if}
-
     {assign var="isClientShell" value=false}
-    {if !$isAuthShell && $loggedin && ($templatefile|substr:0:10 == 'clientarea' || $templatefile == 'account-paymentmethods' || $templatefile == 'account-contacts-manage' || $templatefile == 'account-contacts-new' || $templatefile == 'account-user-management' || $templatefile == 'account-user-permissions' || $templatefile == 'user-profile' || $templatefile == 'user-password' || $templatefile == 'user-security' || $templatefile == 'supportticketslist' || $templatefile == 'supportticketsubmit-stepone' || $templatefile == 'supportticketsubmit-steptwo' || $templatefile == 'supportticketsubmit-confirm' || $templatefile == 'viewticket' || $templatefile == 'masspay' || $templatefile == 'invoice-payment')}
+    {if $loggedin && ($templatefile|substr:0:10 == 'clientarea' || $templatefile == 'account-paymentmethods' || $templatefile == 'account-contacts-manage' || $templatefile == 'account-contacts-new' || $templatefile == 'account-user-management' || $templatefile == 'account-user-permissions' || $templatefile == 'user-profile' || $templatefile == 'user-password' || $templatefile == 'user-security' || $templatefile == 'supportticketslist' || $templatefile == 'supportticketsubmit-stepone' || $templatefile == 'supportticketsubmit-steptwo' || $templatefile == 'supportticketsubmit-confirm' || $templatefile == 'viewticket' || $templatefile == 'masspay' || $templatefile == 'invoice-payment')}
         {assign var="isClientShell" value=true}
     {/if}
 
     {assign var="venomShellClass" value='venom-shell-public'}
-    {if $isAuthShell}
-        {assign var="venomShellClass" value='venom-shell-auth'}
-    {elseif $isClientShell}
+    {if $isClientShell}
         {assign var="venomShellClass" value='venom-shell-client'}
     {/if}
 
@@ -217,18 +201,16 @@
     </header>
     {/if}
 
-    {if !$isAuthShell}
-        {include file="$template/includes/network-issues-notifications.tpl"}
+    {include file="$template/includes/network-issues-notifications.tpl"}
 
-        <nav class="master-breadcrumb" aria-label="breadcrumb">
-            <div class="container">
-                {include file="$template/includes/breadcrumb.tpl"}
-            </div>
-        </nav>
+    <nav class="master-breadcrumb" aria-label="breadcrumb">
+        <div class="container">
+            {include file="$template/includes/breadcrumb.tpl"}
+        </div>
+    </nav>
 
-        {include file="$template/includes/validateuser.tpl"}
-        {include file="$template/includes/verifyemail.tpl"}
-    {/if}
+    {include file="$template/includes/validateuser.tpl"}
+    {include file="$template/includes/verifyemail.tpl"}
 
     {if $templatefile == 'homepage'}
         {if $registerdomainenabled || $transferdomainenabled}
@@ -238,8 +220,6 @@
 
     {if $isClientShell}
         {include file="$template/clientarea.tpl" mode="start"}
-    {elseif $isAuthShell}
-        <section id="main-body" class="venom-public-stage">
     {else}
         <section id="main-body">
             <div class="{if !$skipMainBodyContainer}container{/if}">
