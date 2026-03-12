@@ -20637,6 +20637,35 @@ html[data-venom-theme="dark"] .venom-footer-brand__logo {
     color: var(--venom-text-soft);
 }
 
+.venom-heart {
+    display: inline-block;
+    color: var(--venom-accent);
+    transform-origin: center;
+    animation: venom-heartbeat 1.4s ease-in-out infinite;
+}
+
+@keyframes venom-heartbeat {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.16);
+    }
+    45% {
+        transform: scale(0.98);
+    }
+    65% {
+        transform: scale(1.08);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .venom-heart {
+        animation: none;
+    }
+}
+
 .venom-jump-top {
     position: fixed;
     right: 1rem;

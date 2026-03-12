@@ -199,7 +199,7 @@
                 </p>
             </div>
 
-            <p class="venom-copyright">© {$date_year} VENOM CODES. All rights reserved.</p>
+            <p class="venom-copyright">© {$date_year} VENOM CODES. Crafted with <span class="venom-heart" aria-hidden="true">❤</span> for resilient streaming infrastructure.</p>
         </div>
     </footer>
 
