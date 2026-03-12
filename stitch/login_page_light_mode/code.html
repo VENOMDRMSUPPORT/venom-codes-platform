@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | VENOM CODES - High-End Infrastructure</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f9fa",
+                        "background-dark": "#1a0a12",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(236, 91, 19, 0.1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+        }
+        .v-logo-glow {
+            filter: drop-shadow(0 0 15px rgba(236, 91, 19, 0.3));
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light text-slate-900 min-h-screen flex flex-col">
+<!-- Announcement Bar -->
+<div class="w-full bg-primary py-2 px-4 text-center">
+<p class="text-white text-xs font-bold tracking-widest uppercase">
+            New Enterprise Clusters Available in Singapore &amp; London. <a class="underline ml-2" href="#">Learn More</a>
+</p>
+</div>
+<!-- Navigation (Styled like SCREEN_3/4) -->
+<header class="flex items-center justify-between px-6 py-4 lg:px-20 border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<div class="size-10 bg-primary rounded-xl flex items-center justify-center v-logo-glow">
+<span class="material-symbols-outlined text-white text-2xl">shield_locked</span>
+</div>
+<h2 class="text-slate-900 text-xl font-black leading-tight tracking-tighter">VENOM <span class="text-primary">CODES</span></h2>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 hover:text-primary text-sm font-semibold transition-colors" href="#">Home</a>
+<a class="text-slate-600 hover:text-primary text-sm font-semibold transition-colors" href="#">Infrastructure</a>
+<a class="text-slate-600 hover:text-primary text-sm font-semibold transition-colors" href="#">Cloud</a>
+<a class="text-slate-600 hover:text-primary text-sm font-semibold transition-colors" href="#">Support</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden sm:block text-slate-900 text-sm font-bold px-4">Login</button>
+<button class="bg-primary text-white text-sm font-bold py-2.5 px-6 rounded-xl hover:opacity-90 transition-all shadow-lg shadow-primary/20">
+                Deploy Now
+            </button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col items-center justify-center p-6 relative overflow-hidden">
+<!-- Abstract Background Elements -->
+<div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary/5 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-1/4 -right-20 w-80 h-80 bg-primary/5 rounded-full blur-[100px]"></div>
+<!-- Login Card -->
+<div class="w-full max-w-md glass-card rounded-3xl p-8 lg:p-10 relative z-10">
+<div class="flex flex-col items-center mb-10">
+<div class="size-16 bg-gradient-to-br from-primary to-orange-600 rounded-2xl flex items-center justify-center mb-6 shadow-2xl shadow-primary/30 v-logo-glow">
+<span class="text-white font-black text-4xl">V</span>
+</div>
+<h1 class="text-2xl font-bold text-slate-900 mb-2">Access Dashboard</h1>
+<p class="text-slate-500 text-center text-sm font-medium">Secure access to your high-end infrastructure</p>
+</div>
+<form class="space-y-6">
+<div>
+<label class="block text-slate-700 text-sm font-semibold mb-2" for="email">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl">mail</span>
+<input class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3.5 pl-12 pr-4 text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all" id="email" placeholder="admin@venom.io" type="email"/>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<label class="block text-slate-700 text-sm font-semibold" for="password">Password</label>
+<a class="text-primary text-xs font-bold hover:underline" href="#">Forgot Password?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl">lock</span>
+<input class="w-full bg-slate-50 border border-slate-200 rounded-xl py-3.5 pl-12 pr-12 text-slate-900 placeholder:text-slate-400 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all" id="password" placeholder="••••••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600" type="button">
+<span class="material-symbols-outlined text-xl">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex items-center">
+<input class="w-4 h-4 rounded border-slate-300 bg-white text-primary focus:ring-primary focus:ring-offset-white transition-all" id="remember" type="checkbox"/>
+<label class="ml-2 text-slate-600 text-sm cursor-pointer select-none font-medium" for="remember">Remember this session</label>
+</div>
+<button class="w-full bg-primary hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-primary/30 flex items-center justify-center gap-2" type="submit">
+                    Login to Terminal
+                    <span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</form>
+<div class="mt-8 pt-8 border-t border-slate-100 text-center">
+<p class="text-slate-500 text-sm font-medium">
+                    New to Venom Codes? <a class="text-primary font-bold hover:underline" href="#">Create an account</a>
+</p>
+</div>
+</div>
+<div class="mt-8 flex gap-4 opacity-70">
+<div class="flex items-center gap-2 text-xs text-slate-500 font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+                AES-256 Encrypted
+            </div>
+<div class="flex items-center gap-2 text-xs text-slate-500 font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm">public</span>
+                Global Redundancy
+            </div>
+</div>
+</main>
+<!-- Global Footer (Styled like SCREEN_3/4) -->
+<footer class="bg-white border-t border-slate-200 py-12 px-6 lg:px-20 mt-auto">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-3 mb-6">
+<div class="size-8 bg-primary rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-lg">shield_locked</span>
+</div>
+<h2 class="text-slate-900 text-lg font-black tracking-tighter uppercase">VENOM <span class="text-primary">CODES</span></h2>
+</div>
+<p class="text-slate-500 text-sm leading-relaxed mb-6 font-medium">
+                    Next-generation high-end infrastructure for modern SaaS applications. Scale globally with zero friction.
+                </p>
+<div class="flex gap-4">
+<a class="size-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-lg">share</span>
+</a>
+<a class="size-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-lg">alternate_email</span>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-slate-900 font-bold mb-6 text-sm uppercase tracking-widest">Solutions</h4>
+<ul class="space-y-4 text-sm text-slate-500 font-medium">
+<li><a class="hover:text-primary transition-colors" href="#">Dedicated Servers</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Cloud Hosting</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Edge Computing</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">DDoS Protection</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-900 font-bold mb-6 text-sm uppercase tracking-widest">Company</h4>
+<ul class="space-y-4 text-sm text-slate-500 font-medium">
+<li><a class="hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Network Status</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact Support</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-900 font-bold mb-6 text-sm uppercase tracking-widest">Newsletter</h4>
+<p class="text-slate-500 text-sm mb-4 font-medium">Get the latest infrastructure updates.</p>
+<div class="flex gap-2">
+<input class="bg-slate-100 border border-slate-200 rounded-lg px-4 py-2 text-sm w-full focus:border-primary outline-none" placeholder="Email" type="email"/>
+<button class="bg-primary text-white p-2 rounded-lg shadow-md shadow-primary/20">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto border-t border-slate-100 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-slate-400 text-xs font-bold uppercase tracking-widest">© 2024 VENOM CODES Infrastructure. All rights reserved.</p>
+<div class="flex gap-6 text-xs text-slate-400 font-bold uppercase tracking-widest">
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Acceptable Use</a>
+<a class="hover:text-primary transition-colors" href="#">SLA</a>
+</div>
+</div>
+</footer>
+</body></html>

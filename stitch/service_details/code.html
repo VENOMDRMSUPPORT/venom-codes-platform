@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<title>Service Details | VENOM CODES</title>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark/50 sticky top-0 z-50 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-3">
+<div class="size-8 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z" fill="currentColor" fill-rule="evenodd"></path>
+<path clip-rule="evenodd" d="M24 8.18819L33.4123 11.574L24 15.2071L14.5877 11.574L24 8.18819ZM9 15.8487L21 20.4805V37.6263L9 32.9945V15.8487ZM27 37.6263V20.4805L39 15.8487V32.9945L27 37.6263ZM25.354 2.29885C24.4788 1.98402 23.5212 1.98402 22.646 2.29885L4.98454 8.65208C3.7939 9.08038 3 10.2097 3 11.475V34.3663C3 36.0196 4.01719 37.5026 5.55962 38.098L22.9197 44.7987C23.6149 45.0671 24.3851 45.0671 25.0803 44.7987L42.4404 38.098C43.9828 37.5026 45 36.0196 45 34.3663V11.475C45 10.2097 44.2061 9.08038 43.0155 8.65208L25.354 2.29885Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-black tracking-tight uppercase">Venom <span class="text-primary">Codes</span></h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-sm font-semibold text-primary transition-colors border-b-2 border-primary pb-1" href="#">Services</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Billing</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Support</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-primary/20 border-2 border-primary/40 overflow-hidden">
+<img alt="Profile" class="h-full w-full object-cover" data-alt="User avatar placeholder" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDimr_hzjKf9QcUYi04AcK5qZSBwHL6f-3uyL_5dgm2C7q0YKO5jRF4jOTOGtZMp4g2wNjQwLG_cdlUMUOzX_xVKBITYgpKhZYsum9922neTglV6hOunRQ8xAqE8upxIf0sz9nA7tWSrlVr-6beyezTPCHJaxPR4j1TeOozzfkXDG5lpoVOQHIPPD_OG2aUod6-9hngkp5e2hn3HkJpKesxMknIi8cbwuC2daNS1DTnL9CepC6e9R2693DafD6Fcs1ufHV6Ru7W9fkt"/>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 mb-8 text-sm text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary" href="#">Home</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-primary" href="#">My Services</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium">Enterprise License - VC-8829</span>
+</div>
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<h1 class="text-3xl md:text-4xl font-black tracking-tight">Enterprise License <span class="text-primary">VC-8829</span></h1>
+<span class="px-3 py-1 bg-green-500/10 text-green-500 text-xs font-bold rounded-full border border-green-500/20 uppercase tracking-widest">Active</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 font-medium">Global Infrastructure • Renews in 12 days (May 24, 2024)</p>
+</div>
+<div class="flex gap-3 w-full md:w-auto">
+<button class="flex-1 md:flex-none px-6 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all border border-slate-200 dark:border-slate-700">Manage Nodes</button>
+<button class="flex-1 md:flex-none px-6 py-3 rounded-xl bg-primary text-white font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-primary/20">Upgrade Plan</button>
+</div>
+</div>
+<!-- Top Stats Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+<div class="bg-white dark:bg-slate-800/40 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-primary/10 rounded-lg text-primary">
+<span class="material-symbols-outlined">speed</span>
+</span>
+<span class="text-green-500 text-xs font-bold">+0.01%</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-1">Current Uptime</p>
+<p class="text-2xl font-black">99.998%</p>
+</div>
+<div class="bg-white dark:bg-slate-800/40 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-blue-500/10 rounded-lg text-blue-500">
+<span class="material-symbols-outlined">lan</span>
+</span>
+<span class="text-primary text-xs font-bold">Optimal</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-1">Global Latency</p>
+<p class="text-2xl font-black">24ms</p>
+</div>
+<div class="bg-white dark:bg-slate-800/40 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-orange-500/10 rounded-lg text-orange-500">
+<span class="material-symbols-outlined">hub</span>
+</span>
+<span class="text-slate-500 text-xs font-bold">100% Load</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-1">Active Nodes</p>
+<p class="text-2xl font-black">12/12</p>
+</div>
+<div class="bg-white dark:bg-slate-800/40 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="p-2 bg-purple-500/10 rounded-lg text-purple-500">
+<span class="material-symbols-outlined">credit_card</span>
+</span>
+<span class="text-slate-500 text-xs font-bold">Auto-pay</span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider mb-1">Next Billing</p>
+<p class="text-2xl font-black">$499.00</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left: License & Config -->
+<div class="space-y-6">
+<!-- License Info Card -->
+<div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50">
+<h3 class="font-bold text-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">key</span>
+                            License Configuration
+                        </h3>
+</div>
+<div class="p-6 space-y-5">
+<div>
+<label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">License Key</label>
+<div class="flex gap-2">
+<div class="flex-1 bg-slate-100 dark:bg-slate-800 px-4 py-3 rounded-xl font-mono text-sm border border-slate-200 dark:border-slate-700 flex items-center justify-between">
+<span>VC-ENT-••••-••••-8829</span>
+<button class="text-primary hover:text-primary/80">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+<button class="p-3 bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:text-primary">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Billing Cycle</label>
+<p class="font-semibold text-sm px-4 py-3 bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">Monthly</p>
+</div>
+<div>
+<label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Tier</label>
+<p class="font-semibold text-sm px-4 py-3 bg-primary/10 text-primary rounded-xl border border-primary/20">Enterprise</p>
+</div>
+</div>
+<div>
+<label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Primary Server IP</label>
+<div class="flex gap-2">
+<input class="flex-1 bg-slate-100 dark:bg-slate-800 px-4 py-3 rounded-xl font-mono text-sm border border-slate-200 dark:border-slate-700 focus:outline-none" readonly="" type="text" value="164.92.110.224"/>
+<button class="px-4 bg-slate-100 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-xs hover:text-primary transition-colors">EDIT</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Node List Card -->
+<div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 flex justify-between items-center">
+<h3 class="font-bold text-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">dns</span>
+                            Node Status
+                        </h3>
+<span class="text-xs font-bold text-slate-500">12 Active</span>
+</div>
+<div class="divide-y divide-slate-100 dark:divide-slate-800">
+<div class="p-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<div>
+<p class="text-sm font-bold">Node-NYC-01</p>
+<p class="text-xs text-slate-500">USA, New York</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold">12ms</p>
+<p class="text-[10px] text-slate-400 uppercase">Latency</p>
+</div>
+</div>
+<div class="p-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
+<div>
+<p class="text-sm font-bold">Node-FRA-04</p>
+<p class="text-xs text-slate-500">Germany, Frankfurt</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold">34ms</p>
+<p class="text-[10px] text-slate-400 uppercase">Latency</p>
+</div>
+</div>
+<div class="p-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<div>
+<p class="text-sm font-bold">Node-SIN-02</p>
+<p class="text-xs text-slate-500">Singapore, West</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs font-bold">88ms</p>
+<p class="text-[10px] text-slate-400 uppercase">Latency</p>
+</div>
+</div>
+</div>
+<button class="w-full py-4 text-xs font-bold text-primary bg-primary/5 hover:bg-primary/10 transition-colors uppercase tracking-widest">View All Nodes</button>
+</div>
+</div>
+<!-- Right: Load Distribution Topology -->
+<div class="lg:col-span-2">
+<div class="bg-white dark:bg-slate-900 h-full rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm flex flex-col">
+<div class="p-6 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 flex justify-between items-center">
+<div>
+<h3 class="font-bold text-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">schema</span>
+                                Infrastructure Topology
+                            </h3>
+<p class="text-xs text-slate-500 font-medium">Real-time load distribution visualization</p>
+</div>
+<div class="flex gap-2">
+<button class="p-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
+<span class="material-symbols-outlined text-sm">fullscreen</span>
+</button>
+<button class="p-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
+<span class="material-symbols-outlined text-sm">refresh</span>
+</button>
+</div>
+</div>
+<div class="flex-1 relative min-h-[500px] flex items-center justify-center bg-[radial-gradient(circle_at_center,rgba(236,91,19,0.05)_0%,transparent_70%)]">
+<!-- Topology SVG Overlay -->
+<div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+<div class="w-full h-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+</div>
+<div class="relative z-10 w-full max-w-2xl px-10">
+<!-- Diagram Container -->
+<div class="relative flex flex-col items-center gap-24">
+<!-- Main Server -->
+<div class="relative group">
+<div class="absolute -inset-4 bg-primary/20 rounded-2xl blur-xl group-hover:bg-primary/30 transition-all"></div>
+<div class="relative bg-white dark:bg-slate-800 border-2 border-primary p-6 rounded-2xl shadow-xl flex flex-col items-center min-w-[180px]">
+<span class="material-symbols-outlined text-primary text-4xl mb-2">storage</span>
+<span class="font-black text-sm uppercase tracking-tighter">Main Server</span>
+<span class="text-[10px] font-mono text-slate-500">164.92.110.224</span>
+</div>
+<!-- Sync Lines Down -->
+<div class="absolute top-full left-1/2 -translate-x-1/2 w-0.5 h-24 bg-gradient-to-b from-primary to-primary/40"></div>
+</div>
+<!-- Load Balancers Row -->
+<div class="relative w-full flex justify-between gap-8">
+<!-- Horizontal Sync Line -->
+<div class="absolute top-0 left-0 right-0 h-0.5 bg-primary/40 -translate-y-px"></div>
+<!-- LB 1 -->
+<div class="relative flex flex-col items-center">
+<div class="absolute -top-px left-1/2 -translate-x-1/2 w-0.5 h-4 bg-primary/40"></div>
+<div class="mt-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-xl shadow-md flex flex-col items-center min-w-[140px] hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-slate-500 text-2xl mb-1">router</span>
+<span class="font-bold text-xs uppercase">LB-NORTH-AM</span>
+<span class="text-[9px] text-green-500 font-bold mt-1">● ONLINE</span>
+</div>
+<!-- Connection to nodes -->
+<div class="mt-4 flex flex-col items-center gap-2">
+<div class="w-px h-6 bg-slate-300 dark:bg-slate-700"></div>
+<div class="grid grid-cols-2 gap-2">
+<div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center" title="Node 1">
+<div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+</div>
+<div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center" title="Node 2">
+<div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- LB 2 -->
+<div class="relative flex flex-col items-center">
+<div class="absolute -top-px left-1/2 -translate-x-1/2 w-0.5 h-4 bg-primary/40"></div>
+<div class="mt-4 bg-white dark:bg-slate-800 border border-primary/50 p-4 rounded-xl shadow-md flex flex-col items-center min-w-[140px] hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-primary text-2xl mb-1">router</span>
+<span class="font-bold text-xs uppercase">LB-EUROPE-01</span>
+<span class="text-[9px] text-green-500 font-bold mt-1">● ACTIVE</span>
+</div>
+<!-- Connection to nodes -->
+<div class="mt-4 flex flex-col items-center gap-2">
+<div class="w-px h-6 bg-slate-300 dark:bg-slate-700"></div>
+<div class="grid grid-cols-3 gap-2">
+<div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+</div>
+<div class="w-8 h-8 rounded-lg bg-primary/10 border border-primary/40 flex items-center justify-center shadow-[0_0_10px_rgba(236,91,19,0.2)]">
+<div class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+</div>
+<div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- LB 3 -->
+<div class="relative flex flex-col items-center">
+<div class="absolute -top-px left-1/2 -translate-x-1/2 w-0.5 h-4 bg-primary/40"></div>
+<div class="mt-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-xl shadow-md flex flex-col items-center min-w-[140px] hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-slate-500 text-2xl mb-1">router</span>
+<span class="font-bold text-xs uppercase">LB-ASIA-PAC</span>
+<span class="text-[9px] text-green-500 font-bold mt-1">● ONLINE</span>
+</div>
+<!-- Connection to nodes -->
+<div class="mt-4 flex flex-col items-center gap-2">
+<div class="w-px h-6 bg-slate-300 dark:bg-slate-700"></div>
+<div class="grid grid-cols-2 gap-2">
+<div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+</div>
+<div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Diagram Legend -->
+<div class="absolute bottom-6 left-6 flex flex-col gap-2 bg-white/80 dark:bg-slate-900/80 p-3 rounded-xl border border-slate-200 dark:border-slate-700 backdrop-blur-sm text-[10px] font-bold uppercase tracking-wider">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span>High Traffic Node</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span>Optimal Health</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-4 h-0.5 bg-primary/40"></div>
+<span>Sync Line</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-200 dark:border-slate-800 flex justify-center">
+<button class="text-xs font-bold flex items-center gap-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">download_for_offline</span>
+                            EXPORT NETWORK TOPOLOGY REPORT (.PDF)
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Billing & Quick Actions -->
+<div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-gradient-to-br from-primary/10 to-transparent p-1 rounded-2xl border border-primary/20">
+<div class="bg-white dark:bg-slate-900 p-8 rounded-xl h-full flex flex-col md:flex-row gap-6 items-center">
+<div class="p-4 bg-primary text-white rounded-2xl">
+<span class="material-symbols-outlined text-4xl">rocket_launch</span>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h4 class="font-black text-xl mb-1">Need more power?</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm mb-4">Upgrade to 'Ultimate' tier for unlimited nodes and custom proxy integration.</p>
+<button class="px-6 py-2.5 bg-primary text-white rounded-xl font-bold text-sm shadow-lg shadow-primary/30 hover:scale-[1.02] transition-transform">Compare Plans</button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row gap-6 items-center">
+<div class="p-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-2xl">
+<span class="material-symbols-outlined text-4xl">support_agent</span>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h4 class="font-black text-xl mb-1">Enterprise Support</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm mb-4">Dedicated account manager available 24/7 for license-related technical issues.</p>
+<button class="px-6 py-2.5 bg-slate-900 dark:bg-white dark:text-slate-900 text-white rounded-xl font-bold text-sm hover:opacity-90 transition-opacity">Contact Support</button>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-10 bg-white dark:bg-background-dark/50">
+<div class="max-w-7xl mx-auto px-4 text-center">
+<div class="flex justify-center items-center gap-2 mb-6">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 18.4228L42 11.475V34.3663C42 34.7796 41.7457 35.1504 41.3601 35.2992L24 42V18.4228Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<span class="font-black text-lg tracking-tight uppercase">Venom <span class="text-primary">Codes</span></span>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-xs mb-4">© 2024 Venom Codes Infrastructure. All rights reserved.</p>
+<div class="flex justify-center gap-6 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+<a class="hover:text-primary" href="#">Legal</a>
+<a class="hover:text-primary" href="#">Privacy</a>
+<a class="hover:text-primary" href="#">SLA</a>
+<a class="hover:text-primary" href="#">Status</a>
+</div>
+</div>
+</footer>
+</body></html>

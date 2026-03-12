@@ -1,15 +1,24 @@
-                    </div>
+    {assign var="useClientShell" value=false}
+    {if $templatefile == 'login' || $templatefile|substr:0:10 == 'clientarea'}
+        {assign var="useClientShell" value=true}
+    {/if}
 
-                    </div>
-                    {if !$inShoppingCart && $secondarySidebar->hasChildren()}
-                        <div class="d-lg-none sidebar sidebar-secondary">
-                            {include file="$template/includes/sidebar.tpl" sidebar=$secondarySidebar}
+    {if $useClientShell}
+        {include file="$template/clientarea.tpl" mode="end"}
+    {else}
                         </div>
-                    {/if}
-                <div class="clearfix"></div>
+
+                        </div>
+                        {if !$inShoppingCart && $secondarySidebar->hasChildren()}
+                            <div class="d-lg-none sidebar sidebar-secondary">
+                                {include file="$template/includes/sidebar.tpl" sidebar=$secondarySidebar}
+                            </div>
+                        {/if}
+                    <div class="clearfix"></div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    {/if}
 
     <footer id="footer" class="footer">
         <div class="container">

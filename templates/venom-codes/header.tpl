@@ -11,6 +11,14 @@
     {if $captcha}{$captcha->getMarkup()}{/if}
     {$headeroutput}
 
+    {assign var="useClientShell" value=false}
+    {if $templatefile == 'login' || $templatefile|substr:0:10 == 'clientarea'}
+        {assign var="useClientShell" value=true}
+    {/if}
+
+    {if $useClientShell}
+        {include file="$template/includes/client/header.tpl"}
+    {else}
     <header id="header" class="header">
         {if $loggedin}
             <div class="topbar">
@@ -137,6 +145,7 @@
             </div>
         </div>
     </header>
+    {/if}
 
     {include file="$template/includes/network-issues-notifications.tpl"}
 
@@ -155,20 +164,24 @@
         {/if}
     {/if}
 
-    <section id="main-body">
-        <div class="{if !$skipMainBodyContainer}container{/if}">
-            <div class="{if !$inShoppingCart && ($primarySidebar->hasChildren() || $secondarySidebar->hasChildren())}row{/if}">
+    {if $useClientShell}
+        {include file="$template/clientarea.tpl" mode="start"}
+    {else}
+        <section id="main-body">
+            <div class="{if !$skipMainBodyContainer}container{/if}">
+                <div class="{if !$inShoppingCart && ($primarySidebar->hasChildren() || $secondarySidebar->hasChildren())}row{/if}">
 
-            {if !$inShoppingCart && ($primarySidebar->hasChildren() || $secondarySidebar->hasChildren())}
-                <div class="col-lg-4 col-xl-3">
-                    <div class="sidebar">
-                        {include file="$template/includes/sidebar.tpl" sidebar=$primarySidebar}
-                    </div>
-                    {if !$inShoppingCart && $secondarySidebar->hasChildren()}
-                        <div class="d-none d-lg-block sidebar">
-                            {include file="$template/includes/sidebar.tpl" sidebar=$secondarySidebar}
+                {if !$inShoppingCart && ($primarySidebar->hasChildren() || $secondarySidebar->hasChildren())}
+                    <div class="col-lg-4 col-xl-3">
+                        <div class="sidebar">
+                            {include file="$template/includes/sidebar.tpl" sidebar=$primarySidebar}
                         </div>
-                    {/if}
-                </div>
-            {/if}
-            <div class="{if !$inShoppingCart && ($primarySidebar->hasChildren() || $secondarySidebar->hasChildren())}col-lg-8 col-xl-9{/if} primary-content">
+                        {if !$inShoppingCart && $secondarySidebar->hasChildren()}
+                            <div class="d-none d-lg-block sidebar">
+                                {include file="$template/includes/sidebar.tpl" sidebar=$secondarySidebar}
+                            </div>
+                        {/if}
+                    </div>
+                {/if}
+                <div class="{if !$inShoppingCart && ($primarySidebar->hasChildren() || $secondarySidebar->hasChildren())}col-lg-8 col-xl-9{/if} primary-content">
+    {/if}
