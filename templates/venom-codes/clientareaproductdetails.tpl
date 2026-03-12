@@ -27,105 +27,227 @@
             {$tplOverviewTabOutput}
         {else}
 
-        <div class="card">
-            <div class="card-body">
+        {assign var="serviceStatusClass" value=$rawstatus|strtolower}
+        {assign var="serviceNodeLabel" value=$domain}
+        {if !$serviceNodeLabel}
+            {if $serverdata && $serverdata.ipaddress}
+                {assign var="serviceNodeLabel" value=$serverdata.ipaddress}
+            {elseif $dedicatedip}
+                {assign var="serviceNodeLabel" value=$dedicatedip}
+            {else}
+                {assign var="serviceNodeLabel" value='N/A'}
+            {/if}
+        {/if}
 
-                <div class="product-details">
+        <div class="venom-diagram-card mb-4">
+            <div class="row align-items-lg-center">
+                <div class="col-12 col-lg-8 mb-4 mb-lg-0">
+                    <span class="venom-chip">Service Details</span>
+                    <div class="d-flex flex-column flex-md-row align-items-md-center mb-2">
+                        <h1 class="h3 font-weight-bold mb-2 mb-md-0 mr-md-3">{$product}</h1>
+                        <span class="label status status-{$serviceStatusClass}">{$status}</span>
+                    </div>
+                    <p class="text-muted mb-2">{$groupname}</p>
+                    <p class="text-muted mb-0">
+                        {if $domain}
+                            {$domain}
+                            <span class="mx-1">&middot;</span>
+                        {/if}
+                        {lang key='clientareahostingnextduedate'}: {$nextduedate}
+                    </p>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="d-flex flex-wrap justify-content-lg-end">
+                        {if $packagesupgrade}
+                            <a href="upgrade.php?type=package&amp;id={$id}" class="btn btn-success btn-sm mr-2 mb-2">
+                                <i class="fas fa-level-up-alt fa-fw"></i>
+                                {lang key='upgrade'}
+                            </a>
+                        {/if}
+                        {if $showRenewServiceButton === true}
+                            <a href="{routePath('service-renewals-service', $id)}" class="btn btn-primary btn-sm mr-2 mb-2">
+                                <i class="fas fa-sync fa-fw"></i>
+                                {lang key='renewService.titleSingular'}
+                            </a>
+                        {/if}
+                        {if $showcancelbutton}
+                            <a href="clientarea.php?action=cancel&amp;id={$id}" class="btn btn-danger btn-sm mr-2 mb-2 {if $pendingcancellation}disabled{/if}">
+                                <i class="fas fa-ban fa-fw"></i>
+                                {if $pendingcancellation}
+                                    {lang key='cancellationrequested'}
+                                {else}
+                                    {lang key='clientareacancelrequestbutton'}
+                                {/if}
+                            </a>
+                        {/if}
+                        <a href="submitticket.php" class="btn btn-default btn-sm mb-2">
+                            <i class="fas fa-life-ring fa-fw"></i>
+                            {lang key='navtickets'}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
+        <div class="row mb-4">
+            <div class="col-12 col-sm-6 col-xl-3 mb-3">
+                <div class="venom-plan-card h-100">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h3 class="h6 font-weight-bold mb-0">Service State</h3>
+                        <span class="label status status-{$serviceStatusClass}">{$status}</span>
+                    </div>
+                    <p class="h5 font-weight-bold mb-1">{if $type eq "server"}Infrastructure{else}License{/if}</p>
+                    <p class="small text-muted mb-0">Runtime status from the active WHMCS service profile.</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3 mb-3">
+                <div class="venom-plan-card h-100">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h3 class="h6 font-weight-bold mb-0">{lang key='orderbillingcycle'}</h3>
+                        <i class="fas fa-calendar-alt text-muted"></i>
+                    </div>
+                    <p class="h5 font-weight-bold mb-1">{$billingcycle}</p>
+                    <p class="small text-muted mb-0">{lang key='orderpaymentmethod'}: {$paymentmethod}</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3 mb-3">
+                <div class="venom-plan-card h-100">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h3 class="h6 font-weight-bold mb-0">{lang key='clientareahostingnextduedate'}</h3>
+                        <i class="fas fa-clock text-muted"></i>
+                    </div>
+                    <p class="h5 font-weight-bold mb-1">{$nextduedate}</p>
+                    <p class="small text-muted mb-0">{lang key='clientareahostingregdate'}: {$regdate}</p>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3 mb-3">
+                <div class="venom-plan-card h-100">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h3 class="h6 font-weight-bold mb-0">{lang key='recurringamount'}</h3>
+                        <i class="fas fa-receipt text-muted"></i>
+                    </div>
+                    <p class="h5 font-weight-bold mb-1">
+                        {if $billingcycle != "{lang key='orderpaymenttermonetime'}" && $billingcycle != "{lang key='orderfree'}"}
+                            {$recurringamount}
+                        {else}
+                            {$firstpaymentamount}
+                        {/if}
+                    </p>
+                    <p class="small text-muted mb-0">
+                        {if $firstpaymentamount neq $recurringamount}
+                            {lang key='firstpaymentamount'}: {$firstpaymentamount}
+                        {else}
+                            {lang key='orderpaymentmethod'}: {$paymentmethod}
+                        {/if}
+                    </p>
+                </div>
+            </div>
+        </div>
 
-                            <div class="product-status product-status-{$rawstatus|strtolower} mb-3">
-                                <div class="product-icon text-center">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fas fa-{if $type eq "hostingaccount" || $type == "reselleraccount"}hdd{elseif $type eq "server"}database{else}archive{/if} fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                    <h3>{$product}</h3>
-                                    <h4>{$groupname}</h4>
-                                </div>
-                                <div class="product-status-text">
-                                    {$status}
-                                </div>
-                            </div>
-
-                            {if $showRenewServiceButton === true || $showcancelbutton === true || $packagesupgrade === true}
-                                <div class="row product-actions-wrapper">
-                                    {if $packagesupgrade}
-                                        <div class="col-12">
-                                            <a href="upgrade.php?type=package&amp;id={$id}" class="btn btn-block btn-success">
-                                                <i class="fas fa-level-up"></i>
-                                                {lang key='upgrade'}
-                                            </a>
-                                        </div>
-                                    {/if}
-                                    {if $showRenewServiceButton === true}
-                                        <div class="col-12">
-                                            <a href="{routePath('service-renewals-service', $id)}" class="btn btn-block btn-primary">
-                                                <i class="fas fa-sync"></i>
-                                                {lang key='renewService.titleSingular'}
-                                            </a>
-                                        </div>
-                                    {/if}
-                                    {if $showcancelbutton}
-                                        <div class="col-12">
-                                            <a href="clientarea.php?action=cancel&amp;id={$id}" class="btn btn-block btn-danger {if $pendingcancellation}disabled{/if}">
-                                                <i class="fas fa-ban"></i>
-                                                {if $pendingcancellation}
-                                                    {lang key='cancellationrequested'}
-                                                {else}
-                                                    {lang key='clientareacancelrequestbutton'}
-                                                {/if}
-                                            </a>
-                                        </div>
-                                    {/if}
-                                </div>
-                            {/if}
-
+        <div class="row mb-4">
+            <div class="col-12 col-xl-7 mb-4 mb-xl-0">
+                <div class="venom-diagram-card h-100">
+                    <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between mb-3">
+                        <div>
+                            <h2 class="h5 font-weight-bold mb-1">Infrastructure Topology</h2>
+                            <p class="small text-muted mb-0">Load-distribution summary aligned to your live service metadata.</p>
                         </div>
-                        <div class="col-md-6 text-center">
-
-                            <h4>{lang key='clientareahostingregdate'}</h4>
-                            {$regdate}
-
-                            {if $firstpaymentamount neq $recurringamount}
-                                <h4>{lang key='firstpaymentamount'}</h4>
-                                {$firstpaymentamount}
-                            {/if}
-
-                            {if $billingcycle != "{lang key='orderpaymenttermonetime'}" && $billingcycle != "{lang key='orderfree'}"}
-                                <h4>{lang key='recurringamount'}</h4>
-                                {$recurringamount}
-                            {/if}
-
-                            {if $quantitySupported && $quantity > 1}
-                                <h4>{lang key='quantity'}</h4>
-                                {$quantity}
-                            {/if}
-
-                            <h4>{lang key='orderbillingcycle'}</h4>
-                            {$billingcycle}
-
-                            <h4>{lang key='clientareahostingnextduedate'}</h4>
-                            {$nextduedate}
-
-                            <h4>{lang key='orderpaymentmethod'}</h4>
-                            {$paymentmethod}
-
-                            {if $suspendreason}
-                                <h4>{lang key='suspendreason'}</h4>
-                                {$suspendreason}
-                            {/if}
-
+                        <a href="clientarea.php?action=services" class="btn btn-default btn-sm mt-3 mt-sm-0">
+                            <i class="fas fa-server fa-fw"></i>
+                            {lang key='clientareanavservices'}
+                        </a>
+                    </div>
+                    <div class="venom-diagram-grid">
+                        <div class="venom-main-node-wrap">
+                            <article class="venom-main-node">
+                                <div class="venom-main-node__icon">
+                                    <i class="fas fa-{if $type eq "server"}database{else}shield-alt{/if}"></i>
+                                </div>
+                                <h4>{$product}</h4>
+                                <p>{$serviceNodeLabel}</p>
+                            </article>
+                        </div>
+                        <div class="venom-node-column">
+                            <div class="venom-lb-node">EDGE A</div>
+                            <div class="venom-lb-node venom-lb-node--muted">{lang key='orderbillingcycle'}: {$billingcycle}</div>
+                        </div>
+                        <div class="venom-node-column">
+                            <div class="venom-lb-node">EDGE B</div>
+                            <div class="venom-lb-node venom-lb-node--muted">{lang key='clientareahostingnextduedate'}: {$nextduedate}</div>
+                        </div>
+                        <div class="venom-node-lines">
+                            <span class="venom-line venom-line--v"></span>
+                            <span class="venom-line venom-line--h-left"></span>
+                            <span class="venom-line venom-line--h-right"></span>
                         </div>
                     </div>
-
+                    <p class="small text-muted mt-3 mb-0">
+                        {if $quantitySupported && $quantity > 1}
+                            {lang key='quantity'}: {$quantity}
+                        {else}
+                            Service lifecycle and billing telemetry are synchronized from this account record.
+                        {/if}
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-xl-5">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h3 class="card-title m-0">
+                            <i class="fas fa-cogs"></i>
+                            Technical Summary
+                        </h3>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{lang key='clientareahostingregdate'}</span>
+                            <strong>{$regdate}</strong>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{lang key='orderbillingcycle'}</span>
+                            <strong>{$billingcycle}</strong>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{lang key='clientareahostingnextduedate'}</span>
+                            <strong>{$nextduedate}</strong>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{lang key='orderpaymentmethod'}</span>
+                            <strong>{$paymentmethod}</strong>
+                        </div>
+                        {if $suspendreason}
+                            <div class="list-group-item">
+                                <strong>{lang key='suspendreason'}:</strong>
+                                <div class="text-muted mt-1">{$suspendreason}</div>
+                            </div>
+                        {/if}
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex flex-wrap">
+                            {if $domain}
+                                <a href="http://{$domain}" class="btn btn-default btn-sm mr-2 mb-2" target="_blank">
+                                    <i class="fas fa-external-link-alt fa-fw"></i>
+                                    {lang key='visitwebsite'}
+                                </a>
+                                {if $domainId}
+                                    <a href="clientarea.php?action=domaindetails&id={$domainId}" class="btn btn-default btn-sm mr-2 mb-2" target="_blank">
+                                        <i class="fas fa-globe fa-fw"></i>
+                                        {lang key='managedomain'}
+                                    </a>
+                                {/if}
+                            {/if}
+                            <a href="supporttickets.php" class="btn btn-default btn-sm mb-2">
+                                <i class="fas fa-life-ring fa-fw"></i>
+                                {lang key='navtickets'}
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
             {foreach $hookOutput as $output}
-                <div>
+                <div class="mb-4">
                     {$output}
                 </div>
             {/foreach}
