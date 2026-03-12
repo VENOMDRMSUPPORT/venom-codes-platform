@@ -6,6 +6,7 @@
         || $templatefile == 'password-reset-security-prompt'
         || $templatefile == 'password-reset-change-prompt'
         || $templatefile == 'two-factor-challenge'
+        || $templatefile == 'two-factor-new-backup-code'
         || $templatefile == 'user-password'
         || $templatefile == 'user-verify-email'
         || $templatefile == 'user-invite-accept'}
