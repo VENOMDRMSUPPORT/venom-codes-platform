@@ -1,0 +1,62 @@
+/*
+ * Venom controlled normalization layer.
+ * Scope: global backdrop parity across homepage, auth shell, and client shell.
+ */
+
+:root {
+  --venom-global-backdrop:
+    radial-gradient(circle at 82% -8%, color-mix(in srgb, var(--venom-accent) 10%, transparent) 0%, transparent 52%),
+    radial-gradient(circle at -14% 108%, color-mix(in srgb, var(--venom-accent-soft) 9%, transparent) 0%, transparent 56%),
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--venom-bg) 96%, var(--venom-accent) 4%) 0%,
+      var(--venom-bg) 52%,
+      color-mix(in srgb, var(--venom-bg-muted) 88%, var(--venom-accent-soft) 12%) 100%
+    );
+  --venom-global-atmosphere:
+    radial-gradient(ellipse at 18% 12%, color-mix(in srgb, var(--venom-accent-soft) 22%, transparent) 0%, transparent 60%),
+    radial-gradient(ellipse at 86% 26%, color-mix(in srgb, var(--venom-accent) 16%, transparent) 0%, transparent 62%);
+}
+
+html[data-venom-home="1"] body,
+body.venom-shell-public,
+body.venom-shell-auth,
+body.venom-shell-client {
+  position: relative;
+  background: var(--venom-global-backdrop);
+  background-attachment: fixed;
+}
+
+html[data-venom-home="1"] body::before,
+body.venom-shell-public::before,
+body.venom-shell-auth::before,
+body.venom-shell-client::before,
+html[data-venom-home="1"] body::after,
+body.venom-shell-public::after,
+body.venom-shell-auth::after,
+body.venom-shell-client::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+html[data-venom-home="1"] body::before,
+body.venom-shell-public::before,
+body.venom-shell-auth::before,
+body.venom-shell-client::before {
+  z-index: -3;
+  background: var(--venom-global-atmosphere);
+}
+
+html[data-venom-home="1"] body::after,
+body.venom-shell-public::after,
+body.venom-shell-auth::after,
+body.venom-shell-client::after {
+  z-index: -2;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--venom-bg) 86%, transparent) 0%,
+    color-mix(in srgb, var(--venom-bg) 94%, transparent) 100%
+  );
+}

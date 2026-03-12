@@ -32355,36 +32355,7 @@ button:focus-visible,
 body.venom-shell-public,
 body.venom-shell-auth,
 body.venom-shell-client {
-  position: relative;
-  background: var(--venom-shell-backdrop);
   color: var(--venom-text-strong);
-}
-
-body.venom-shell-public::before,
-body.venom-shell-auth::before,
-body.venom-shell-client::before,
-body.venom-shell-public::after,
-body.venom-shell-auth::after,
-body.venom-shell-client::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -2;
-}
-
-body.venom-shell-public::before,
-body.venom-shell-auth::before,
-body.venom-shell-client::before {
-  background: var(--venom-shell-glow);
-}
-
-body.venom-shell-public::after,
-body.venom-shell-auth::after,
-body.venom-shell-client::after {
-  background:
-    radial-gradient(circle at 82% -5%, color-mix(in srgb, var(--venom-accent) 14%, transparent) 0%, transparent 56%),
-    radial-gradient(circle at -12% 100%, color-mix(in srgb, var(--venom-accent-soft) 12%, transparent) 0%, transparent 58%);
 }
 
 body.venom-shell-auth #main-body > .container {
