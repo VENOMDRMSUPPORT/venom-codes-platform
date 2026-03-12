@@ -13,7 +13,7 @@
     {/if}
 
     {assign var="isClientShell" value=false}
-    {if !$isAuthShell && $loggedin && $templatefile|substr:0:10 == 'clientarea'}
+    {if !$isAuthShell && $loggedin && ($templatefile|substr:0:10 == 'clientarea' || $templatefile == 'account-paymentmethods')}
         {assign var="isClientShell" value=true}
     {/if}
 
