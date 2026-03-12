@@ -235,7 +235,7 @@
         </div>
         <p>We use cookies to improve your dashboard experience and analyze our traffic.</p>
         <div class="venom-cookie__actions">
-            <button type="button" class="venom-cookie__btn venom-cookie__btn--solid" data-cookie-close>Accept All</button>
+            <button type="button" class="venom-cookie__btn venom-cookie__btn--solid" data-cookie-close data-cookie-accept>Accept All</button>
             <button type="button" class="venom-cookie__btn venom-cookie__btn--ghost" data-cookie-close>Manage</button>
         </div>
     </div>

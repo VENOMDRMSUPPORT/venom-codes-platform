@@ -3,6 +3,7 @@
 
     var STORAGE_THEME = "venom_theme";
     var STORAGE_ACCENT = "venom_accent";
+    var STORAGE_COOKIE_CONSENT = "venom_cookie_consent";
     var DEFAULT_THEME = "light";
     var DEFAULT_ACCENT = "ocean";
     var THEMES = ["light", "dark"];
@@ -179,9 +180,17 @@
             return;
         }
 
+        if (safeGetStorage(STORAGE_COOKIE_CONSENT) === "accepted") {
+            cookieCard.classList.add("hidden");
+            return;
+        }
+
         var cookieButtons = cookieCard.querySelectorAll("[data-cookie-close]");
         cookieButtons.forEach(function (button) {
             button.addEventListener("click", function () {
+                if (button.hasAttribute("data-cookie-accept")) {
+                    safeSetStorage(STORAGE_COOKIE_CONSENT, "accepted");
+                }
                 cookieCard.classList.add("hidden");
             });
         });
