@@ -89,6 +89,76 @@
                 {include file="$template/includes/panel.tpl" type="info" headerTitle="{lang key='success'}" bodyContent="{lang key='invoiceofflinepaid'}" bodyTextCenter=true}
             {/if}
 
+            {assign var="lineItemCount" value=$invoiceitems|@count}
+            {assign var="transactionCount" value=$transactions|@count}
+
+            <div class="venom-diagram-card mb-4">
+                <div class="row align-items-lg-center">
+                    <div class="col-12 col-lg-8 mb-4 mb-lg-0">
+                        <span class="venom-chip">Billing Document</span>
+                        <h1 class="h3 font-weight-bold mb-2">
+                            {lang key='invoicenumber'} {if $invoicenum}{$invoicenum}{else}{$invoiceid}{/if}
+                        </h1>
+                        <p class="text-muted mb-0">Detailed invoice ledger including itemized billing, tax, credit, transactions, and payment processing status.</p>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="d-flex flex-wrap justify-content-lg-end">
+                            <a href="clientarea.php?action=invoices" class="btn btn-default btn-sm mr-2 mb-2">
+                                <i class="fas fa-file-invoice fa-fw"></i>
+                                {lang key='invoices'}
+                            </a>
+                            <a href="clientarea.php?action=addfunds" class="btn btn-default btn-sm mb-2">
+                                <i class="fas fa-wallet fa-fw"></i>
+                                {lang key='addfunds'}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-12 col-sm-6 col-lg-3 mb-3">
+                    <div class="venom-plan-card h-100">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h3 class="h6 font-weight-bold mb-0">{lang key='invoicestotal'}</h3>
+                            <i class="fas fa-calculator text-muted"></i>
+                        </div>
+                        <p class="h4 font-weight-bold mb-1">{$invoiceamount}</p>
+                        <p class="small text-muted mb-0">Gross invoice amount including taxes and applicable adjustments.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 mb-3">
+                    <div class="venom-plan-card h-100">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h3 class="h6 font-weight-bold mb-0">{lang key='invoicesbalance'}</h3>
+                            <span class="label status {if $status == 'Paid'}status-paid{elseif $status == 'Unpaid'}status-unpaid{elseif $status == 'Cancelled'}status-cancelled{elseif $status == 'Refunded'}status-refunded{else}status-pending{/if}">{$status}</span>
+                        </div>
+                        <p class="h4 font-weight-bold mb-1">{$balance}</p>
+                        <p class="small text-muted mb-0">Current balance state of this invoice document.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 mb-3">
+                    <div class="venom-plan-card h-100">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h3 class="h6 font-weight-bold mb-0">{lang key='invoicelineitems'}</h3>
+                            <i class="fas fa-list-ul text-muted"></i>
+                        </div>
+                        <p class="h4 font-weight-bold mb-1">{$lineItemCount}</p>
+                        <p class="small text-muted mb-0">Itemized billing entries included in this invoice.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3 mb-3">
+                    <div class="venom-plan-card h-100">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <h3 class="h6 font-weight-bold mb-0">{lang key='billing.ledger.title'}</h3>
+                            <i class="fas fa-receipt text-muted"></i>
+                        </div>
+                        <p class="h4 font-weight-bold mb-1">{$transactionCount}</p>
+                        <p class="small text-muted mb-0">Recorded ledger transactions attached to this invoice.</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="row justify-content-sm-between">
                 <div class="col-12 col-sm-6 order-sm-last text-sm-right invoice-col right">
                     <strong>{lang key='invoicespayto'}</strong>

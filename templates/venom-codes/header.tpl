@@ -26,7 +26,7 @@
     {/if}
 
     {assign var="isClientShell" value=false}
-    {if !$isAuthShell && $loggedin && ($templatefile|substr:0:10 == 'clientarea' || $templatefile == 'account-paymentmethods' || $templatefile == 'account-contacts-manage' || $templatefile == 'account-contacts-new' || $templatefile == 'account-user-management' || $templatefile == 'account-user-permissions' || $templatefile == 'user-profile' || $templatefile == 'user-password' || $templatefile == 'user-security' || $templatefile == 'supportticketslist' || $templatefile == 'supportticketsubmit-stepone' || $templatefile == 'supportticketsubmit-steptwo' || $templatefile == 'supportticketsubmit-confirm' || $templatefile == 'viewticket')}
+    {if !$isAuthShell && $loggedin && ($templatefile|substr:0:10 == 'clientarea' || $templatefile == 'account-paymentmethods' || $templatefile == 'account-contacts-manage' || $templatefile == 'account-contacts-new' || $templatefile == 'account-user-management' || $templatefile == 'account-user-permissions' || $templatefile == 'user-profile' || $templatefile == 'user-password' || $templatefile == 'user-security' || $templatefile == 'supportticketslist' || $templatefile == 'supportticketsubmit-stepone' || $templatefile == 'supportticketsubmit-steptwo' || $templatefile == 'supportticketsubmit-confirm' || $templatefile == 'viewticket' || $templatefile == 'masspay' || $templatefile == 'invoice-payment')}
         {assign var="isClientShell" value=true}
     {/if}
 
