@@ -12320,17 +12320,20 @@ div.tweet span {
 
 #registration {
   margin: 0;
-  padding: 0 0 40px 0;
+  padding: 0;
 }
 
 #registration .field-container {
-  margin: 0 0 30px 0;
+  margin-bottom: 1.1rem;
 }
 
 #registration label {
-  font-weight: 300;
-  color: #666;
-  font-size: 13px;
+  margin-bottom: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--venom-text-soft);
 }
 
 #registration .info-text-sm {
@@ -12339,21 +12342,24 @@ div.tweet span {
 }
 
 #registration .sub-heading {
-  height: 0;
-  border-top: 1px solid #DDD;
+  height: auto;
+  margin-top: 1.5rem;
+  margin-bottom: 1.4rem;
+  border-top: 1px solid var(--venom-border-ui-soft);
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 30px;
 }
 
 #registration .sub-heading span {
   display: inline-block;
   position: relative;
-  padding: 0 17px;
-  top: -11px;
-  font-size: 16px;
-  color: #058;
-  background-color: #fff;
+  top: -0.74rem;
+  padding: 0 0.65rem;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--venom-accent);
+  background: color-mix(in srgb, var(--venom-surface-shell) 96%, transparent);
 }
 
 /**
@@ -12373,16 +12379,16 @@ div.tweet span {
 #registration .form-control {
   position: relative;
   vertical-align: top;
-  border: 1px solid #DDD;
+  border: 1px solid var(--venom-border-ui-soft);
   display: -moz-inline-stack;
   display: inline-block;
-  color: #626262;
+  color: var(--venom-text-strong);
   outline: none;
-  background: #fff;
-  height: 36px;
+  background: color-mix(in srgb, var(--venom-surface-shell-soft) 90%, transparent);
+  min-height: 2.75rem;
   width: 100%;
-  border-radius: 3px;
-  font-size: 13px;
+  box-shadow: var(--venom-shadow-sm);
+  font-size: 0.94rem;
 }
 
 #registration .input-group-lg > .form-control {
@@ -12403,9 +12409,10 @@ div.tweet span {
 }
 
 #registration .form-control:focus {
-  border-color: #ddd;
+  border-color: var(--venom-border-ui-strong);
   outline: 0;
-  box-shadow: none;
+  box-shadow: var(--venom-ring-strong);
+  background: color-mix(in srgb, var(--venom-surface-shell-soft) 95%, transparent);
 }
 
 #registration textarea.field {
@@ -12415,7 +12422,7 @@ div.tweet span {
 #registration .prepend-icon .field {
   appearance: none;
   -webkit-appearance: none;
-  padding-left: 36px;
+  padding-left: 2.5rem;
 }
 
 #registration .prepend-icon .field-icon i {
@@ -12426,10 +12433,10 @@ div.tweet span {
 #registration .prepend-icon .field-icon {
   top: 0;
   z-index: 4;
-  width: 42px;
-  height: 36px;
+  width: 2.5rem;
+  height: 2.75rem;
   color: inherit;
-  line-height: 36px;
+  line-height: 2.75rem;
   position: absolute;
   text-align: center;
   transition: all 0.5s ease-out;
@@ -12437,23 +12444,24 @@ div.tweet span {
 }
 
 #registration .field-icon i {
-  color: #bbb;
+  color: var(--venom-text-soft);
 }
 
 #registration .field[disabled],
 #registration .field[readonly],
 #registration .form-control[disabled],
 #registration .form-control[readonly] {
-  background-color: #f8f8f8;
+  background: color-mix(in srgb, var(--venom-surface-shell-soft) 76%, transparent);
+  border-color: var(--venom-border-ui-soft);
   opacity: 1;
 }
 
 #registration .field-help-text {
   display: block;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  color: #888;
-  font-size: 12px;
+  margin-top: 0.45rem;
+  margin-bottom: 0.8rem;
+  color: var(--venom-text-soft);
+  font-size: 0.78rem;
 }
 
 /**
@@ -32379,13 +32387,6 @@ body.venom-shell-client::after {
     radial-gradient(circle at -12% 100%, color-mix(in srgb, var(--venom-accent-soft) 12%, transparent) 0%, transparent 58%);
 }
 
-body.venom-shell-public #main-body,
-body.venom-shell-auth #main-body,
-body.venom-shell-client #main-body {
-  padding-top: 2rem;
-  padding-bottom: 2.5rem;
-}
-
 body.venom-shell-auth #main-body > .container {
   max-width: 1220px;
 }
@@ -32729,106 +32730,6 @@ body.venom-shell-auth .alert {
   background: color-mix(in srgb, var(--venom-surface-shell-soft) 88%, transparent);
 }
 
-body.venom-page-login .venom-auth-shell {
-  width: min(1240px, calc(100% - 1.4rem));
-}
-
-body.venom-page-login .venom-auth-frame {
-  padding: 0;
-  overflow: hidden;
-  border-color: var(--venom-border-ui-strong);
-  box-shadow: var(--venom-shadow-shell);
-}
-
-body.venom-page-login .venom-auth-main,
-body.venom-page-login .venom-auth-side {
-  position: relative;
-}
-
-body.venom-page-login .venom-auth-main::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--venom-accent) 8%, transparent) 0%,
-    transparent 44%
-  );
-  pointer-events: none;
-}
-
-body.venom-page-login .venom-auth-main__inner {
-  position: relative;
-  z-index: 1;
-  padding: 2.2rem;
-}
-
-body.venom-page-login .venom-auth-side__inner {
-  height: 100%;
-  padding: 2.2rem;
-  background: color-mix(in srgb, var(--venom-surface-shell-strong) 70%, transparent);
-  border-left: 1px solid var(--venom-border-ui-soft);
-}
-
-body.venom-page-login .venom-auth-content .login-form {
-  margin-bottom: 0;
-}
-
-body.venom-page-login .venom-auth-form-group {
-  margin-bottom: 1.1rem;
-}
-
-body.venom-page-login .venom-auth-input-group {
-  box-shadow: 0 8px 16px color-mix(in srgb, var(--venom-accent) 12%, transparent);
-}
-
-body.venom-page-login .venom-auth-input-group .form-control,
-body.venom-page-login .venom-auth-input-group .input-group-text,
-body.venom-page-login .venom-auth-input-group .btn {
-  border-color: var(--venom-border-ui-soft);
-}
-
-body.venom-page-login .venom-auth-inline-link {
-  color: var(--venom-accent);
-}
-
-body.venom-page-login .venom-auth-form-actions {
-  gap: 0.8rem;
-}
-
-body.venom-page-login .venom-auth-register {
-  border-top-color: var(--venom-border-ui-soft);
-}
-
-body.venom-page-login .venom-auth-story,
-body.venom-page-login .venom-auth-trust-card,
-body.venom-page-login .venom-auth-linked-card {
-  border: 1px solid var(--venom-border-ui-soft);
-  background: color-mix(in srgb, var(--venom-surface-shell-soft) 88%, transparent);
-  box-shadow: var(--venom-shadow-sm);
-  padding: 1.2rem;
-}
-
-body.venom-page-login .venom-auth-story ul,
-body.venom-page-login .venom-auth-trust-card ul {
-  display: grid;
-  gap: 0.55rem;
-}
-
-body.venom-page-login .venom-auth-story li,
-body.venom-page-login .venom-auth-trust-card li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.86rem;
-  color: var(--venom-text-soft);
-}
-
-body.venom-page-login .venom-auth-story li i,
-body.venom-page-login .venom-auth-trust-card li i {
-  color: var(--venom-accent);
-}
-
 /* ===== Venom Theme Parity: Auth + Client Shell Unification ===== */
 body.venom-shell-auth .venom-auth-shell {
   width: min(1240px, calc(100% - 1.4rem));
@@ -32867,7 +32768,7 @@ body.venom-shell-auth .venom-auth-main__inner {
 body.venom-shell-auth .venom-auth-side__inner {
   height: 100%;
   padding: 2.2rem;
-  background: color-mix(in srgb, var(--venom-surface-shell-strong) 70%, transparent);
+  background: color-mix(in srgb, var(--venom-surface-shell-strong) 82%, transparent);
   border-left: 1px solid var(--venom-border-ui-soft);
 }
 
@@ -32930,87 +32831,34 @@ body.venom-shell-auth .venom-auth-content .providerLinkingFeedback {
   margin-top: 0.85rem;
 }
 
-body.venom-shell-auth #registration {
-  margin: 0;
-  padding: 0;
+body.venom-shell-auth .venom-auth-content .login-form {
+  margin-bottom: 0;
 }
 
-body.venom-shell-auth #registration .field-container {
+body.venom-shell-auth .venom-auth-form-group {
   margin-bottom: 1.1rem;
 }
 
-body.venom-shell-auth #registration label {
-  margin-bottom: 0.45rem;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--venom-text-soft);
+body.venom-shell-auth .venom-auth-input-group {
+  box-shadow: 0 8px 16px color-mix(in srgb, var(--venom-accent) 12%, transparent);
 }
 
-body.venom-shell-auth #registration .sub-heading {
-  height: auto;
-  margin-top: 1.5rem;
-  margin-bottom: 1.4rem;
-  border-top: 1px solid var(--venom-border-ui-soft);
-}
-
-body.venom-shell-auth #registration .sub-heading span {
-  top: -0.74rem;
-  padding: 0 0.65rem;
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--venom-accent);
-  background: color-mix(in srgb, var(--venom-surface-shell) 96%, transparent);
-}
-
-body.venom-shell-auth #registration .field,
-body.venom-shell-auth #registration .form-control {
-  min-height: 2.75rem;
-  border: 1px solid var(--venom-border-ui-soft);
-  background: color-mix(in srgb, var(--venom-surface-shell-soft) 90%, transparent);
-  color: var(--venom-text-strong);
-  box-shadow: var(--venom-shadow-sm);
-  font-size: 0.94rem;
-}
-
-body.venom-shell-auth #registration .prepend-icon .field {
-  padding-left: 2.5rem;
-}
-
-body.venom-shell-auth #registration .prepend-icon .field-icon {
-  width: 2.5rem;
-  height: 2.75rem;
-  line-height: 2.75rem;
-  color: var(--venom-text-soft);
-}
-
-body.venom-shell-auth #registration .field-icon i {
-  color: var(--venom-text-soft);
-}
-
-body.venom-shell-auth #registration .field:focus,
-body.venom-shell-auth #registration .form-control:focus {
-  border-color: var(--venom-border-ui-strong);
-  box-shadow: var(--venom-ring-strong);
-  background: color-mix(in srgb, var(--venom-surface-shell-soft) 95%, transparent);
-}
-
-body.venom-shell-auth #registration .field[disabled],
-body.venom-shell-auth #registration .field[readonly],
-body.venom-shell-auth #registration .form-control[disabled],
-body.venom-shell-auth #registration .form-control[readonly] {
-  background: color-mix(in srgb, var(--venom-surface-shell-soft) 76%, transparent);
+body.venom-shell-auth .venom-auth-input-group .form-control,
+body.venom-shell-auth .venom-auth-input-group .input-group-text,
+body.venom-shell-auth .venom-auth-input-group .btn {
   border-color: var(--venom-border-ui-soft);
 }
 
-body.venom-shell-auth #registration .field-help-text {
-  margin-top: 0.45rem;
-  margin-bottom: 0.8rem;
-  font-size: 0.78rem;
-  color: var(--venom-text-soft);
+body.venom-shell-auth .venom-auth-inline-link {
+  color: var(--venom-accent);
+}
+
+body.venom-shell-auth .venom-auth-form-actions {
+  gap: 0.8rem;
+}
+
+body.venom-shell-auth .venom-auth-register {
+  border-top-color: var(--venom-border-ui-soft);
 }
 
 body.venom-shell-auth .venom-auth-intro {
@@ -33285,8 +33133,6 @@ body.venom-shell-auth .form-control {
     border-radius: var(--venom-radius-xl);
   }
 
-  body.venom-page-login .venom-auth-main__inner,
-  body.venom-page-login .venom-auth-side__inner,
   body.venom-shell-auth .venom-auth-main__inner,
   body.venom-shell-auth .venom-auth-side__inner {
     padding: 1.7rem;
@@ -33316,12 +33162,6 @@ body.venom-shell-auth .form-control {
 }
 
 @media (max-width: 767.98px) {
-  body.venom-shell-public #main-body,
-  body.venom-shell-auth #main-body,
-  body.venom-shell-client #main-body {
-    padding-top: 1.2rem;
-  }
-
   body.venom-shell-client .venom-client-shell-container,
   body.venom-shell-auth .primary-content {
     padding: 0.75rem;
@@ -33333,7 +33173,6 @@ body.venom-shell-auth .form-control {
     min-height: 2.1rem;
   }
 
-  body.venom-page-login .venom-auth-side__inner,
   body.venom-shell-auth .venom-auth-side__inner {
     border-left: 0;
     border-top: 1px solid var(--venom-border-ui-soft);
