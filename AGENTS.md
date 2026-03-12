@@ -9,6 +9,7 @@ Use this pack only for the Venom WHMCS + Smarty theme at `client/templates/venom
 - `client/.kilocode/skills/*`
 - `client/.kilocode/scripts/theme_guard.py`
 - `client/.kilocode/TEMPLATE_CONTEXT.md`
+- `client/.kilocode/WRAPPER_OWNERSHIP.md`
 - `client/templates/venom-codes/theme.yaml`
 - `client/.kilocode/BASELINE_FREEZE.md`
 

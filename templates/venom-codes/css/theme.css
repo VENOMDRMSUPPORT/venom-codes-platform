@@ -32358,14 +32358,7 @@ body.venom-shell-client {
   color: var(--venom-text-strong);
 }
 
-body.venom-shell-auth .venom-public-stage--auth {
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body.venom-shell-auth .venom-public-stage--auth > #main-body.venom-auth-stage {
+body.venom-shell-auth #main-body.venom-public-stage {
   width: 100%;
   max-width: 100%;
   margin: 0;
@@ -32397,7 +32390,7 @@ body.venom-shell-public .master-breadcrumb .breadcrumb {
 }
 
 body.venom-shell-public footer.footer-public,
-body.venom-shell-auth footer.footer-auth,
+body.venom-shell-auth footer.footer-public,
 body.venom-shell-client footer.footer {
   margin-top: 2rem;
   border-top: 1px solid var(--venom-border-ui-soft);
@@ -32405,7 +32398,7 @@ body.venom-shell-client footer.footer {
 }
 
 body.venom-shell-public footer.footer-public .container,
-body.venom-shell-auth footer.footer-auth .container,
+body.venom-shell-auth footer.footer-public .container,
 body.venom-shell-client footer.footer .container {
   padding-top: 2rem;
   padding-bottom: 2rem;

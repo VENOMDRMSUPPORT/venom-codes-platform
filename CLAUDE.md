@@ -8,7 +8,9 @@ Use this pack only for the Venom WHMCS + Smarty theme at `client/templates/venom
 ## Source of truth
 - `client/.kilocode/skills/*`
 - `client/.kilocode/scripts/theme_guard.py`
-- `client/templates/venom-codes/ARCHITECTURE.md`
+- `client/.kilocode/TEMPLATE_CONTEXT.md`
+- `client/.kilocode/WRAPPER_OWNERSHIP.md`
+- `client/templates/venom-codes/theme.yaml`
 - `client/.kilocode/BASELINE_FREEZE.md`
 
 Prefer actual files on disk over stale audits or older assumptions.
@@ -36,21 +38,23 @@ Do not invent a parallel visual system. Reuse the existing one.
 
 ## Non-negotiables
 1. Reuse existing classes, tokens, includes, and patterns before creating anything new.
-2. Never hardcode colors. Prefer existing `--accent-*` and semantic `--*` variables first.
+2. Never hardcode colors. Prefer existing `--venom-*` and semantic `--*` variables first.
 3. Never add inline `style=""`.
 4. Never introduce a parallel border/card/button system.
 5. Never edit vendor or minified files unless explicitly asked.
 6. Keep both dark and light themes working.
-7. Validate cyan plus one contrasting accent after UI-affecting changes.
+7. Validate `ocean` plus one contrasting accent (`emerald`, `crimson`, `amber`, or `violet`) after UI-affecting changes.
 8. Keep diffs focused. Do not broaden scope without approval.
 9. Preserve existing Smarty variables, includes, and conditional logic.
 10. Keep page-specific CSS page-specific, and shared UI shared.
 
 ## Canonical file zones
 - `client/templates/venom-codes/*.tpl`
+- `client/templates/venom-codes/includes/venom/*.tpl`
 - `client/templates/venom-codes/includes/*.tpl`
 - `client/templates/venom-codes/css/theme.css`
-- `client/templates/venom-codes/css/react-full.css`
+- `client/templates/venom-codes/css/custom.css`
+- `client/templates/venom-codes/js/venom-*.js`
 - `client/templates/venom-codes/js/*.js`
 
 ## Fast path
@@ -68,7 +72,7 @@ After UI edits, run when terminal access is available:
 
 Also validate:
 - dark/light
-- cyan + one contrasting accent
+- `ocean` + one contrasting accent (`emerald`, `crimson`, `amber`, or `violet`)
 - 375 / 768 / 1024
 - focus-visible
 - CTA honesty

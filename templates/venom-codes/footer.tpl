@@ -20,8 +20,7 @@
     {if $isClientShell}
         {include file="$template/clientarea.tpl" mode="end"}
     {elseif $isAuthShell}
-            </section>
-        </main>
+        </section>
     {else}
                         </div>
 
@@ -37,28 +36,7 @@
         </section>
     {/if}
 
-    {if $isAuthShell}
-        <footer id="footer" class="footer footer-auth">
-            <div class="container text-center">
-                {if $languagechangeenabled && count($locales) > 1 || $currencies}
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modalChooseLanguage">
-                            <div class="d-inline-block align-middle">
-                                <div class="iti-flag {if $activeLocale.countryCode === '001'}us{else}{$activeLocale.countryCode|lower}{/if}"></div>
-                            </div>
-                            {$activeLocale.localisedName}
-                            /
-                            {$activeCurrency.prefix}
-                            {$activeCurrency.code}
-                        </button>
-                    </div>
-                {/if}
-                <p class="copyright mb-0">
-                    {lang key="copyrightFooterNotice" year=$date_year company=$companyname}
-                </p>
-            </div>
-        </footer>
-    {else}
+    {if !$isClientShell}
         <footer id="footer" class="footer footer-public">
             <div class="container">
                 <ul class="list-inline mb-7 text-center float-lg-right">

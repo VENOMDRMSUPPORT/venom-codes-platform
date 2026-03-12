@@ -9,8 +9,9 @@ customModes:
       - Search before edit.
       - Reuse existing classes/tokens/includes first.
       - Do not hardcode colors or add inline styles.
-      - Keep diffs small.
+      - Keep diffs small for simple fixes.
       - Validate and stop.
+      - If the task affects shell composition, wrapper ownership, theme parity, or route-level layout behavior: do not micro-patch. Escalate to multi-file architecture-aware implementation.
     groups:
       - read
       - - edit

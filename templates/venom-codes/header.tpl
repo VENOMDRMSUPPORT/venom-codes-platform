@@ -94,20 +94,6 @@
 
     {if $isClientShell}
         {include file="$template/includes/client/header.tpl"}
-    {elseif $isAuthShell}
-        <header id="header" class="header header-auth">
-            <div class="navbar navbar-light">
-                <div class="container">
-                    <a class="navbar-brand mr-0" href="{$WEB_ROOT}/index.php">
-                        {if $assetLogoPath}
-                            <img src="{$assetLogoPath}" alt="{$companyname}" class="logo-img">
-                        {else}
-                            {$companyname}
-                        {/if}
-                    </a>
-                </div>
-            </div>
-        </header>
     {else}
     <header id="header" class="header header-public">
         {if $loggedin}
@@ -259,8 +245,7 @@
     {if $isClientShell}
         {include file="$template/clientarea.tpl" mode="start"}
     {elseif $isAuthShell}
-        <main class="venom-public-stage venom-public-stage--auth">
-            <section id="main-body" class="venom-auth-stage">
+        <section id="main-body" class="venom-public-stage">
     {else}
         <section id="main-body">
             <div class="{if !$skipMainBodyContainer}container{/if}">
