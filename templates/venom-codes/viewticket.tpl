@@ -1,3 +1,5 @@
+{include file="$template/includes/flashmessage.tpl"}
+
 {if $invalidTicketId}
     {include file="$template/includes/alert.tpl" type="danger" title="{lang key='thereisaproblem'}" msg="{lang key='supportticketinvalid'}" textcenter=true}
 {else}
@@ -11,7 +13,62 @@
 {/if}
 
 {if !$invalidTicketId}
-    <div class="card view-ticket">
+    {assign var="replyCount" value=$descreplies|@count}
+    <div class="venom-diagram-card mb-4">
+        <div class="row align-items-lg-center">
+            <div class="col-12 col-lg-8 mb-4 mb-lg-0">
+                <span class="venom-chip">Support Operations</span>
+                <h1 class="h3 font-weight-bold mb-2">{lang key='supportticketsviewticket'} #{$tid}</h1>
+                <p class="text-muted mb-0">{lang key='supportticketssubject'}: {$subject}</p>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="d-flex flex-wrap justify-content-lg-end">
+                    <a href="supporttickets.php" class="btn btn-default btn-sm mr-2 mb-2">
+                        <i class="fas fa-list fa-fw"></i>
+                        {lang key='navtickets'}
+                    </a>
+                    <a href="submitticket.php" class="btn btn-default btn-sm mb-2">
+                        <i class="fas fa-plus-circle fa-fw"></i>
+                        {lang key='navopenticket'}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12 col-sm-4 mb-3">
+            <div class="venom-plan-card h-100">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h3 class="h6 font-weight-bold mb-0">Ticket ID</h3>
+                    <i class="fas fa-hashtag text-muted"></i>
+                </div>
+                <p class="h4 font-weight-bold mb-1">#{$tid}</p>
+                <p class="small text-muted mb-0">Reference key for support operations tracking.</p>
+            </div>
+        </div>
+        <div class="col-12 col-sm-4 mb-3">
+            <div class="venom-plan-card h-100">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h3 class="h6 font-weight-bold mb-0">Thread Replies</h3>
+                    <i class="fas fa-comments text-muted"></i>
+                </div>
+                <p class="h4 font-weight-bold mb-1">{$replyCount}</p>
+                <p class="small text-muted mb-0">Total conversation entries currently logged.</p>
+            </div>
+        </div>
+        <div class="col-12 col-sm-4 mb-3">
+            <div class="venom-plan-card h-100">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h3 class="h6 font-weight-bold mb-0">Ticket State</h3>
+                    <span class="label status {if $closedticket}status-closed{else}status-open{/if}">{if $closedticket}{lang key='supportticketsstatusclosed'}{else}Open{/if}</span>
+                </div>
+                <p class="small text-muted mb-0">Lifecycle status for this incident request.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card view-ticket mb-4">
         <div class="card-body p-3">
             <h3 class="card-title">
                 {lang key='supportticketsviewticket'} #{$tid}
@@ -117,9 +174,10 @@
     </div>
 
     <div class="card d-print-none" id="ticketReplyContainer">
+        <div class="card-header">
+            <h3 class="card-title m-0">{lang key='supportticketsreply'}</h3>
+        </div>
         <div class="card-body">
-            <h3 class="card-title">{lang key='supportticketsreply'}</h3>
-
             <form method="post" action="{$smarty.server.PHP_SELF}?tid={$tid}&amp;c={$c}&amp;postreply=true" enctype="multipart/form-data" role="form" id="frmReply">
                 <div class="row">
                     <div class="form-group col-md-4">
@@ -169,7 +227,7 @@
                     </div>
                 </div>
 
-                <div class="form-group text-center">
+                <div class="form-group text-center mb-0">
                     <input class="btn btn-primary" type="submit" name="save" value="{lang key='supportticketsticketsubmit'}" />
                     <input class="btn btn-default" type="reset" value="{lang key='cancel'}" onclick="jQuery('#ticketReply').click()" />
                 </div>

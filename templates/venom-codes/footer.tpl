@@ -13,7 +13,7 @@
     {/if}
 
     {assign var="isClientShell" value=false}
-    {if !$isAuthShell && $loggedin && ($templatefile|substr:0:10 == 'clientarea' || $templatefile == 'account-paymentmethods' || $templatefile == 'supportticketslist' || $templatefile == 'supportticketsubmit-steptwo')}
+    {if !$isAuthShell && $loggedin && ($templatefile|substr:0:10 == 'clientarea' || $templatefile == 'account-paymentmethods' || $templatefile == 'supportticketslist' || $templatefile == 'supportticketsubmit-stepone' || $templatefile == 'supportticketsubmit-steptwo' || $templatefile == 'supportticketsubmit-confirm' || $templatefile == 'viewticket')}
         {assign var="isClientShell" value=true}
     {/if}
 
