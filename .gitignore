@@ -250,6 +250,7 @@ public/hot
 # Archives & Compressed Files
 # --------------------------------------------------
 *.zip
+!database/backup/venom-codes_backup_20260311_103117.zip
 *.tar
 *.tar.gz
 *.tar.bz2
