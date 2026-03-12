@@ -3,6 +3,9 @@
         <div class="row align-items-stretch venom-auth-grid">
             <div class="col-12 col-xl-7 venom-auth-main">
                 <div class="venom-auth-main__inner">
+                    <div class="venom-auth-brand mb-4">
+                        {include file="$template/includes/venom/logo.tpl" href="{$WEB_ROOT}/index.php"}
+                    </div>
                     {if isset($authBadge) && $authBadge}
                         <span class="venom-chip">{$authBadge}</span>
                     {/if}

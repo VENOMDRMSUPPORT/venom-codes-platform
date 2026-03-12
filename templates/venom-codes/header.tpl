@@ -163,13 +163,7 @@
 
         <div class="navbar navbar-light">
             <div class="container">
-                <a class="navbar-brand mr-3" href="{$WEB_ROOT}/index.php">
-                    {if $assetLogoPath}
-                        <img src="{$assetLogoPath}" alt="{$companyname}" class="logo-img">
-                    {else}
-                        {$companyname}
-                    {/if}
-                </a>
+                {include file="$template/includes/venom/logo.tpl" href="{$WEB_ROOT}/index.php" extraClass="mr-3"}
 
                 <form method="post" action="{routePath('knowledgebase-search')}" class="form-inline ml-auto">
                     <div class="input-group search d-none d-xl-flex">

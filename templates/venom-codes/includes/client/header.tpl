@@ -65,13 +65,7 @@
 
     <div class="navbar navbar-light venom-client-navbar">
         <div class="container venom-client-navbar__inner">
-            <a class="navbar-brand mr-3" href="{$WEB_ROOT}/clientarea.php">
-                {if $assetLogoPath}
-                    <img src="{$assetLogoPath}" alt="{$companyname}" class="logo-img">
-                {else}
-                    {$companyname}
-                {/if}
-            </a>
+            {include file="$template/includes/venom/logo.tpl" href="{$WEB_ROOT}/clientarea.php" extraClass="mr-3"}
             <span class="venom-client-shell-pill d-none d-md-inline-flex">Client Workspace</span>
 
             <ul class="navbar-nav toolbar flex-row align-items-center ml-auto venom-client-toolbar">

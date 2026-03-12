@@ -162,6 +162,7 @@
 :root {
   --venom-accent: color-mix(in srgb, var(--blue) 82%, var(--cyan) 18%);
   --venom-accent-soft: color-mix(in srgb, var(--cyan) 66%, var(--blue) 34%);
+  --venom-accent-rgb: 0, 212, 255;
   --venom-bg: color-mix(in srgb, var(--white) 98%, var(--blue) 2%);
   --venom-bg-elevated: var(--bg);
   --venom-bg-muted: color-mix(in srgb, var(--white) 94%, var(--blue) 6%);
@@ -198,28 +199,33 @@ html[data-venom-theme="dark"] {
 html[data-venom-accent="ocean"] {
   --venom-accent: color-mix(in srgb, var(--blue) 82%, var(--cyan) 18%);
   --venom-accent-soft: color-mix(in srgb, var(--cyan) 70%, var(--blue) 30%);
+  --venom-accent-rgb: 0, 212, 255;
 }
 
 html[data-venom-accent="emerald"] {
   --venom-accent: color-mix(in srgb, var(--green) 64%, var(--cyan) 36%);
   --venom-accent-soft: color-mix(in srgb, var(--cyan) 60%, var(--green) 40%);
+  --venom-accent-rgb: 34, 197, 94;
 }
 
 html[data-venom-accent="crimson"] {
   --venom-accent: color-mix(in srgb, var(--red) 84%, var(--neutral-900) 16%);
   --venom-accent-soft: color-mix(in srgb, var(--red) 70%, var(--orange) 30%);
   --venom-on-accent: var(--text-inverted);
+  --venom-accent-rgb: 239, 68, 68;
 }
 
 html[data-venom-accent="amber"] {
   --venom-accent: color-mix(in srgb, var(--orange) 84%, var(--neutral-900) 16%);
   --venom-accent-soft: color-mix(in srgb, var(--orange) 68%, var(--yellow) 32%);
   --venom-on-accent: var(--text-inverted);
+  --venom-accent-rgb: 249, 115, 22;
 }
 
 html[data-venom-accent="violet"] {
   --venom-accent: color-mix(in srgb, var(--purple) 74%, var(--pink) 26%);
   --venom-accent-soft: color-mix(in srgb, var(--pink) 58%, var(--purple) 42%);
+  --venom-accent-rgb: 168, 85, 247;
 }
 
 *,

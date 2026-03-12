@@ -39,6 +39,9 @@
     {if !$isClientShell}
         <footer id="footer" class="footer footer-public">
             <div class="container">
+                <div class="mb-5">
+                    {include file="$template/includes/venom/logo.tpl" href="{$WEB_ROOT}/index.php" fullDisplay=true}
+                </div>
                 <ul class="list-inline mb-7 text-center float-lg-right">
                     {include file="$template/includes/social-accounts.tpl"}
 
