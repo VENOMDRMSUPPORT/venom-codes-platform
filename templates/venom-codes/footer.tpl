@@ -1,10 +1,28 @@
-    {assign var="useClientShell" value=false}
-    {if $templatefile == 'login' || $templatefile|substr:0:10 == 'clientarea'}
-        {assign var="useClientShell" value=true}
+    {assign var="isAuthShell" value=false}
+    {if $templatefile == 'login'
+        || $templatefile == 'clientregister'
+        || $templatefile == 'password-reset-container'
+        || $templatefile == 'password-reset-email-prompt'
+        || $templatefile == 'password-reset-security-prompt'
+        || $templatefile == 'password-reset-change-prompt'
+        || $templatefile == 'two-factor-challenge'
+        || $templatefile == 'user-password'
+        || $templatefile == 'user-verify-email'
+        || $templatefile == 'user-invite-accept'}
+        {assign var="isAuthShell" value=true}
     {/if}
 
-    {if $useClientShell}
+    {assign var="isClientShell" value=false}
+    {if !$isAuthShell && $loggedin && $templatefile|substr:0:10 == 'clientarea'}
+        {assign var="isClientShell" value=true}
+    {/if}
+
+    {if $isClientShell}
         {include file="$template/clientarea.tpl" mode="end"}
+    {elseif $isAuthShell}
+                </div>
+            </div>
+        </section>
     {else}
                         </div>
 
@@ -20,14 +38,12 @@
         </section>
     {/if}
 
-    <footer id="footer" class="footer">
-        <div class="container">
-            <ul class="list-inline mb-7 text-center float-lg-right">
-                {include file="$template/includes/social-accounts.tpl"}
-
+    {if $isAuthShell}
+        <footer id="footer" class="footer footer-auth">
+            <div class="container text-center">
                 {if $languagechangeenabled && count($locales) > 1 || $currencies}
-                    <li class="list-inline-item">
-                        <button type="button" class="btn" data-toggle="modal" data-target="#modalChooseLanguage">
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modalChooseLanguage">
                             <div class="d-inline-block align-middle">
                                 <div class="iti-flag {if $activeLocale.countryCode === '001'}us{else}{$activeLocale.countryCode|lower}{/if}"></div>
                             </div>
@@ -36,28 +52,53 @@
                             {$activeCurrency.prefix}
                             {$activeCurrency.code}
                         </button>
-                    </li>
+                    </div>
                 {/if}
-            </ul>
+                <p class="copyright mb-0">
+                    {lang key="copyrightFooterNotice" year=$date_year company=$companyname}
+                </p>
+            </div>
+        </footer>
+    {else}
+        <footer id="footer" class="footer">
+            <div class="container">
+                <ul class="list-inline mb-7 text-center float-lg-right">
+                    {include file="$template/includes/social-accounts.tpl"}
 
-            <ul class="nav justify-content-center justify-content-lg-start mb-7">
-                <li class="nav-item">
-                    <a class="nav-link" href="{$WEB_ROOT}/contact.php">
-                        {lang key='contactus'}
-                    </a>
-                </li>
-                {if $acceptTOS}
+                    {if $languagechangeenabled && count($locales) > 1 || $currencies}
+                        <li class="list-inline-item">
+                            <button type="button" class="btn" data-toggle="modal" data-target="#modalChooseLanguage">
+                                <div class="d-inline-block align-middle">
+                                    <div class="iti-flag {if $activeLocale.countryCode === '001'}us{else}{$activeLocale.countryCode|lower}{/if}"></div>
+                                </div>
+                                {$activeLocale.localisedName}
+                                /
+                                {$activeCurrency.prefix}
+                                {$activeCurrency.code}
+                            </button>
+                        </li>
+                    {/if}
+                </ul>
+
+                <ul class="nav justify-content-center justify-content-lg-start mb-7">
                     <li class="nav-item">
-                        <a class="nav-link" href="{$tosURL}" target="_blank">{lang key='ordertos'}</a>
+                        <a class="nav-link" href="{$WEB_ROOT}/contact.php">
+                            {lang key='contactus'}
+                        </a>
                     </li>
-                {/if}
-            </ul>
+                    {if $acceptTOS}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{$tosURL}" target="_blank">{lang key='ordertos'}</a>
+                        </li>
+                    {/if}
+                </ul>
 
-            <p class="copyright mb-0">
-                {lang key="copyrightFooterNotice" year=$date_year company=$companyname}
-            </p>
-        </div>
-    </footer>
+                <p class="copyright mb-0">
+                    {lang key="copyrightFooterNotice" year=$date_year company=$companyname}
+                </p>
+            </div>
+        </footer>
+    {/if}
 
     <div id="fullpage-overlay" class="w-hidden">
         <div class="outer-wrapper">

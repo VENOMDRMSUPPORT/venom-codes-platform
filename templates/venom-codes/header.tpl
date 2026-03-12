@@ -11,13 +11,41 @@
     {if $captcha}{$captcha->getMarkup()}{/if}
     {$headeroutput}
 
-    {assign var="useClientShell" value=false}
-    {if $templatefile == 'login' || $templatefile|substr:0:10 == 'clientarea'}
-        {assign var="useClientShell" value=true}
+    {assign var="isAuthShell" value=false}
+    {if $templatefile == 'login'
+        || $templatefile == 'clientregister'
+        || $templatefile == 'password-reset-container'
+        || $templatefile == 'password-reset-email-prompt'
+        || $templatefile == 'password-reset-security-prompt'
+        || $templatefile == 'password-reset-change-prompt'
+        || $templatefile == 'two-factor-challenge'
+        || $templatefile == 'user-password'
+        || $templatefile == 'user-verify-email'
+        || $templatefile == 'user-invite-accept'}
+        {assign var="isAuthShell" value=true}
     {/if}
 
-    {if $useClientShell}
+    {assign var="isClientShell" value=false}
+    {if !$isAuthShell && $loggedin && $templatefile|substr:0:10 == 'clientarea'}
+        {assign var="isClientShell" value=true}
+    {/if}
+
+    {if $isClientShell}
         {include file="$template/includes/client/header.tpl"}
+    {elseif $isAuthShell}
+        <header id="header" class="header header-auth">
+            <div class="navbar navbar-light">
+                <div class="container">
+                    <a class="navbar-brand mr-0" href="{$WEB_ROOT}/index.php">
+                        {if $assetLogoPath}
+                            <img src="{$assetLogoPath}" alt="{$companyname}" class="logo-img">
+                        {else}
+                            {$companyname}
+                        {/if}
+                    </a>
+                </div>
+            </div>
+        </header>
     {else}
     <header id="header" class="header">
         {if $loggedin}
@@ -147,16 +175,18 @@
     </header>
     {/if}
 
-    {include file="$template/includes/network-issues-notifications.tpl"}
+    {if !$isAuthShell}
+        {include file="$template/includes/network-issues-notifications.tpl"}
 
-    <nav class="master-breadcrumb" aria-label="breadcrumb">
-        <div class="container">
-            {include file="$template/includes/breadcrumb.tpl"}
-        </div>
-    </nav>
+        <nav class="master-breadcrumb" aria-label="breadcrumb">
+            <div class="container">
+                {include file="$template/includes/breadcrumb.tpl"}
+            </div>
+        </nav>
 
-    {include file="$template/includes/validateuser.tpl"}
-    {include file="$template/includes/verifyemail.tpl"}
+        {include file="$template/includes/validateuser.tpl"}
+        {include file="$template/includes/verifyemail.tpl"}
+    {/if}
 
     {if $templatefile == 'homepage'}
         {if $registerdomainenabled || $transferdomainenabled}
@@ -164,8 +194,12 @@
         {/if}
     {/if}
 
-    {if $useClientShell}
+    {if $isClientShell}
         {include file="$template/clientarea.tpl" mode="start"}
+    {elseif $isAuthShell}
+        <section id="main-body">
+            <div class="container">
+                <div class="primary-content">
     {else}
         <section id="main-body">
             <div class="{if !$skipMainBodyContainer}container{/if}">
