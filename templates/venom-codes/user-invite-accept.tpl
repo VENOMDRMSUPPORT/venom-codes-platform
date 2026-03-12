@@ -9,13 +9,77 @@
     });
 </script>
 
-<div class="card{if $loggedin || !$invite} mw-750{/if} mb-md-4 mt-md-4">
+<div class="venom-diagram-card mb-4">
+    <div class="row align-items-lg-center">
+        <div class="col-12 col-lg-8 mb-4 mb-lg-0">
+            <span class="venom-chip">Identity Access</span>
+            <h1 class="h3 font-weight-bold mb-2">
+                {if $invite}
+                    {if $loggedin}
+                        Invitation Ready for Acceptance
+                    {else}
+                        Invitation Access Setup
+                    {/if}
+                {else}
+                    Invitation Status
+                {/if}
+            </h1>
+            <p class="text-muted mb-0">
+                {if $invite}
+                    Review invitation details and complete the required access step to join the requested client account.
+                {else}
+                    The invitation link is unavailable or invalid for this account context.
+                {/if}
+            </p>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="d-flex flex-wrap justify-content-lg-end">
+                <a href="{$WEB_ROOT}/index.php" class="btn btn-default btn-sm mr-2 mb-2">
+                    <i class="fas fa-home fa-fw"></i>
+                    {lang key='returnhome'}
+                </a>
+                {if !$loggedin}
+                    <a href="{$WEB_ROOT}/login.php" class="btn btn-default btn-sm mb-2">
+                        <i class="fas fa-sign-in-alt fa-fw"></i>
+                        {lang key='login'}
+                    </a>
+                {/if}
+            </div>
+        </div>
+    </div>
+</div>
+
+{if $invite}
+    <div class="row mb-4">
+        <div class="col-12 col-md-6 mb-3">
+            <div class="venom-plan-card h-100">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h3 class="h6 font-weight-bold mb-0">Target Account</h3>
+                    <i class="fas fa-building text-muted"></i>
+                </div>
+                <p class="h5 font-weight-bold mb-1">{$invite->getClientName()}</p>
+                <p class="small text-muted mb-0">Access will be granted to this client account after invitation validation.</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+            <div class="venom-plan-card h-100">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h3 class="h6 font-weight-bold mb-0">Invitation Source</h3>
+                    <i class="fas fa-user-shield text-muted"></i>
+                </div>
+                <p class="h5 font-weight-bold mb-1">{$invite->getSenderName()}</p>
+                <p class="small text-muted mb-0">Invitation sender associated with this account access request.</p>
+            </div>
+        </div>
+    </div>
+{/if}
+
+<div class="card{if $loggedin || !$invite} mw-750{/if} mb-4">
     <div class="card-body px-sm-5 py-5 text-center">
         {if $invite}
-            <h2>
-                <i class="fas fa-info fa-2x text-primary pb-4"></i>
-                <br>
-                {lang key="accountInvite.youHaveBeenInvited" clientName=$invite->getClientName()}
+            <h2 class="h3 mb-4">
+                <i class="fas fa-info-circle text-primary"></i>
+                <span class="d-block mt-3">{lang key="accountInvite.youHaveBeenInvited" clientName=$invite->getClientName()}</span>
             </h2>
 
             {include file="$template/includes/flashmessage.tpl"}
@@ -30,8 +94,8 @@
 
             {if $loggedin}
                 <form method="post" action="{routePath('invite-validate', $invite->token)}">
-                    <p>
-                        <button type="submit" class="btn btn-default">
+                    <p class="mb-0">
+                        <button type="submit" class="btn venom-btn venom-btn--solid">
                             {lang key="accountInvite.accept"}
                         </button>
                     </p>
@@ -39,8 +103,8 @@
             {else}
                 <div class="row">
                     <div class="col-lg-6">
-                        <div class="invite-box">
-                            <h2>{lang key="login"}</h2>
+                        <div class="invite-box venom-plan-card h-100 text-left">
+                            <h2 class="h4 mb-3">{lang key="login"}</h2>
                             <form method="post" action="{routePath('login-validate')}" class="text-left">
                                 <div class="form-group">
                                     <label for="inputLoginEmail">{lang key="loginemail"}</label>
@@ -52,7 +116,7 @@
                                 </div>
                                 {include file="$template/includes/captcha.tpl" captchaForm=$captchaForm containerClass="form-group row" nocache}
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-default{$captcha->getButtonClass($captchaForm)}">
+                                    <button type="submit" class="btn btn-default{$captcha->getButtonClass($captchaForm)} btn-block">
                                         {lang key="login"}
                                     </button>
                                 </div>
@@ -60,8 +124,8 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="invite-box">
-                            <h2>{lang key="register"}</h2>
+                        <div class="invite-box venom-plan-card h-100 text-left mt-4 mt-lg-0">
+                            <h2 class="h4 mb-3">{lang key="register"}</h2>
                             <form method="post" action="{routePath('invite-validate', $invite->token)}" class="text-left">
                                 <div class="form-group">
                                     <label for="inputFirstName">{lang key="clientareafirstname"}</label>
@@ -106,7 +170,7 @@
                                 {/if}
                                 {include file="$template/includes/captcha.tpl" captchaForm=$captchaFormRegister containerClass="form-group row" nocache}
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-default{$captcha->getButtonClass($captchaFormRegister)}">
+                                    <button type="submit" class="btn btn-default{$captcha->getButtonClass($captchaFormRegister)} btn-block">
                                         {lang key="register"}
                                     </button>
                                 </div>
@@ -116,14 +180,12 @@
                 </div>
             {/if}
         {else}
-            <h2>
-                <i class="fas fa-times fa-2x text-danger pb-4"></i><br>
-                {lang key="accountInvite.notFound"}
+            <h2 class="h3 mb-3">
+                <i class="fas fa-times-circle text-danger"></i>
+                <span class="d-block mt-3">{lang key="accountInvite.notFound"}</span>
             </h2>
 
-            <p class="pt-4">{lang key="accountInvite.contactAdministrator"}</p>
+            <p class="pt-3 mb-0">{lang key="accountInvite.contactAdministrator"}</p>
         {/if}
     </div>
 </div>
-
-<br><br>
