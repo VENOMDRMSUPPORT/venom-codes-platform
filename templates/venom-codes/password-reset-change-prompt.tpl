@@ -1,10 +1,10 @@
-<div class="mb-4">
+<div class="mb-4 venom-auth-intro">
     <span class="venom-chip">{lang key='forgotpw'}</span>
     <h6 class="h3 mb-2">{lang key='pwreset'}</h6>
     <p class="text-muted mb-0">{lang key='pwresetenternewpw'}</p>
 </div>
 
-<form class="using-password-strength" method="POST" action="{routePath('password-reset-change-perform')}">
+<form class="using-password-strength venom-auth-reset-form" method="POST" action="{routePath('password-reset-change-perform')}">
     <input type="hidden" name="answer" id="answer" value="{$securityAnswer}" />
 
     <div id="newPassword1" class="form-group has-feedback">

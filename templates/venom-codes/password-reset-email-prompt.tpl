@@ -1,10 +1,10 @@
-<div class="mb-4">
+<div class="mb-4 venom-auth-intro">
     <span class="venom-chip">{lang key='forgotpw'}</span>
     <h6 class="h3 mb-2">{lang key='pwreset'}</h6>
     <p class="text-muted mb-0">{lang key='pwresetemailneeded'}</p>
 </div>
 
-<form method="post" action="{routePath('password-reset-validate-email')}" role="form" class="mb-0">
+<form method="post" action="{routePath('password-reset-validate-email')}" role="form" class="mb-0 venom-auth-reset-form">
     <input type="hidden" name="action" value="reset" />
 
     <div class="form-group">

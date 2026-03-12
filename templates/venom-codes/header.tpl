@@ -4,6 +4,46 @@
     <meta charset="{$charset}" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{if $kbarticle.title}{$kbarticle.title} - {/if}{$pagetitle} - {$companyname}</title>
+    <script>
+        (function () {
+            var defaultTheme = "light";
+            var defaultAccentByTheme = {
+                light: "ocean",
+                dark: "emerald"
+            };
+            var theme = defaultTheme;
+            var accent = defaultAccentByTheme[defaultTheme];
+            var storedTheme = null;
+            var storedAccent = null;
+
+            try {
+                storedTheme = window.localStorage.getItem("venom_theme");
+                storedAccent = window.localStorage.getItem("venom_accent");
+            } catch (e) {
+                storedTheme = null;
+                storedAccent = null;
+            }
+
+            if (storedTheme === "light" || storedTheme === "dark") {
+                theme = storedTheme;
+            }
+
+            if (
+                storedAccent === "ocean"
+                || storedAccent === "emerald"
+                || storedAccent === "crimson"
+                || storedAccent === "amber"
+                || storedAccent === "violet"
+            ) {
+                accent = storedAccent;
+            } else {
+                accent = defaultAccentByTheme[theme] || "ocean";
+            }
+
+            document.documentElement.setAttribute("data-venom-theme", theme);
+            document.documentElement.setAttribute("data-venom-accent", accent);
+        })();
+    </script>
     {include file="$template/includes/head.tpl"}
     {$headoutput}
 

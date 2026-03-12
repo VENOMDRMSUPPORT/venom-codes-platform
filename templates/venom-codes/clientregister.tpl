@@ -30,8 +30,8 @@
 {/if}
 
 {if !$registrationDisabled}
-    <div id="registration">
-        <form method="post" class="using-password-strength" action="{$smarty.server.PHP_SELF}" role="form" name="orderfrm" id="frmCheckout">
+    <div id="registration" class="venom-auth-registration">
+        <form method="post" class="using-password-strength venom-auth-register-form" action="{$smarty.server.PHP_SELF}" role="form" name="orderfrm" id="frmCheckout">
             <input type="hidden" name="register" value="true"/>
 
             <div id="containerNewUserSignup">
