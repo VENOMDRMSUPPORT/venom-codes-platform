@@ -1,12 +1,14 @@
 {if $errorMessage}
-    <p class="alert alert-danger text-center">
-        {$errorMessage}
-    </p>
+    {include file="$template/includes/alert.tpl" type="error" msg=$errorMessage textcenter=true}
 {/if}
 
-<p>{lang key='pwresetsecurityquestionrequired'}</p>
+<div class="mb-4">
+    <span class="venom-chip">{lang key='forgotpw'}</span>
+    <h6 class="h3 mb-2">{lang key='pwreset'}</h6>
+    <p class="text-muted mb-0">{lang key='pwresetsecurityquestionrequired'}</p>
+</div>
 
-<form method="post" action="{routePath('password-reset-security-verify')}"  class="form-stacked">
+<form method="post" action="{routePath('password-reset-security-verify')}" class="form-stacked mb-0">
     <div class="form-group">
         <label for="inputAnswer">{$securityQuestion}</label>
         <input type="text" name="answer" class="form-control" id="inputAnswer" autofocus>

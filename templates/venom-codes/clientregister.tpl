@@ -16,6 +16,11 @@
         jQuery("#inputNewPassword1").keyup(registerFormPasswordStrengthFeedback);
     });
 </script>
+{assign var="authTitle" value={lang key='clientregistertitle'}}
+{assign var="authSubtitle" value={lang key='registerCreateAccount'}}
+{assign var="authBadge" value={lang key='clientregistertitle'}}
+
+{capture name="authContent"}
 {if $registrationDisabled}
     {include file="$template/includes/alert.tpl" type="error" msg="{lang key='registerCreateAccount'}"|cat:' <strong><a href="'|cat:"$WEB_ROOT"|cat:'/cart.php" class="alert-link">'|cat:"{lang key='registerCreateAccountOrder'}"|cat:'</a></strong>'}
 {/if}
@@ -318,3 +323,20 @@
         </form>
     </div>
 {/if}
+{/capture}
+
+{capture name="authAside"}
+    <div class="venom-plan-card h-100">
+        <h2 class="h5 font-weight-bold mb-2">Account Access Setup</h2>
+        <p class="text-muted small mb-0">Create your client profile, configure security credentials, and complete verification requirements to access VENOM infrastructure services.</p>
+    </div>
+{/capture}
+
+{include
+    file="$template/includes/authlayout.tpl"
+    authBadge=$authBadge
+    authTitle=$authTitle
+    authSubtitle=$authSubtitle
+    authContent=$smarty.capture.authContent
+    authAside=$smarty.capture.authAside
+}
