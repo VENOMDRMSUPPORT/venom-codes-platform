@@ -1,29 +1,106 @@
 <script src="{$BASE_PATH_JS}/StatesDropdown.js"></script>
 
-<div class="alert alert-block alert-info">
-    <form role="form" method="post" action="{routePath('account-contacts')}">
-        <div class="row">
-            <label for="inputContactId" class="col-md-3 col-form-label">{lang key='clientareachoosecontact'}</label>
-            <div class="col-md-6">
-                <select name="contactid" id="inputContactId" onchange="submit()" class="form-control custom-select">
-                    {foreach $contacts as $contact}
-                        <option value="{$contact.id}"{if $contact.id eq $contactid} selected="selected"{/if}>{$contact.name} - {$contact.email}</option>
-                    {/foreach}
-                    <option value="new">{lang key='clientareanavaddcontact'}</option>
-                </select>
-            </div>
-            <div class="col-md-2 mt-2 mt-md-0">
-                <button type="submit" class="btn btn-default btn-block">{lang key='go'}</button>
+{assign var="totalContacts" value=$contacts|@count}
+{assign var="enabledEmailPrefCount" value=0}
+{foreach $formdata.emailPreferences as $emailType => $value}
+    {if $value}
+        {assign var="enabledEmailPrefCount" value=$enabledEmailPrefCount+1}
+    {/if}
+{/foreach}
+
+<div class="venom-diagram-card mb-4">
+    <div class="row align-items-lg-center">
+        <div class="col-12 col-lg-8 mb-4 mb-lg-0">
+            <span class="venom-chip">Account Contacts</span>
+            <h1 class="h3 font-weight-bold mb-2">Contact Profiles &amp; Notification Routing</h1>
+            <p class="text-muted mb-0">Maintain operational contacts, billing recipients, and notification routing used across your VENOM account workflows.</p>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="d-flex flex-wrap justify-content-lg-end">
+                <a href="clientarea.php?action=details" class="btn btn-default btn-sm mr-2 mb-2">
+                    <i class="fas fa-id-card fa-fw"></i>
+                    Profile
+                </a>
+                <a href="{routePath('account-users')}" class="btn btn-default btn-sm mr-2 mb-2">
+                    <i class="fas fa-users-cog fa-fw"></i>
+                    Users
+                </a>
+                <a href="{routePath('account-contacts-new')}" class="btn venom-btn venom-btn--solid btn-sm mb-2">
+                    <i class="fas fa-user-plus fa-fw"></i>
+                    {lang key='clientareanavaddcontact'}
+                </a>
             </div>
         </div>
-    </form>
+    </div>
 </div>
 
-<div class="card">
+<div class="row mb-4">
+    <div class="col-12 col-md-4 mb-3">
+        <div class="venom-plan-card h-100">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <h3 class="h6 font-weight-bold mb-0">Total Contacts</h3>
+                <i class="fas fa-address-book text-muted"></i>
+            </div>
+            <p class="h4 font-weight-bold mb-1">{$totalContacts}</p>
+            <p class="small text-muted mb-0">Contact records available for communication and billing routing.</p>
+        </div>
+    </div>
+    <div class="col-12 col-md-4 mb-3">
+        <div class="venom-plan-card h-100">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <h3 class="h6 font-weight-bold mb-0">Notification Channels</h3>
+                <i class="fas fa-bell text-muted"></i>
+            </div>
+            <p class="h4 font-weight-bold mb-1">{$enabledEmailPrefCount}</p>
+            <p class="small text-muted mb-0">Email notification categories currently enabled for this contact.</p>
+        </div>
+    </div>
+    <div class="col-12 col-md-4 mb-3">
+        <div class="venom-plan-card h-100">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <h3 class="h6 font-weight-bold mb-0">Management Scope</h3>
+                <i class="fas fa-user-shield text-muted"></i>
+            </div>
+            <p class="small text-muted mb-0">Contact changes affect billing delivery, system notices, and account communication ownership.</p>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-between">
+        <h3 class="card-title m-0 mb-3 mb-lg-0">
+            <i class="fas fa-user-check"></i>
+            Active Contact Context
+        </h3>
+        <small class="text-muted">Switch records to edit a different contact or create a new one.</small>
+    </div>
     <div class="card-body">
+        <form role="form" method="post" action="{routePath('account-contacts')}">
+            <div class="row align-items-end">
+                <div class="col-md-3">
+                    <label for="inputContactId" class="col-form-label">{lang key='clientareachoosecontact'}</label>
+                </div>
+                <div class="col-md-6">
+                    <select name="contactid" id="inputContactId" onchange="submit()" class="form-control custom-select">
+                        {foreach $contacts as $contact}
+                            <option value="{$contact.id}"{if $contact.id eq $contactid} selected="selected"{/if}>{$contact.name} - {$contact.email}</option>
+                        {/foreach}
+                        <option value="new">{lang key='clientareanavaddcontact'}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mt-3 mt-md-0">
+                    <button type="submit" class="btn btn-default btn-block">{lang key='go'}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
-        <h3 class="card-title">{lang key="contactDetails"}</h3>
-
+<div class="card mb-4">
+    <div class="card-header">
+        <h3 class="card-title m-0">{lang key="contactDetails"}</h3>
+    </div>
+    <div class="card-body">
         {include file="$template/includes/flashmessage.tpl"}
         {if $errorMessageHtml}
             {include file="$template/includes/alert.tpl" type="error" errorshtml=$errorMessageHtml}
@@ -100,32 +177,31 @@
 
                 </div>
             </div>
+    </div>
+</div>
 
+<div class="card mb-4">
+    <div class="card-header">
+        <h3 class="card-title m-0">{lang key='clientareacontactsemails'}</h3>
+    </div>
+    <div class="card-body">
+        <div class="controls form-check">
+            {foreach $formdata.emailPreferences as $emailType => $value}
+                <label>
+                <input type="hidden" name="email_preferences[{$emailType}]" value="0">
+                <input type="checkbox" class="form-check-input" name="email_preferences[{$emailType}]" id="{$emailType}emails" value="1"{if $value} checked="checked"{/if} />
+                {lang key="clientareacontactsemails"|cat:$emailType}
+                </label>{if !($emailType@last)}<br />{/if}
+            {/foreach}
         </div>
     </div>
+</div>
 
-    <div class="card">
-        <div class="card-body">
-
-            <h3 class="card-title">{lang key='clientareacontactsemails'}</h3>
-            <div class="controls form-check">
-                {foreach $formdata.emailPreferences as $emailType => $value}
-                    <label>
-                    <input type="hidden" name="email_preferences[{$emailType}]" value="0">
-                    <input type="checkbox" class="form-check-input" name="email_preferences[{$emailType}]" id="{$emailType}emails" value="1"{if $value} checked="checked"{/if} />
-                    {lang key="clientareacontactsemails"|cat:$emailType}
-                    </label>{if !($emailType@last)}<br />{/if}
-                {/foreach}
-            </div>
-
-        </div>
-    </div>
-
-    <div class="form-group text-center">
-        <input class="btn btn-primary" type="submit" name="save" value="{lang key='clientareasavechanges'}" />
-        <input class="btn btn-default" type="reset" value="{lang key='cancel'}" />
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDeleteContact">{lang key='clientareadeletecontact'}</button>
-    </div>
+<div class="form-group text-center mb-4">
+    <input class="btn btn-primary" type="submit" name="save" value="{lang key='clientareasavechanges'}" />
+    <input class="btn btn-default" type="reset" value="{lang key='cancel'}" />
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDeleteContact">{lang key='clientareadeletecontact'}</button>
+</div>
 
 </form>
 

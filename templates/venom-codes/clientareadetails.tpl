@@ -14,9 +14,80 @@
 
 <script type="text/javascript" src="{$BASE_PATH_JS}/StatesDropdown.js"></script>
 
+{assign var="accountCustomFieldCount" value=0}
+{assign var="accountExtraFieldCount" value=0}
+{if $customfields}
+    {assign var="accountCustomFieldCount" value=$customfields|@count}
+{/if}
+{if !empty($accountDetailsExtraFields)}
+    {assign var="accountExtraFieldCount" value=$accountDetailsExtraFields|@count}
+{/if}
+
+<div class="venom-diagram-card mb-4">
+    <div class="row align-items-lg-center">
+        <div class="col-12 col-lg-8 mb-4 mb-lg-0">
+            <span class="venom-chip">Account Management</span>
+            <h1 class="h3 font-weight-bold mb-2">Profile &amp; Billing Identity</h1>
+            <p class="text-muted mb-0">Maintain account identity details, billing preferences, and compliance fields used across VENOM software and infrastructure service operations.</p>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="d-flex flex-wrap justify-content-lg-end">
+                <a href="{routePath('account-contacts')}" class="btn btn-default btn-sm mr-2 mb-2">
+                    <i class="fas fa-address-book fa-fw"></i>
+                    Contacts
+                </a>
+                <a href="{routePath('account-users')}" class="btn btn-default btn-sm mr-2 mb-2">
+                    <i class="fas fa-users-cog fa-fw"></i>
+                    Users
+                </a>
+                <a href="{routePath('user-password')}" class="btn btn-default btn-sm mr-2 mb-2">
+                    <i class="fas fa-key fa-fw"></i>
+                    Password
+                </a>
+                <a href="{routePath('user-security')}" class="btn btn-default btn-sm mb-2">
+                    <i class="fas fa-shield-alt fa-fw"></i>
+                    Security
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12 col-sm-6 col-lg-4 mb-3">
+        <div class="venom-plan-card h-100">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <h3 class="h6 font-weight-bold mb-0">Custom Fields</h3>
+                <i class="fas fa-sliders-h text-muted"></i>
+            </div>
+            <p class="h4 font-weight-bold mb-1">{$accountCustomFieldCount}</p>
+            <p class="small text-muted mb-0">Client-specific metadata currently attached to this account profile.</p>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4 mb-3">
+        <div class="venom-plan-card h-100">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <h3 class="h6 font-weight-bold mb-0">Extra Fields</h3>
+                <i class="fas fa-layer-group text-muted"></i>
+            </div>
+            <p class="h4 font-weight-bold mb-1">{$accountExtraFieldCount}</p>
+            <p class="small text-muted mb-0">Additional account-detail fields enabled for profile completion.</p>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4 mb-3">
+        <div class="venom-plan-card h-100">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <h3 class="h6 font-weight-bold mb-0">Update Scope</h3>
+                <i class="fas fa-user-check text-muted"></i>
+            </div>
+            <p class="small text-muted mb-0">Changes here drive billing, contact routing, locale preferences, and account-level notification behavior.</p>
+        </div>
+    </div>
+</div>
+
 <form method="post" action="?action=details" role="form">
 
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-body">
             <h3 class="card-title">{lang key='clientareanavdetails'}</h3>
 
@@ -141,7 +212,7 @@
     </div>
 
     {if !empty($accountDetailsExtraFields)}
-        <div class="card mt-4">
+        <div class="card mb-4">
             <div class="card-body">
                 <h3 class="card-title">{lang key='orderForm.additionalInformation'}</h3>
 
@@ -162,7 +233,7 @@
     {/if}
 
     {if $emailPreferencesEnabled}
-        <div class="card">
+        <div class="card mb-4">
             <div class="card-body">
                 <h3 class="card-title">{lang key='clientareacontactsemails'}</h3>
 
@@ -180,7 +251,7 @@
     {/if}
 
     {if $showMarketingEmailOptIn}
-        <div class="card">
+        <div class="card mb-4">
             <div class="card-body">
                 <h3 class="card-title">{lang key='emailMarketing.joinOurMailingList'}</h3>
                 <p>{$marketingEmailOptInMessage}</p>

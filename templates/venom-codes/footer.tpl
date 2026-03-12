@@ -7,14 +7,13 @@
         || $templatefile == 'password-reset-change-prompt'
         || $templatefile == 'two-factor-challenge'
         || $templatefile == 'two-factor-new-backup-code'
-        || $templatefile == 'user-password'
         || $templatefile == 'user-verify-email'
         || $templatefile == 'user-invite-accept'}
         {assign var="isAuthShell" value=true}
     {/if}
 
     {assign var="isClientShell" value=false}
-    {if !$isAuthShell && $loggedin && ($templatefile|substr:0:10 == 'clientarea' || $templatefile == 'account-paymentmethods' || $templatefile == 'supportticketslist' || $templatefile == 'supportticketsubmit-stepone' || $templatefile == 'supportticketsubmit-steptwo' || $templatefile == 'supportticketsubmit-confirm' || $templatefile == 'viewticket')}
+    {if !$isAuthShell && $loggedin && ($templatefile|substr:0:10 == 'clientarea' || $templatefile == 'account-paymentmethods' || $templatefile == 'account-contacts-manage' || $templatefile == 'account-contacts-new' || $templatefile == 'account-user-management' || $templatefile == 'account-user-permissions' || $templatefile == 'user-profile' || $templatefile == 'user-password' || $templatefile == 'user-security' || $templatefile == 'supportticketslist' || $templatefile == 'supportticketsubmit-stepone' || $templatefile == 'supportticketsubmit-steptwo' || $templatefile == 'supportticketsubmit-confirm' || $templatefile == 'viewticket')}
         {assign var="isClientShell" value=true}
     {/if}
 
