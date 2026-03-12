@@ -1,5 +1,5 @@
-<section class="mb-4 mb-md-5 venom-auth-section">
-    <div class="venom-shell venom-auth-shell">
+<section class="venom-auth-section">
+    <div class="venom-auth-shell">
         <div class="venom-diagram-card venom-auth-frame">
             <div class="row align-items-stretch venom-auth-grid">
                 <div class="col-12 col-xl-7 venom-auth-main">

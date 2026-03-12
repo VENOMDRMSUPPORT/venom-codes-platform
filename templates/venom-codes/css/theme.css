@@ -32359,15 +32359,19 @@ body.venom-shell-client {
 }
 
 body.venom-shell-auth #main-body > .container {
-  max-width: 1220px;
+  max-width: 1280px;
+}
+
+body.venom-shell-auth .venom-auth-section {
+  margin-bottom: 1.5rem;
 }
 
 body.venom-shell-auth .primary-content {
-  border: 1px solid var(--venom-border-ui-strong);
-  background: color-mix(in srgb, var(--venom-surface-shell) 92%, transparent);
-  box-shadow: var(--venom-shadow-shell);
-  padding: 1.6rem;
-  backdrop-filter: blur(14px);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  backdrop-filter: none;
 }
 
 body.venom-shell-public #header,
@@ -32703,7 +32707,8 @@ body.venom-shell-auth .alert {
 
 /* ===== Venom Theme Parity: Auth + Client Shell Unification ===== */
 body.venom-shell-auth .venom-auth-shell {
-  width: min(1240px, calc(100% - 1.4rem));
+  width: min(1240px, calc(100% - 1rem));
+  margin: 1.25rem auto 0;
 }
 
 body.venom-shell-auth .venom-auth-frame {
