@@ -63,7 +63,7 @@
         </div>
         <div class="col-12 col-lg-4">
             <div class="d-flex flex-wrap justify-content-lg-end">
-                <a href="clientarea.php?action=paymentmethods" class="btn btn-default btn-sm mr-2 mb-2">
+                <a href="{routePath('account-paymentmethods')}" class="btn btn-default btn-sm mr-2 mb-2">
                     <i class="fas fa-credit-card fa-fw"></i>
                     Payment Methods
                 </a>
