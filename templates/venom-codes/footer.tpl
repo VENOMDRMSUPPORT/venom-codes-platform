@@ -9,7 +9,7 @@
                         </div>
 
                         </div>
-                        {if !$inShoppingCart && $secondarySidebar->hasChildren()}
+                        {if isset($showSidebar) && $showSidebar && !$inShoppingCart && $secondarySidebar->hasChildren()}
                             <div class="d-lg-none sidebar sidebar-secondary">
                                 {include file="$template/includes/sidebar.tpl" sidebar=$secondarySidebar}
                             </div>
@@ -18,6 +18,7 @@
                 </div>
             </div>
         </section>
+        {include file="$template/includes/venom/floating-actions.tpl"}
     {/if}
 
     {include file="$template/includes/venom/main-footer.tpl"}

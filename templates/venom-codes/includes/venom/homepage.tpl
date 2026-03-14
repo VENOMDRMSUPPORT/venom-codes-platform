@@ -7,21 +7,7 @@
     <header class="venom-header" data-purpose="header">
         <div class="venom-shell venom-header__inner">
             {include file="$template/includes/venom/logo.tpl" href="{$WEB_ROOT}/index.php" extraClass="venom-header-logo"}
-            <nav class="venom-nav" aria-label="Primary">
-                <a href="#features">Features</a>
-                <a href="#architecture">Architecture</a>
-                <a href="#pricing">Pricing</a>
-                <a class="venom-nav__cta venom-btn venom-btn--solid" href="{$WEB_ROOT}/clientarea.php">Client Login</a>
-            </nav>
-            
-            <!-- Mobile Toggle Button -->
-            <button type="button" class="venom-mobile-nav-toggle" aria-label="Toggle Navigation" onclick="document.querySelector('.venom-nav').classList.toggle('is-open'); this.classList.toggle('is-active');">
-                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" class="icon-menu" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-            </button>
+            {include file="$template/includes/venom/main-header.tpl"}
         </div>
     </header>
 
@@ -150,12 +136,6 @@
     </main>
 
     <!-- Footer is now globally managed by footer.tpl for unified SaaS look -->
-    
-    <button id="venomJumpToTop" class="venom-jump-top" type="button" aria-label="Back to top">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 15l7-7 7 7"></path>
-        </svg>
-    </button>
 
     <div id="venomCookieConsent" class="venom-cookie hidden" role="dialog" aria-live="polite" aria-label="Cookies and Privacy">
         <div class="venom-cookie__head">

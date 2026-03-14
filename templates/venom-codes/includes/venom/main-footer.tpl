@@ -2,7 +2,7 @@
     <div class="venom-shell">
         <div class="venom-footer-grid">
             <div class="venom-footer-brand">
-                {include file="$template/includes/venom/logo.tpl" href="{$WEB_ROOT}/index.php" mobileWord="" fullDisplay=true}
+                {include file="$template/includes/venom/logo.tpl" href="{$WEB_ROOT}/index.php"}
                 <p>
                     Professional backend solutions for streaming enterprises. We simplify the complexity of server orchestration.
                 </p>

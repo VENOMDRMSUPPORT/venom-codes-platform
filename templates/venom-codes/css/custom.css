@@ -22,6 +22,192 @@ html[data-venom-theme="dark"] .venom-auth-shell .venom-auth-side__inner {
     border-color: var(--venom-border) !important;
 }
 
+/* Auth story list links: match Enterprise License Access style */
+.venom-auth-shell .venom-auth-story li a {
+    color: inherit;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+.venom-auth-shell .venom-auth-story li a:hover {
+    color: var(--venom-accent);
+}
+
+/* ------------------------------------------------------------------------
+ * Theme toggle in header: compact, professional, all screen sizes
+ * ------------------------------------------------------------------------ */
+/* Override theme.css fixed positioning so button flows in header */
+.venom-theme-in-header {
+    --venom-switch-size: 2.5rem;
+    --venom-switch-overhang: 0;
+    --venom-dot-size: 0.88rem;
+    --venom-arc-radius: 2.4rem;
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: auto !important;
+    height: auto !important;
+    z-index: auto;
+}
+
+.venom-theme-in-header .venom-floating-controls__anchor {
+    position: relative !important;
+    width: var(--venom-switch-size);
+    height: var(--venom-switch-size);
+    transform: none !important;
+}
+
+.venom-theme-in-header .venom-toggle-btn {
+    position: relative !important;
+    right: auto !important;
+    top: auto !important;
+    transform: none !important;
+    width: var(--venom-switch-size);
+    height: var(--venom-switch-size);
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.venom-theme-in-header .venom-toggle-btn:hover,
+.venom-theme-in-header .venom-toggle-btn:focus-visible {
+    transform: scale(1.05);
+}
+
+.venom-theme-in-header .venom-toggle-icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Accent picker: hidden by default, visible only on hover */
+.venom-theme-in-header .venom-accent-picker {
+    right: 0;
+    left: auto;
+    top: 100%;
+    transform: translateY(0.5rem);
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.5rem;
+    background: var(--venom-bg-elevated);
+    border: 1px solid var(--venom-border);
+    border-radius: var(--venom-radius-md, 8px);
+    box-shadow: var(--venom-shadow, 0 4px 12px rgba(0, 0, 0, 0.08));
+    min-width: 2.5rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.venom-theme-in-header:hover .venom-accent-picker,
+.venom-theme-in-header:focus-within .venom-accent-picker,
+.venom-theme-in-header.is-open .venom-accent-picker {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.venom-theme-in-header .venom-accent-picker::before,
+.venom-theme-in-header .venom-accent-picker::after {
+    display: none !important;
+}
+
+/* Dots in horizontal row - no arc transform */
+.venom-theme-in-header .venom-accent-dot {
+    position: relative !important;
+    right: auto !important;
+    top: auto !important;
+    width: 1.25rem;
+    height: 1.25rem;
+    min-width: 1.25rem;
+    min-height: 1.25rem;
+    flex-shrink: 0;
+    transform: none !important;
+    opacity: 1;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.venom-theme-in-header .venom-accent-dot:hover {
+    transform: scale(1.1) !important;
+}
+
+.venom-theme-in-header .venom-accent-dot.is-active {
+    transform: scale(1.15) !important;
+    box-shadow: 0 0 0 2px var(--venom-bg-elevated), 0 0 0 4px var(--venom-accent);
+}
+
+.venom-theme-in-header .venom-floating-controls:hover .venom-accent-dot,
+.venom-theme-in-header .venom-floating-controls:focus-within .venom-accent-dot,
+.venom-theme-in-header .venom-floating-controls.is-open .venom-accent-dot {
+    transform: none !important;
+    animation: none !important;
+}
+
+.venom-theme-in-header .venom-floating-controls:hover .venom-accent-dot:hover,
+.venom-theme-in-header .venom-floating-controls:focus-within .venom-accent-dot:hover,
+.venom-theme-in-header .venom-floating-controls.is-open .venom-accent-dot:hover {
+    transform: scale(1.1) !important;
+}
+
+.venom-theme-in-header .venom-floating-controls:hover .venom-accent-dot.is-active,
+.venom-theme-in-header .venom-floating-controls:focus-within .venom-accent-dot.is-active,
+.venom-theme-in-header .venom-floating-controls.is-open .venom-accent-dot.is-active {
+    transform: scale(1.15) !important;
+}
+
+.venom-theme-in-header .venom-accent-dot:hover::after {
+    opacity: 0;
+}
+
+html[data-venom-theme="dark"] .venom-theme-in-header .venom-accent-picker {
+    background: var(--venom-bg-elevated);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Homepage: theme in venom-header */
+.venom-homepage-theme {
+    margin-left: 0.5rem;
+    flex-shrink: 0;
+}
+
+/* Hide accent picker ghost when closed */
+.venom-floating-controls:not(:hover):not(:focus-within):not(.is-open) .venom-accent-picker::before,
+.venom-floating-controls:not(:hover):not(:focus-within):not(.is-open) .venom-accent-picker::after {
+    visibility: hidden;
+}
+
+/* Mobile: slightly smaller, ensure no fixed positioning from theme.css */
+@media (max-width: 575.98px) {
+    .venom-theme-in-header {
+        --venom-switch-size: 2.35rem;
+        position: relative !important;
+        top: auto !important;
+        right: auto !important;
+    }
+    .venom-theme-in-header .venom-toggle-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+@media (max-width: 768px) {
+    .venom-theme-in-header {
+        position: relative !important;
+        top: auto !important;
+        right: auto !important;
+    }
+}
+
+/* Jump-to-top uses theme.css fixed positioning (homepage only) */
+
 /* --- Venom Logo (from venom template) --- */
 .vs-logo {
     display: inline-flex;
@@ -80,6 +266,24 @@ html[data-venom-theme="dark"] .venom-auth-shell .venom-auth-side__inner {
     font-family: 'Inter', sans-serif;
 }
 
+/* Logo: same styles on mobile and desktop (responsive scaling only) */
+@media (max-width: 575.98px) {
+    .vs-logo {
+        gap: 8px;
+    }
+    .vs-logo-icon {
+        width: 36px;
+        height: 36px;
+    }
+    .vs-logo-text {
+        font-size: 1rem;
+    }
+    .vs-logo-slogan {
+        font-size: 0.55rem;
+        letter-spacing: 0.1em;
+    }
+}
+
 .vs-logo-text .vs-venom {
     color: var(--venom-text);
 }
@@ -93,7 +297,6 @@ html[data-venom-theme="dark"] .venom-auth-shell .venom-auth-side__inner {
 
 .vs-logo-text .vs-solutions {
     color: var(--venom-accent);
-    text-shadow: 0 0 15px var(--venom-accent-soft);
 }
 
 @keyframes vs-logo-spin {
@@ -193,10 +396,6 @@ html[data-venom-theme="light"] .vs-logo-v {
     filter: drop-shadow(0 0 4px var(--venom-accent));
 }
 
-html[data-venom-theme="light"] .vs-logo-text .vs-solutions {
-    text-shadow: none;
-}
-
 html[data-venom-home="1"] body,
 body.venom-shell-public,
 body.venom-shell-auth,
@@ -282,18 +481,20 @@ body:has(.venom-auth-shell) .header-public .main-navbar-wrapper {
 
 /* Auth pages only show inline static links now */
 .venom-auth-nav-inline {
+    --venom-auth-btn-height: 2.6rem;
     margin-left: auto;
-    gap: 1.5rem;
+    gap: 1.25rem;
+    align-items: center;
 }
 
 .venom-auth-nav-inline > a.nav-link {
     font-family: 'Inter', sans-serif !important;
     font-size: 13px !important;
-    font-weight: 700 !important;
+    font-weight: 500 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.08em !important;
     color: var(--venom-text-strong, #333333) !important;
-    transition: color 0.2s ease;
+    transition: all 0.25s ease;
     padding: 0 !important;
 }
 
@@ -305,26 +506,140 @@ html[data-venom-theme="dark"] .venom-auth-nav-inline > a.nav-link {
     color: var(--venom-accent) !important;
 }
 
+/* Unified Pill Container for Login and Theme Mode */
+.venom-auth-controls-pill {
+    display: inline-flex;
+    align-items: center;
+    background: color-mix(in srgb, var(--venom-border, #1a1a24) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--venom-border, #1a1a24) 15%, transparent);
+    border-radius: 999px;
+    padding: 0.35rem 0.6rem;
+    gap: 0.85rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+html[data-venom-theme="dark"] .venom-auth-controls-pill {
+    background: color-mix(in srgb, var(--venom-bg-elevated, #1a1b1e) 60%, transparent);
+    border-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.venom-auth-pill-link,
+.venom-auth-pill-mode {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none !important;
+}
+
+.venom-auth-pill-text {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--venom-text-strong, #333);
+    transition: color 0.2s ease;
+}
+
+html[data-venom-theme="dark"] .venom-auth-pill-text {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.venom-auth-pill-link:hover .venom-auth-pill-text,
+.venom-auth-pill-mode:hover .venom-auth-pill-text {
+    color: var(--venom-accent);
+}
+
+.venom-auth-pill-divider {
+    width: 1px;
+    height: 1.5rem;
+    background: color-mix(in srgb, var(--venom-border, #1a1a24) 15%, transparent);
+}
+
+html[data-venom-theme="dark"] .venom-auth-pill-divider {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Auth buttons: Deploy Solid Pill */
 .venom-auth-nav-inline .venom-btn,
 .venom-auth-nav-inline .venom-btn.btn-primary {
     font-family: 'Inter', sans-serif !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.08em !important;
-    padding: 0.75rem 1.5rem;
+    letter-spacing: 0.1em !important;
+    gap: 0.5rem;
+    min-width: 6.5rem;
+    padding: 0 1.5rem !important;
+    height: var(--venom-auth-btn-height);
     background: var(--venom-accent) !important;
     color: var(--venom-on-accent, #ffffff) !important;
     border: none !important;
-    border-radius: var(--venom-radius-md, 6px);
-    box-shadow: 0 4px 15px rgba(var(--venom-accent-rgb, 0, 212, 255), 0.3) !important;
+    border-radius: var(--venom-radius-md, 8px) !important;
+    box-shadow: 0 4px 20px -5px color-mix(in srgb, var(--venom-accent) 60%, transparent) !important;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
 }
 
 .venom-auth-nav-inline .venom-btn:hover,
 .venom-auth-nav-inline .venom-btn.btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(var(--venom-accent-rgb, 0, 212, 255), 0.4) !important;
+    box-shadow: 0 8px 25px -5px color-mix(in srgb, var(--venom-accent) 80%, transparent) !important;
     background: color-mix(in srgb, var(--venom-accent) 90%, black 10%) !important;
+}
+
+/* Unified Pill Circular Action Buttons */
+.venom-auth-nav-inline .venom-theme-in-header {
+    --venom-switch-size: var(--venom-auth-btn-height);
+}
+
+.venom-auth-pill-icon,
+.venom-auth-nav-inline .venom-theme-in-header .venom-toggle-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: var(--venom-auth-btn-height);
+    height: var(--venom-auth-btn-height);
+    background: var(--venom-accent) !important;
+    color: var(--venom-on-accent, #ffffff) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    box-shadow: 0 4px 15px -2px color-mix(in srgb, var(--venom-accent) 40%, transparent) !important;
+    transition: all 0.3s ease !important;
+    padding: 0 !important;
+}
+
+.venom-auth-pill-link:hover .venom-auth-pill-icon,
+.venom-auth-nav-inline .venom-theme-in-header .venom-toggle-btn:hover,
+.venom-auth-nav-inline .venom-theme-in-header .venom-toggle-btn:focus-visible {
+    transform: scale(1.05) translateY(-1px);
+    box-shadow: 0 6px 20px -3px color-mix(in srgb, var(--venom-accent) 60%, transparent) !important;
+}
+
+/* Auth nav: icons only on mobile, touch targets 44x44px */
+@media (max-width: 767.98px) {
+    .venom-auth-nav-inline {
+        --venom-auth-btn-height: 2.6rem;
+        gap: 0.75rem;
+    }
+    .venom-auth-controls-pill {
+        padding: 0.25rem;
+        gap: 0.25rem;
+    }
+    .venom-auth-pill-icon i {
+        font-size: 1.15rem;
+    }
+    .venom-auth-nav-inline .venom-auth-btn-deploy {
+        min-width: 44px;
+        width: var(--venom-auth-btn-height);
+        height: var(--venom-auth-btn-height);
+        padding: 0 !important;
+        border-radius: var(--venom-radius-md, 8px) !important;
+    }
+    .venom-auth-nav-inline .venom-auth-btn-deploy i {
+        font-size: 1.15rem;
+    }
 }
 
 @media (max-width: 1199.98px) {

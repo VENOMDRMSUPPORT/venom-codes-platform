@@ -3,8 +3,8 @@
     (function () {
         var defaultTheme = "light";
         var defaultAccentByTheme = {
-            light: "ocean",
-            dark: "emerald"
+            light: "violet",
+            dark: "violet"
         };
         var theme;
         var accent;
@@ -28,7 +28,7 @@
             && accent !== "amber"
             && accent !== "violet"
         ) {
-            accent = defaultAccentByTheme[theme] || "ocean";
+            accent = defaultAccentByTheme[theme] || "violet";
         }
 
         document.documentElement.setAttribute("data-venom-home", "1");

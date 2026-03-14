@@ -8,8 +8,8 @@
         (function () {
             var defaultTheme = "light";
             var defaultAccentByTheme = {
-                light: "ocean",
-                dark: "emerald"
+                light: "violet",
+                dark: "violet"
             };
             var theme = defaultTheme;
             var accent = defaultAccentByTheme[defaultTheme];
@@ -37,7 +37,7 @@
             ) {
                 accent = storedAccent;
             } else {
-                accent = defaultAccentByTheme[theme] || "ocean";
+                accent = defaultAccentByTheme[theme] || "violet";
             }
 
             document.documentElement.setAttribute("data-venom-theme", theme);
@@ -75,8 +75,6 @@
 <body class="{$venomShellClass}{if $isAuthPage} venom-page-auth{/if}{if $isClientHomePage} venom-page-client-home{/if}{if $isClientProductDetailsPage} venom-page-product-details{/if}" data-phone-cc-input="{$phoneNumberInputStyle}">
     {if $captcha}{$captcha->getMarkup()}{/if}
     {$headeroutput}
-    
-    {include file="$template/includes/venom/theme-controls.tpl"}
 
     {if $isClientShell}
         {include file="$template/includes/client/header.tpl"}
@@ -152,10 +150,7 @@
                 {include file="$template/includes/venom/logo.tpl" href="{$WEB_ROOT}/index.php" extraClass="mr-3"}
 
                 {if $isAuthPage}
-                    <div class="d-flex align-items-center ml-auto mb-0 venom-auth-nav-inline">
-                        <a class="nav-link font-weight-bold" href="{$WEB_ROOT}/clientarea.php">Login</a>
-                        <a class="btn venom-btn venom-btn--solid" href="{$WEB_ROOT}/register.php">Deploy Now</a>
-                    </div>
+                    {include file="$template/includes/venom/main-header.tpl"}
                 {else}
                     <form method="post" action="{routePath('knowledgebase-search')}" class="form-inline ml-auto">
                         <div class="input-group search d-none d-xl-flex">
@@ -180,6 +175,11 @@
                             <button class="btn nav-link" type="button" data-toggle="collapse" data-target="#mainNavbar">
                                 <span class="fas fa-bars fa-fw"></span>
                             </button>
+                        </li>
+                        <li class="nav-item ml-2 ml-xl-3">
+                            <div class="venom-header-theme">
+                                {include file="$template/includes/venom/theme-controls.tpl" inHeader=true}
+                            </div>
                         </li>
                     </ul>
                 {/if}
@@ -237,9 +237,10 @@
     {else}
         <section id="main-body">
             <div class="{if !$skipMainBodyContainer}container{/if}">
-                <div class="{if !$inShoppingCart && ($primarySidebar->hasChildren() || $secondarySidebar->hasChildren())}row{/if}">
+                {assign var="showSidebar" value=($templatefile != 'clientregister' && !$inShoppingCart && ($primarySidebar->hasChildren() || $secondarySidebar->hasChildren()))}
+                <div class="{if $showSidebar}row{/if}">
 
-                {if !$inShoppingCart && ($primarySidebar->hasChildren() || $secondarySidebar->hasChildren())}
+                {if $showSidebar}
                     <div class="col-lg-4 col-xl-3">
                         <div class="sidebar">
                             {include file="$template/includes/sidebar.tpl" sidebar=$primarySidebar}
@@ -251,5 +252,5 @@
                         {/if}
                     </div>
                 {/if}
-                <div class="{if !$inShoppingCart && ($primarySidebar->hasChildren() || $secondarySidebar->hasChildren())}col-lg-8 col-xl-9{/if} primary-content">
+                <div class="{if $showSidebar}col-lg-8 col-xl-9{/if} primary-content">
     {/if}

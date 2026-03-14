@@ -326,10 +326,14 @@
 {/capture}
 
 {capture name="authAside"}
-    <div class="venom-plan-card h-100">
-        <h2 class="h5 font-weight-bold mb-2">Account Access Setup</h2>
-        <p class="text-muted small mb-0">Create your client profile, configure security credentials, and complete verification requirements to access VENOM infrastructure services.</p>
-    </div>
+    <article class="venom-auth-story">
+        <h2 class="h5 font-weight-bold mb-2">{lang key='alreadyregistered'}</h2>
+        <p class="text-muted small mb-3">{lang key='clientareahomelogin'}</p>
+        <ul class="list-unstyled mb-0">
+            <li><a href="{$WEB_ROOT}/clientarea.php"><i class="fas fa-user fa-fw"></i> {lang key='loginbutton'}</a></li>
+            <li><a href="{routePath('password-reset-begin')}"><i class="fas fa-key fa-fw"></i> {lang key='forgotpw'}</a></li>
+        </ul>
+    </article>
 {/capture}
 
 {include

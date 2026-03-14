@@ -81,6 +81,11 @@
                 <li class="nav-item ml-2">
                     <a class="btn nav-link venom-client-nav-link" href="{$WEB_ROOT}/supporttickets.php">{lang key='navtickets'}</a>
                 </li>
+                <li class="nav-item ml-2 ml-md-3">
+                    <div class="venom-header-theme">
+                        {include file="$template/includes/venom/theme-controls.tpl" inHeader=true}
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

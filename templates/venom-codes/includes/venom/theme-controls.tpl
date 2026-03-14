@@ -1,6 +1,11 @@
-<div id="venomThemeControls" class="venom-floating-controls" role="region" aria-label="Theme Controls">
+{if isset($inHeader) && $inHeader}
+    {assign var="venomThemeInHeader" value=true}
+{else}
+    {assign var="venomThemeInHeader" value=false}
+{/if}
+<div class="venom-floating-controls{if $venomThemeInHeader} venom-theme-in-header{/if}" role="region" aria-label="Theme Controls">
     <div class="venom-floating-controls__anchor">
-        <button id="venomThemeToggle" class="venom-toggle-btn" type="button" aria-label="Switch to Dark Theme" aria-controls="venomAccentPalette" aria-haspopup="true" aria-expanded="false">
+        <button class="venom-toggle-btn" type="button" aria-label="Switch to Dark Theme" aria-haspopup="true" aria-expanded="false">
             <span class="venom-toggle-icon venom-toggle-icon--sun" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="3.6"></circle>
@@ -13,7 +18,7 @@
                 </svg>
             </span>
         </button>
-        <div id="venomAccentPalette" class="venom-accent-picker" role="group" aria-label="Accent Colors">
+        <div class="venom-accent-picker" role="group" aria-label="Accent Colors">
             <button type="button" class="venom-accent-dot is-active" data-accent="ocean" aria-label="Ocean Accent" aria-pressed="true"></button>
             <button type="button" class="venom-accent-dot" data-accent="emerald" aria-label="Emerald Accent" aria-pressed="false"></button>
             <button type="button" class="venom-accent-dot" data-accent="crimson" aria-label="Crimson Accent" aria-pressed="false"></button>

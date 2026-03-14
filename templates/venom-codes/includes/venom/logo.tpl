@@ -28,7 +28,7 @@
 {if isset($fullDisplay)}
     {assign var="logoFullDisplay" value=$fullDisplay}
 {else}
-    {assign var="logoFullDisplay" value=false}
+    {assign var="logoFullDisplay" value=true}
 {/if}
 {if isset($extraClass)}
     {assign var="logoExtraClass" value=$extraClass}
@@ -52,11 +52,8 @@
             </svg>
         </div>
     </div>
-    {if $logoMobileWord}
-        <span class="vs-home-logo-mobile-word d-sm-none">{$logoMobileWord}</span>
-    {/if}
     {if $logoShowText}
-        <div class="vs-logo-content{if !$logoFullDisplay} d-none d-sm-block{/if}">
+        <div class="vs-logo-content">
             <div class="vs-logo-text">
                 <span class="vs-venom">Venom</span>
                 <span class="vs-solutions">Solutions</span>
