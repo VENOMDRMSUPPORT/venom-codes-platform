@@ -57,9 +57,9 @@
         {assign var="venomShellClass" value='venom-shell-client'}
     {/if}
 
-    {assign var="isLoginPage" value=false}
-    {if $templatefile == 'login'}
-        {assign var="isLoginPage" value=true}
+    {assign var="isAuthPage" value=false}
+    {if $templatefile == 'login' || $templatefile == 'clientregister' || $templatefile == 'pwreset' || $templatefile == 'password-reset-container' || $templatefile == 'two-factor-login' || $templatefile == 'two-factor-challenge' || $templatefile == 'two-factor-new-backup-code' || $templatefile == 'user-verify-email' || $templatefile == 'password-reset-change-prompt' || $templatefile == 'password-reset-email-prompt' || $templatefile == 'password-reset-security-prompt'}
+        {assign var="isAuthPage" value=true}
     {/if}
 
     {assign var="isClientHomePage" value=false}
@@ -72,9 +72,11 @@
         {assign var="isClientProductDetailsPage" value=true}
     {/if}
 </head>
-<body class="primary-bg-color {$venomShellClass}{if $isLoginPage} venom-page-login{/if}{if $isClientHomePage} venom-page-client-home{/if}{if $isClientProductDetailsPage} venom-page-product-details{/if}" data-phone-cc-input="{$phoneNumberInputStyle}">
+<body class="{$venomShellClass}{if $isAuthPage} venom-page-auth{/if}{if $isClientHomePage} venom-page-client-home{/if}{if $isClientProductDetailsPage} venom-page-product-details{/if}" data-phone-cc-input="{$phoneNumberInputStyle}">
     {if $captcha}{$captcha->getMarkup()}{/if}
     {$headeroutput}
+    
+    {include file="$template/includes/venom/theme-controls.tpl"}
 
     {if $isClientShell}
         {include file="$template/includes/client/header.tpl"}
@@ -149,33 +151,42 @@
             <div class="container">
                 {include file="$template/includes/venom/logo.tpl" href="{$WEB_ROOT}/index.php" extraClass="mr-3"}
 
-                <form method="post" action="{routePath('knowledgebase-search')}" class="form-inline ml-auto">
-                    <div class="input-group search d-none d-xl-flex">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-default" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                        <input class="form-control appended-form-control font-weight-light" type="text" name="search" placeholder="{lang key="searchOurKnowledgebase"}...">
+                {if $isAuthPage}
+                    <div class="d-flex align-items-center ml-auto mb-0 venom-auth-nav-inline">
+                        <a class="nav-link font-weight-bold" href="{$WEB_ROOT}/clientarea.php">Login</a>
+                        <a class="btn venom-btn venom-btn--solid" href="{$WEB_ROOT}/register.php">Deploy Now</a>
                     </div>
-                </form>
+                {else}
+                    <form method="post" action="{routePath('knowledgebase-search')}" class="form-inline ml-auto">
+                        <div class="input-group search d-none d-xl-flex">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <input class="form-control appended-form-control font-weight-light" type="text" name="search" placeholder="{lang key="searchOurKnowledgebase"}...">
+                        </div>
+                    </form>
 
-                <ul class="navbar-nav toolbar">
-                    <li class="nav-item ml-3">
-                        <a class="btn nav-link cart-btn" href="{$WEB_ROOT}/cart.php?a=view">
-                            <i class="far fa-shopping-cart fa-fw"></i>
-                            <span id="cartItemCount" class="badge badge-info">{$cartitemcount}</span>
-                            <span class="sr-only">{lang key="carttitle"}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item ml-3 d-xl-none">
-                        <button class="btn nav-link" type="button" data-toggle="collapse" data-target="#mainNavbar">
-                            <span class="fas fa-bars fa-fw"></span>
-                        </button>
-                    </li>
-                </ul>
+                    <ul class="navbar-nav toolbar">
+                        <li class="nav-item ml-3">
+                            <a class="btn nav-link cart-btn" href="{$WEB_ROOT}/cart.php?a=view">
+                                <i class="far fa-shopping-cart fa-fw"></i>
+                                <span id="cartItemCount" class="badge badge-info">{$cartitemcount}</span>
+                                <span class="sr-only">{lang key="carttitle"}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item ml-3 d-xl-none">
+                            <button class="btn nav-link" type="button" data-toggle="collapse" data-target="#mainNavbar">
+                                <span class="fas fa-bars fa-fw"></span>
+                            </button>
+                        </li>
+                    </ul>
+                {/if}
             </div>
         </div>
+
+        {if !$isAuthPage}
         <div class="navbar navbar-expand-xl main-navbar-wrapper">
             <div class="container">
                 <div class="collapse navbar-collapse" id="mainNavbar">
@@ -198,16 +209,19 @@
                 </div>
             </div>
         </div>
+        {/if}
     </header>
     {/if}
 
     {include file="$template/includes/network-issues-notifications.tpl"}
 
+    {if !$isAuthPage}
     <nav class="master-breadcrumb" aria-label="breadcrumb">
         <div class="container">
             {include file="$template/includes/breadcrumb.tpl"}
         </div>
     </nav>
+    {/if}
 
     {include file="$template/includes/validateuser.tpl"}
     {include file="$template/includes/verifyemail.tpl"}

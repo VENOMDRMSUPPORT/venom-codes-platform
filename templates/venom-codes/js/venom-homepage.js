@@ -33,7 +33,7 @@
         var normalizedTheme = normalize(theme, THEMES, DEFAULT_THEME);
         document.documentElement.setAttribute("data-venom-theme", normalizedTheme);
         safeSetStorage(STORAGE_THEME, normalizedTheme);
-
+        
         var toggleButton = document.getElementById("venomThemeToggle");
         if (toggleButton) {
             toggleButton.setAttribute("data-theme", normalizedTheme);
@@ -59,7 +59,8 @@
     }
 
     function toggleThemeNow() {
-        var currentTheme = document.documentElement.getAttribute("data-venom-theme") || DEFAULT_THEME;
+        var raw = document.documentElement.getAttribute("data-venom-theme") || DEFAULT_THEME;
+        var currentTheme = normalize(raw, THEMES, DEFAULT_THEME);
         setTheme(currentTheme === "light" ? "dark" : "light");
     }
 
@@ -200,15 +201,7 @@
         }, 2000);
     }
 
-    function initHomepageFlag() {
-        document.documentElement.setAttribute("data-venom-home", "1");
-        if (document.body) {
-            document.body.setAttribute("data-venom-home", "1");
-        }
-    }
-
     function boot() {
-        initHomepageFlag();
         setTheme(normalize(safeGetStorage(STORAGE_THEME), THEMES, DEFAULT_THEME));
         setAccent(normalize(safeGetStorage(STORAGE_ACCENT), ACCENTS, DEFAULT_ACCENT));
         initThemeControls();

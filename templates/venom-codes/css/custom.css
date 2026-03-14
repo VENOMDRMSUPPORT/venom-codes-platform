@@ -3,6 +3,25 @@
  * Scope: full global backdrop match for public/auth/client shells.
  */
 
+/* ------------------------------------------------------------------------
+ * Body background: use design tokens (overrides theme.css hardcoded #f1f1f1)
+ * ------------------------------------------------------------------------ */
+body,
+body.primary-bg-color,
+body.venom-shell-public,
+body.venom-page-auth {
+    background: var(--venom-bg) !important;
+}
+
+/* Auth shell: cards/panels respond to theme toggle */
+html[data-venom-theme="dark"] .venom-auth-shell .venom-diagram-card,
+html[data-venom-theme="dark"] .venom-auth-shell .venom-auth-frame,
+html[data-venom-theme="dark"] .venom-auth-shell .venom-plan-card,
+html[data-venom-theme="dark"] .venom-auth-shell .venom-auth-side__inner {
+    background: var(--venom-bg-elevated) !important;
+    border-color: var(--venom-border) !important;
+}
+
 /* --- Venom Logo (from venom template) --- */
 .vs-logo {
     display: inline-flex;
@@ -180,6 +199,7 @@ html[data-venom-theme="light"] .vs-logo-text .vs-solutions {
 
 html[data-venom-home="1"] body,
 body.venom-shell-public,
+body.venom-shell-auth,
 body.venom-shell-client {
   position: relative;
   background: var(--venom-bg);
@@ -187,7 +207,280 @@ body.venom-shell-client {
 
 body.venom-shell-public::before,
 body.venom-shell-public::after,
+body.venom-shell-auth::before,
+body.venom-shell-auth::after,
 body.venom-shell-client::before,
 body.venom-shell-client::after {
   content: none;
+}
+
+/* =========================================================================
+ * AUTHENTICATION PAGES HEADER RE-STYLING (PREMIUM SAAS LOOK)
+ * ========================================================================= */
+
+body:has(.venom-auth-shell) .header-public {
+    background: var(--venom-header-bg, #ffffff) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+}
+
+html[data-venom-theme="dark"] body:has(.venom-auth-shell) .header-public {
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Hide Search, Topbar, and Mobile Toggles */
+body:has(.venom-auth-shell) .header-public .search,
+body:has(.venom-auth-shell) .header-public form[action*="knowledgebase"],
+body:has(.venom-auth-shell) .header-public .topbar,
+body:has(.venom-auth-shell) .header-public .cart-btn {
+    display: none !important;
+}
+
+/* Unify navigation into a single premium row on Desktop */
+@media (min-width: 1200px) {
+    body:has(.venom-auth-shell) .header-public {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 5%;
+        min-height: 75px;
+    }
+
+    /* Call to Action Button Styling (obsolete fallback) */
+    body:has(.venom-auth-shell) .header-public ul.navbar-nav.ml-auto > li:last-child > a {
+        display: none !important;
+    }
+}
+
+/* Global Logo and Actions wrapper for Auth Pages */
+body:has(.venom-auth-shell) .header-public .navbar-light {
+    flex: 1 1 100%;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    margin-right: 0;
+}
+
+body:has(.venom-auth-shell) .header-public .navbar-light .container {
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Navigation links area - Not used on auth pages but kept for safety */
+body:has(.venom-auth-shell) .header-public .main-navbar-wrapper {
+    display: none !important;
+}
+
+/* Auth pages only show inline static links now */
+.venom-auth-nav-inline {
+    margin-left: auto;
+    gap: 1.5rem;
+}
+
+.venom-auth-nav-inline > a.nav-link {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    color: var(--venom-text-strong, #333333) !important;
+    transition: color 0.2s ease;
+    padding: 0 !important;
+}
+
+html[data-venom-theme="dark"] .venom-auth-nav-inline > a.nav-link {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.venom-auth-nav-inline > a.nav-link:hover {
+    color: var(--venom-accent) !important;
+}
+
+.venom-auth-nav-inline .venom-btn,
+.venom-auth-nav-inline .venom-btn.btn-primary {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    padding: 0.75rem 1.5rem;
+    background: var(--venom-accent) !important;
+    color: var(--venom-on-accent, #ffffff) !important;
+    border: none !important;
+    border-radius: var(--venom-radius-md, 6px);
+    box-shadow: 0 4px 15px rgba(var(--venom-accent-rgb, 0, 212, 255), 0.3) !important;
+}
+
+.venom-auth-nav-inline .venom-btn:hover,
+.venom-auth-nav-inline .venom-btn.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--venom-accent-rgb, 0, 212, 255), 0.4) !important;
+    background: color-mix(in srgb, var(--venom-accent) 90%, black 10%) !important;
+}
+
+@media (max-width: 1199.98px) {
+    body:has(.venom-auth-shell) .header-public {
+        padding: 0.5rem 1rem !important;
+        background: transparent !important;
+        border: none !important;
+    }
+    
+    body:has(.venom-auth-shell) .header-public .navbar-light {
+        padding: 0 !important;
+    }
+
+    body:has(.venom-auth-shell) .header-public .navbar-light .container {
+        padding: 0;
+    }
+}
+
+
+/* =========================================================================
+ * HOMEPAGE HEADER MOBILE MENU 
+ * ========================================================================= */
+.venom-mobile-nav-toggle {
+    display: none;
+    border: 1px solid var(--venom-border, rgba(128, 128, 128, 0.2));
+    background: transparent;
+    padding: 0.45rem 0.5rem;
+    border-radius: var(--venom-radius-md, 8px);
+    color: var(--venom-text-strong, var(--venom-text));
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    line-height: 0;
+}
+
+.venom-mobile-nav-toggle:hover,
+.venom-mobile-nav-toggle:focus {
+    box-shadow: 0 0 0 3px rgba(var(--venom-accent-rgb, 0, 212, 255), 0.2);
+}
+
+.venom-mobile-nav-toggle.is-active {
+    background: color-mix(in srgb, var(--venom-accent) 15%, transparent);
+    border-color: color-mix(in srgb, var(--venom-accent) 40%, transparent);
+    color: var(--venom-accent);
+}
+
+html[data-venom-theme="dark"] .venom-mobile-nav-toggle {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 1100px) {
+    .venom-mobile-nav-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .venom-nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--venom-bg-elevated, #ffffff);
+        border-bottom: 1px solid var(--venom-border, rgba(128, 128, 128, 0.1));
+        padding: 1.5rem 2rem;
+        box-shadow: var(--venom-shadow, 0 10px 30px rgba(0,0,0,0.1));
+        gap: 0;
+        z-index: 1000;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transform-origin: top;
+        animation: venomFadeSlideDown 0.3s ease forwards;
+        border-top: 1px solid var(--venom-border, rgba(128, 128, 128, 0.1));
+    }
+    
+    html[data-venom-theme="dark"] .venom-nav {
+        background: color-mix(in srgb, var(--venom-bg-elevated) 90%, black 10%);
+        border-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .venom-nav.is-open {
+        display: flex !important;
+    }
+    
+    .venom-nav a {
+        padding: 1rem 0;
+        font-size: 15px;
+        border-bottom: 1px solid rgba(128, 128, 128, 0.08);
+        width: 100%;
+        text-align: left;
+    }
+    
+    html[data-venom-theme="dark"] .venom-nav a {
+        border-bottom-color: rgba(255, 255, 255, 0.04);
+    }
+    
+    .venom-nav a.venom-nav__cta {
+        border-bottom: none;
+        margin-top: 1.5rem;
+        min-height: 3.25rem;
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        font-size: 14px;
+    }
+    
+    @keyframes venomFadeSlideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* =========================================================================
+ * HOMEPAGE FOOTER MOBILE LAYOUT OVERRIDES
+ * ========================================================================= */
+@media (max-width: 1100px) {
+    /* Set the footer grid to 2 columns on mobile/tablet instead of 1 */
+    .venom-main-footer .venom-footer-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    
+    /* Ensure the brand description takes full width */
+    .venom-main-footer .venom-footer-brand {
+        grid-column: 1 / -1;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Mobile-friendly spacing for bottom footer section */
+    .venom-main-footer .venom-footer-meta {
+        gap: 1.2rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--venom-border, rgba(128, 128, 128, 0.1));
+    }
+
+    html[data-venom-theme="dark"] .venom-main-footer .venom-footer-meta {
+        border-top-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .venom-lang-chooser {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .venom-lang-chooser button {
+        width: 100%;
+        max-width: 250px;
+    }
 }

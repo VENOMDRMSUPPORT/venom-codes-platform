@@ -1,28 +1,4 @@
 <div id="venomHomepage" class="venom-homepage" data-venom-page="home">
-    <div id="venomThemeControls" class="venom-floating-controls" role="region" aria-label="Theme Controls">
-        <div class="venom-floating-controls__anchor">
-            <button id="venomThemeToggle" class="venom-toggle-btn" type="button" aria-label="Switch to Dark Theme" aria-controls="venomAccentPalette" aria-haspopup="true" aria-expanded="false">
-                <span class="venom-toggle-icon venom-toggle-icon--sun" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="3.6"></circle>
-                        <path d="M12 3.2V5.6M12 18.4v2.4M3.2 12h2.4M18.4 12h2.4M5.8 5.8l1.8 1.8M16.4 16.4l1.8 1.8M5.8 18.2l1.8-1.8M16.4 7.6l1.8-1.8"></path>
-                    </svg>
-                </span>
-                <span class="venom-toggle-icon venom-toggle-icon--moon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 13.2A9.2 9.2 0 1 1 10.8 3c-.3.9-.5 1.8-.5 2.8a7.4 7.4 0 0 0 7.4 7.4c1 0 1.9-.2 2.8-.5Z"></path>
-                    </svg>
-                </span>
-            </button>
-            <div id="venomAccentPalette" class="venom-accent-picker" role="group" aria-label="Accent Colors">
-                <button type="button" class="venom-accent-dot is-active" data-accent="ocean" aria-label="Ocean Accent" aria-pressed="true"></button>
-                <button type="button" class="venom-accent-dot" data-accent="emerald" aria-label="Emerald Accent" aria-pressed="false"></button>
-                <button type="button" class="venom-accent-dot" data-accent="crimson" aria-label="Crimson Accent" aria-pressed="false"></button>
-                <button type="button" class="venom-accent-dot" data-accent="amber" aria-label="Amber Accent" aria-pressed="false"></button>
-                <button type="button" class="venom-accent-dot" data-accent="violet" aria-label="Violet Accent" aria-pressed="false"></button>
-            </div>
-        </div>
-    </div>
 
     <div class="venom-announcement" data-purpose="announcement-bar">
         ⚡ FLASH UPDATE: Version 4.2.0 Load Balancing Logic Optimized ⚡
@@ -37,6 +13,15 @@
                 <a href="#pricing">Pricing</a>
                 <a class="venom-nav__cta venom-btn venom-btn--solid" href="{$WEB_ROOT}/clientarea.php">Client Login</a>
             </nav>
+            
+            <!-- Mobile Toggle Button -->
+            <button type="button" class="venom-mobile-nav-toggle" aria-label="Toggle Navigation" onclick="document.querySelector('.venom-nav').classList.toggle('is-open'); this.classList.toggle('is-active');">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" class="icon-menu" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
         </div>
     </header>
 
@@ -164,45 +149,8 @@
         </section>
     </main>
 
-    <footer class="venom-main-footer">
-        <div class="venom-shell">
-            <div class="venom-footer-grid">
-                <div class="venom-footer-brand">
-                    {include file="$template/includes/venom/logo.tpl" href="{$WEB_ROOT}/index.php" mobileWord="" fullDisplay=true}
-                    <p>
-                        Professional backend solutions for streaming enterprises. We simplify the complexity of server orchestration.
-                    </p>
-                </div>
-
-                <div>
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#">Installation Guide</a></li>
-                        <li><a href="#">API Documentation</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4>Connectivity</h4>
-                    <ul>
-                        <li><a href="#">Telegram Channel</a></li>
-                        <li><a href="#">Discord Server</a></li>
-                        <li><a href="#">Support Portal</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="venom-disclaimer">
-                <p>
-                    <strong>Legal Disclaimer:</strong> VENOM CODES is a software development firm. We do not provide any IPTV content, playlists, streams, or subscription services. We provide server management software only. Users are responsible for the content they host or distribute through their own infrastructure.
-                </p>
-            </div>
-
-            <p class="venom-copyright">© {$date_year} VENOM CODES. Crafted with <span class="venom-heart" aria-hidden="true">❤</span> for resilient streaming infrastructure.</p>
-        </div>
-    </footer>
-
+    <!-- Footer is now globally managed by footer.tpl for unified SaaS look -->
+    
     <button id="venomJumpToTop" class="venom-jump-top" type="button" aria-label="Back to top">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 15l7-7 7 7"></path>
@@ -223,5 +171,3 @@
         </div>
     </div>
 </div>
-
-<script src="{$WEB_ROOT}/templates/{$template}/js/venom-homepage.js?v={$versionHash}"></script>

@@ -20,49 +20,7 @@
         </section>
     {/if}
 
-    {if !$isClientShell}
-        <footer id="footer" class="footer footer-public">
-            <div class="container">
-                <div class="mb-5">
-                    {include file="$template/includes/venom/logo.tpl" href="{$WEB_ROOT}/index.php" fullDisplay=true}
-                </div>
-                <ul class="list-inline mb-7 text-center float-lg-right">
-                    {include file="$template/includes/social-accounts.tpl"}
-
-                    {if $languagechangeenabled && count($locales) > 1 || $currencies}
-                        <li class="list-inline-item">
-                            <button type="button" class="btn" data-toggle="modal" data-target="#modalChooseLanguage">
-                                <div class="d-inline-block align-middle">
-                                    <div class="iti-flag {if $activeLocale.countryCode === '001'}us{else}{$activeLocale.countryCode|lower}{/if}"></div>
-                                </div>
-                                {$activeLocale.localisedName}
-                                /
-                                {$activeCurrency.prefix}
-                                {$activeCurrency.code}
-                            </button>
-                        </li>
-                    {/if}
-                </ul>
-
-                <ul class="nav justify-content-center justify-content-lg-start mb-7">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{$WEB_ROOT}/contact.php">
-                            {lang key='contactus'}
-                        </a>
-                    </li>
-                    {if $acceptTOS}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{$tosURL}" target="_blank">{lang key='ordertos'}</a>
-                        </li>
-                    {/if}
-                </ul>
-
-                <p class="copyright mb-0">
-                    {lang key="copyrightFooterNotice" year=$date_year company=$companyname}
-                </p>
-            </div>
-        </footer>
-    {/if}
+    {include file="$template/includes/venom/main-footer.tpl"}
 
     <div id="fullpage-overlay" class="w-hidden">
         <div class="outer-wrapper">
@@ -155,6 +113,8 @@
     {/if}
 
     {include file="$template/includes/generate-password.tpl"}
+
+    <script src="{$WEB_ROOT}/templates/{$template}/js/venom-homepage.js?v={$versionHash}"></script>
 
     {$footeroutput}
 
