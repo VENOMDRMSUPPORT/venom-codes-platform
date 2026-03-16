@@ -307,6 +307,9 @@ bower_components/
 # config/staging.php
 # public/assets/*
 
+# Deployment output (snapshot zips)
+deploy-output/
+
 # Project Specific Temporary Folders
 .kilocode/
 .agents/

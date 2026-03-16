@@ -31,6 +31,7 @@ html[data-venom-theme="dark"] .venom-auth-shell .venom-auth-side__inner {
     gap: 0.5rem;
     cursor: pointer;
 }
+
 .venom-auth-shell .venom-auth-story li a:hover {
     color: var(--venom-accent);
 }
@@ -188,21 +189,11 @@ html[data-venom-theme="dark"] .venom-theme-in-header .venom-accent-picker {
 @media (max-width: 575.98px) {
     .venom-theme-in-header {
         --venom-switch-size: 2.35rem;
-        position: relative !important;
-        top: auto !important;
-        right: auto !important;
     }
+
     .venom-theme-in-header .venom-toggle-btn {
         min-width: 44px;
         min-height: 44px;
-    }
-}
-
-@media (max-width: 768px) {
-    .venom-theme-in-header {
-        position: relative !important;
-        top: auto !important;
-        right: auto !important;
     }
 }
 
@@ -271,13 +262,16 @@ html[data-venom-theme="dark"] .venom-theme-in-header .venom-accent-picker {
     .vs-logo {
         gap: 8px;
     }
+
     .vs-logo-icon {
         width: 36px;
         height: 36px;
     }
+
     .vs-logo-text {
         font-size: 1rem;
     }
+
     .vs-logo-slogan {
         font-size: 0.55rem;
         letter-spacing: 0.1em;
@@ -300,32 +294,69 @@ html[data-venom-theme="dark"] .venom-theme-in-header .venom-accent-picker {
 }
 
 @keyframes vs-logo-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes vs-logo-spin-rev {
-    from { transform: rotate(360deg); }
-    to { transform: rotate(0deg); }
+    from {
+        transform: rotate(360deg);
+    }
+
+    to {
+        transform: rotate(0deg);
+    }
 }
 
 @keyframes vs-logo-pulse {
-    0%, 100% { opacity: 0.3; transform: scale(0.98); }
-    50% { opacity: 0.7; transform: scale(1.02); }
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(0.98);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(1.02);
+    }
 }
 
 @keyframes vs-logo-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
 }
 
 @keyframes vs-logo-v-glow {
-    0%, 100% { filter: drop-shadow(0 0 5px var(--venom-accent)); opacity: 1; }
-    50% { filter: drop-shadow(0 0 15px var(--venom-accent)); opacity: 0.85; }
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 5px var(--venom-accent));
+        opacity: 1;
+    }
+
+    50% {
+        filter: drop-shadow(0 0 15px var(--venom-accent));
+        opacity: 0.85;
+    }
 }
 
 @keyframes vs-logo-dash {
-    to { stroke-dashoffset: 0; }
+    to {
+        stroke-dashoffset: 0;
+    }
 }
 
 .vs-logo-glow-outer {
@@ -369,9 +400,17 @@ html[data-venom-theme="dark"] .venom-theme-in-header .venom-accent-picker {
     animation: vs-logo-pulse 3s ease-in-out infinite;
 }
 
-.vs-logo-dots circle:nth-child(2) { animation-delay: 0.5s; }
-.vs-logo-dots circle:nth-child(3) { animation-delay: 1s; }
-.vs-logo-dots circle:nth-child(4) { animation-delay: 1.5s; }
+.vs-logo-dots circle:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.vs-logo-dots circle:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.vs-logo-dots circle:nth-child(4) {
+    animation-delay: 1.5s;
+}
 
 .vs-logo:hover .vs-logo-icon-container {
     animation: none;
@@ -400,8 +439,8 @@ html[data-venom-home="1"] body,
 body.venom-shell-public,
 body.venom-shell-auth,
 body.venom-shell-client {
-  position: relative;
-  background: var(--venom-bg);
+    position: relative;
+    background: var(--venom-bg);
 }
 
 body.venom-shell-public::before,
@@ -410,7 +449,7 @@ body.venom-shell-auth::before,
 body.venom-shell-auth::after,
 body.venom-shell-client::before,
 body.venom-shell-client::after {
-  content: none;
+    content: none;
 }
 
 /* =========================================================================
@@ -432,10 +471,7 @@ html[data-venom-theme="dark"] body:has(.venom-auth-shell) .header-public {
 }
 
 /* Hide Search, Topbar, and Mobile Toggles */
-body:has(.venom-auth-shell) .header-public .search,
-body:has(.venom-auth-shell) .header-public form[action*="knowledgebase"],
-body:has(.venom-auth-shell) .header-public .topbar,
-body:has(.venom-auth-shell) .header-public .cart-btn {
+body:has(.venom-auth-shell) .header-public :is(.search, form[action*="knowledgebase"], .topbar, .cart-btn) {
     display: none !important;
 }
 
@@ -450,15 +486,19 @@ body:has(.venom-auth-shell) .header-public .cart-btn {
     }
 
     /* Call to Action Button Styling (obsolete fallback) */
-    body:has(.venom-auth-shell) .header-public ul.navbar-nav.ml-auto > li:last-child > a {
+    body:has(.venom-auth-shell) .header-public ul.navbar-nav.ml-auto>li:last-child>a {
         display: none !important;
     }
 }
 
 /* Global Logo and Actions wrapper for Auth Pages */
+body:has(.venom-auth-shell) .header-public .navbar-light,
+body:has(.venom-auth-shell) .header-public .navbar-light .container {
+    padding: 0;
+}
+
 body:has(.venom-auth-shell) .header-public .navbar-light {
     flex: 1 1 100%;
-    padding: 0 !important;
     background: transparent !important;
     border: none !important;
     margin-right: 0;
@@ -487,7 +527,7 @@ body:has(.venom-auth-shell) .header-public .main-navbar-wrapper {
     align-items: center;
 }
 
-.venom-auth-nav-inline > a.nav-link {
+.venom-auth-nav-inline>a.nav-link {
     font-family: 'Inter', sans-serif !important;
     font-size: 13px !important;
     font-weight: 500 !important;
@@ -498,11 +538,11 @@ body:has(.venom-auth-shell) .header-public .main-navbar-wrapper {
     padding: 0 !important;
 }
 
-html[data-venom-theme="dark"] .venom-auth-nav-inline > a.nav-link {
+html[data-venom-theme="dark"] .venom-auth-nav-inline>a.nav-link {
     color: rgba(255, 255, 255, 0.95) !important;
 }
 
-.venom-auth-nav-inline > a.nav-link:hover {
+.venom-auth-nav-inline>a.nav-link:hover {
     color: var(--venom-accent) !important;
 }
 
@@ -515,13 +555,13 @@ html[data-venom-theme="dark"] .venom-auth-nav-inline > a.nav-link {
     border-radius: 999px;
     padding: 0.35rem 0.6rem;
     gap: 0.85rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
 
 html[data-venom-theme="dark"] .venom-auth-controls-pill {
     background: color-mix(in srgb, var(--venom-bg-elevated, #1a1b1e) 60%, transparent);
     border-color: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .venom-auth-pill-link,
@@ -560,8 +600,7 @@ html[data-venom-theme="dark"] .venom-auth-pill-divider {
 }
 
 /* Auth buttons: Deploy Solid Pill */
-.venom-auth-nav-inline .venom-btn,
-.venom-auth-nav-inline .venom-btn.btn-primary {
+.venom-auth-nav-inline .venom-btn {
     font-family: 'Inter', sans-serif !important;
     font-size: 14px !important;
     font-weight: 500 !important;
@@ -582,8 +621,7 @@ html[data-venom-theme="dark"] .venom-auth-pill-divider {
     justify-content: center;
 }
 
-.venom-auth-nav-inline .venom-btn:hover,
-.venom-auth-nav-inline .venom-btn.btn-primary:hover {
+.venom-auth-nav-inline .venom-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px -5px color-mix(in srgb, var(--venom-accent) 80%, transparent) !important;
     background: color-mix(in srgb, var(--venom-accent) 90%, black 10%) !important;
@@ -623,13 +661,16 @@ html[data-venom-theme="dark"] .venom-auth-pill-divider {
         --venom-auth-btn-height: 2.6rem;
         gap: 0.75rem;
     }
+
     .venom-auth-controls-pill {
         padding: 0.25rem;
         gap: 0.25rem;
     }
+
     .venom-auth-pill-icon i {
         font-size: 1.15rem;
     }
+
     .venom-auth-nav-inline .venom-auth-btn-deploy {
         min-width: 44px;
         width: var(--venom-auth-btn-height);
@@ -637,6 +678,7 @@ html[data-venom-theme="dark"] .venom-auth-pill-divider {
         padding: 0 !important;
         border-radius: var(--venom-radius-md, 8px) !important;
     }
+
     .venom-auth-nav-inline .venom-auth-btn-deploy i {
         font-size: 1.15rem;
     }
@@ -647,14 +689,6 @@ html[data-venom-theme="dark"] .venom-auth-pill-divider {
         padding: 0.5rem 1rem !important;
         background: transparent !important;
         border: none !important;
-    }
-    
-    body:has(.venom-auth-shell) .header-public .navbar-light {
-        padding: 0 !important;
-    }
-
-    body:has(.venom-auth-shell) .header-public .navbar-light .container {
-        padding: 0;
     }
 }
 
@@ -690,13 +724,13 @@ html[data-venom-theme="dark"] .venom-mobile-nav-toggle {
     border-color: rgba(255, 255, 255, 0.1);
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1199.98px) {
     .venom-mobile-nav-toggle {
         display: inline-flex;
         align-items: center;
         justify-content: center;
     }
-    
+
     .venom-nav {
         display: none;
         flex-direction: column;
@@ -707,7 +741,7 @@ html[data-venom-theme="dark"] .venom-mobile-nav-toggle {
         background: var(--venom-bg-elevated, #ffffff);
         border-bottom: 1px solid var(--venom-border, rgba(128, 128, 128, 0.1));
         padding: 1.5rem 2rem;
-        box-shadow: var(--venom-shadow, 0 10px 30px rgba(0,0,0,0.1));
+        box-shadow: var(--venom-shadow, 0 10px 30px rgba(0, 0, 0, 0.1));
         gap: 0;
         z-index: 1000;
         backdrop-filter: blur(12px);
@@ -716,16 +750,16 @@ html[data-venom-theme="dark"] .venom-mobile-nav-toggle {
         animation: venomFadeSlideDown 0.3s ease forwards;
         border-top: 1px solid var(--venom-border, rgba(128, 128, 128, 0.1));
     }
-    
+
     html[data-venom-theme="dark"] .venom-nav {
         background: color-mix(in srgb, var(--venom-bg-elevated) 90%, black 10%);
         border-color: rgba(255, 255, 255, 0.05);
     }
-    
+
     .venom-nav.is-open {
         display: flex !important;
     }
-    
+
     .venom-nav a {
         padding: 1rem 0;
         font-size: 15px;
@@ -733,11 +767,11 @@ html[data-venom-theme="dark"] .venom-mobile-nav-toggle {
         width: 100%;
         text-align: left;
     }
-    
+
     html[data-venom-theme="dark"] .venom-nav a {
         border-bottom-color: rgba(255, 255, 255, 0.04);
     }
-    
+
     .venom-nav a.venom-nav__cta {
         border-bottom: none;
         margin-top: 1.5rem;
@@ -747,12 +781,13 @@ html[data-venom-theme="dark"] .venom-mobile-nav-toggle {
         text-align: center;
         font-size: 14px;
     }
-    
+
     @keyframes venomFadeSlideDown {
         from {
             opacity: 0;
             transform: translateY(-8px);
         }
+
         to {
             opacity: 1;
             transform: translateY(0);
@@ -763,12 +798,13 @@ html[data-venom-theme="dark"] .venom-mobile-nav-toggle {
 /* =========================================================================
  * HOMEPAGE FOOTER MOBILE LAYOUT OVERRIDES
  * ========================================================================= */
-@media (max-width: 1100px) {
+@media (max-width: 1199.98px) {
+
     /* Set the footer grid to 2 columns on mobile/tablet instead of 1 */
     .venom-main-footer .venom-footer-grid {
         grid-template-columns: 1fr 1fr !important;
     }
-    
+
     /* Ensure the brand description takes full width */
     .venom-main-footer .venom-footer-brand {
         grid-column: 1 / -1;
@@ -776,7 +812,8 @@ html[data-venom-theme="dark"] .venom-mobile-nav-toggle {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
+
     /* Mobile-friendly spacing for bottom footer section */
     .venom-main-footer .venom-footer-meta {
         gap: 1.2rem;
@@ -787,7 +824,7 @@ html[data-venom-theme="dark"] .venom-mobile-nav-toggle {
     html[data-venom-theme="dark"] .venom-main-footer .venom-footer-meta {
         border-top-color: rgba(255, 255, 255, 0.05);
     }
-    
+
     .venom-lang-chooser {
         width: 100%;
         display: flex;
